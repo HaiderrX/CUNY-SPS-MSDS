@@ -1,15 +1,13 @@
 ---
 title: "Week 1 Assignment - Loading Data into a Data Frame"
 author: "Muhammad Ali"
-format: pdf
+format: html
 editor: visual
 ---
 
 # Global Music Streaming Analysis
 
 ## Approach
-
-------------------------------------------------------------------------
 
 For this assignment, I chose a dataset from Kaggle containing information on music streaming across different platforms such as Spotify, Apple Music, Tidal, and many more. The dataset contains 12 features which include, the user's main streaming platform, most played artist, how often they repeat a song, when they usually stream a song, and similar features.
 
@@ -20,3 +18,5 @@ My plan for this assignment is to practice loading the data into R, renaming col
 -   [Kaggle Dataset](https://www.kaggle.com/datasets/atharvasoundankar/global-music-streaming-trends-and-listener-insights)
 
 -   [Raw Github CSV](https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Week%201%20-%20Environment%20Setup%3B%20Basic%20Operations/Global_Music_Streaming_Listener_Preferences.csv)
+
+I chose this data source because I have passion for music and as I was deciding what dataset I want to do my first assignment on, I was listening to music in the moment and it became clear that I should do something music related.
