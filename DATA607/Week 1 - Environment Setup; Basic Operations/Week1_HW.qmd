@@ -1,7 +1,15 @@
 ---
 title: "Week 1 Assignment - Loading Data into a Data Frame"
 author: "Muhammad Ali"
-format: html
+format:
+  html:
+    code-fold: false
+    
+execute:
+  echo: true
+  warning: false
+  message: false
+
 editor: visual
 ---
 
@@ -26,7 +34,7 @@ I chose this data source because I have passion for music and as I was deciding 
 ```{r Libraries, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(readr)
-
+library(dplyr)
 ```
 
 Loading in the Data
@@ -66,3 +74,38 @@ df_rename <- raw_data %>%
 ```{r}
 colnames(df_rename)
 ```
+
+```{r}
+glimpse(df_rename)
+```
+
+After renaming the columns to more appropriate names, the next task was to check for column types if they were incorrect. However upon inspection, it was not necessary as it seems the columns were the correct types with the given data.
+
+Then lastly, to create a subset of the data that are relevant for analysis
+
+```{r Subsetting columns}
+
+clean_data <- df_rename |>
+    select(
+      user_id,
+      age,
+      country,
+      top_genre,
+      most_played_artist,
+      streaming_platform,
+      daily_streamed_minutes,
+      songs_liked_count
+    )
+```
+
+```{r}
+glimpse(clean_data)
+```
+
+These 8 features create a clear picture for what a listener's demographic and listening habits contain.
+
+## Conclusion
+
+For future work, I plan to do an exploratory data analysis, visualizations that compare the counts of streaming platforms in this dataset, as well as a most played artist bar graph. Following that I would do a machine learning prediction of top genre.
+
+Given that this dataset has 5000 rows, in the future I would like to have a dataset where it contains more information to give a bigger sense as this dataset may have its limitations.
