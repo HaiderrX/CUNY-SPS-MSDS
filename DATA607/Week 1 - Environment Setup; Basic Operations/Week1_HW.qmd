@@ -20,3 +20,49 @@ My plan for this assignment is to practice loading the data into R, renaming col
 -   [Raw Github CSV](https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Week%201%20-%20Environment%20Setup%3B%20Basic%20Operations/Global_Music_Streaming_Listener_Preferences.csv)
 
 I chose this data source because I have passion for music and as I was deciding what dataset I want to do my first assignment on, I was listening to music in the moment and it became clear that I should do something music related.
+
+## Codebase
+
+```{r Libraries, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readr)
+
+```
+
+Loading in the Data
+
+```{r Loading in Data}
+
+raw_data <- read.csv("https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Week%201%20-%20Environment%20Setup%3B%20Basic%20Operations/Global_Music_Streaming_Listener_Preferences.csv")
+```
+
+```{r}
+glimpse(raw_data)
+```
+
+There are 5000 rows with 12 features in this dataset as mentioned. In it contains user information and music statistics.
+
+However this dataset needs to have suitable column names.
+
+```{r Column Renaming}
+
+df_rename <- raw_data %>%
+  rename(
+    'user_id' = User_ID, 
+    'age'= Age,
+    'country' = Country,
+    'streaming_platform' = Streaming.Platform,
+    'top_genre' = Top.Genre,
+    'daily_streamed_minutes' = Minutes.Streamed.Per.Day,
+    'songs_liked_count' = Number.of.Songs.Liked,
+    'most_played_artist' = Most.Played.Artist,
+    'subscription' = Subscription.Type,
+    'listening_time'= Listening.Time..Morning.Afternoon.Night.,
+    'discover_weekly_engagement_rate' = Discover.Weekly.Engagement....,
+    'songs_repeated_rate' = Repeat.Song.Rate....
+  )
+```
+
+```{r}
+colnames(df_rename)
+```
