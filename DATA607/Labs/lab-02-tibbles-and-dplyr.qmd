@@ -1,0 +1,156 @@
+---
+title: "Lab 2: Tibbles and Basic Data Manipulation"
+author: "Muhammad Ali"
+subtitle: "Working with rectangular data using dplyr"
+format: html
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Learning goals
+
+By the end of this lab, you should be able to create and inspect a tibble, use the base R pipe (`|>`), and manipulate a small dataset with `dplyr`.
+
+## R Console
+
+The **R Console** is where R receives and runs commands. A `>` at the left of a line is the R prompt: it means R is ready for you to type a command. You can try the code from this lab at that prompt, one command at a time. In this Quarto document, code inside an R code chunk (the sections between ```` ```{r} ```` and ```` ``` ````) runs the same way when you render the document.
+
+## Get help in the R Console
+
+R includes help pages for functions and packages. At the `>` prompt in the Console, type `?function_name` to open a function help page. For example, `?filter` explains how `filter()` works. You can write the same request as `help("filter")`.
+
+If you do not know the exact name, type `??search_term` to search the installed help files. For example, `??"data frame"` searches for help about data frames. To learn about an installed package, use `help(package = "dplyr")` or `help(package = "tidyverse")`.
+
+## 1. Load the tidyverse
+
+The **tidyverse** is a collection of R packages used for working with data. In this lab, we will use `tibble` to create a dataset and `dplyr` to transform it. `library()` makes the functions in a package available for this R session.
+
+```{r}
+# if you haven't installed the tidyverse yet, uncomment the next line and run it once:
+# install.packages("tidyverse")
+
+# Load the tidyverse packages, including tibble and dplyr.
+library(tidyverse)
+```
+
+## 2. Create and inspect a tibble
+
+A **tibble** is a modern version of an R data frame: a rectangular table with rows and columns. Rows are observations (one student here), and columns are variables (one characteristic measured for every student). `tibble()` creates a tibble, and each column below is given a name and a vector of six values.
+
+A **data frame** and a tibble store the same kind of rectangular data, and both are useful. A data frame is built into base R; a tibble comes from the tidyverse. Tibbles are designed to be easier to read: when printed, they show only the first rows and the columns that fit on screen, along with each column's data type. Tibbles also preserve the column names and data types you give them. In this lab, we use tibbles because they work especially well with `dplyr`.
+
+```{r}
+# Create a tibble named students.
+students <- tibble(
+  name = c("Avery", "Blair", "Casey", "Devon", "Emery", "Frankie"),
+  major = c("Data Science", "Business", "Data Science", "Psychology", "Business", "Data Science"),
+  class_year = c("First-year", "Sophomore", "Junior", "Senior", "First-year", "Junior"),
+  course_modality = c("Online", "In person", "Online", "In person", "Online", "In person"),
+  hours_studied = c(6, 4, 8, 5, 7, 3),
+  attendance_rate = c(92, 78, 96, 88, 91, 85),
+  quiz_score = c(88, 76, 95, 84, 91, 79)
+)
+
+# Print the full tibble in the rendered document.
+students
+
+
+```
+
+```{r}
+# Quickly inspect the column names, data types, and a few values in each column.
+glimpse(students)
+```
+
+`students$quiz_score` extracts the `quiz_score` column. The pipe, `|>`, sends the data on its left into the function on its right. For example, `students |> filter(quiz_score >= 85)` means “start with `students`, then keep the rows whose quiz score is at least 85.”
+
+## 3. Create, filter, sort, and summarize
+
+```{r}
+# mutate() creates a new column or changes an existing column.
+# pmin() compares each score with 100, so no score can exceed 100.
+students |>
+  mutate(score_after_bonus = pmin(quiz_score + 2, 100))
+
+# filter() keeps only rows that meet a condition.
+# This keeps students with a quiz score of 85 or higher.
+students |>
+  filter(quiz_score >= 85)
+
+# arrange() sorts rows. desc() means descending order, from highest to lowest.
+students |>
+  arrange(desc(hours_studied))
+
+# summarise() reduces many rows to a small set of summary values.
+# mean() calculates the arithmetic average of a numeric column.
+students |>
+  summarise(
+    average_score = mean(quiz_score),
+    average_hours = mean(hours_studied)
+  )
+```
+
+## Build a pipeline step by step
+
+A pipeline can look like one long command, but it is simply a sequence of small steps. Run each block below in order and compare the output. The output from one step becomes the input for the next step.
+
+Start with the complete `students` tibble.
+
+```{r}
+students
+```
+
+Next, add `filter()`. The pipe sends `students` to `filter()`, which keeps only students who studied at least five hours.
+
+```{r}
+students |>
+  filter(hours_studied >= 5)
+```
+
+Finally, add another pipe and `select()`. `select()` keeps just the `name` and `quiz_score` columns from the already filtered result.
+
+```{r}
+students |>
+  filter(hours_studied >= 5) |>
+  select(name, quiz_score)
+```
+
+Read the finished pipeline from top to bottom: start with `students`, keep rows where `hours_studied` is at least 5, then keep only `name` and `quiz_score`.
+
+## Practice
+
+Write a pipeline that keeps students with an `attendance_rate` of at least 90, sorts them from highest to lowest `quiz_score`, and then selects only `name`, `major`, `attendance_rate`, and `quiz_score`.
+
+```{r}
+# Write your solution here
+students |>
+  filter(attendance_rate >= 90) |>
+  arrange(desc(quiz_score)) |>
+  select(name, major, attendance_rate, quiz_score)
+```
+
+## Reflection
+
+In 2-3 sentences, describe what the pipe does and why a tibble is useful for data analysis.
+
+A pipe is an operator that sends the data that is being used to the next set of functions, such as the student data and we sent that data to be used by the filter function and arrange function. A tibble is useful for data analysis because it shows the data in tabular format which is easier for people to read and see how the data looks.
+
+### Optional exploration: import a built-in dataset
+
+Try working with a larger dataset included with `ggplot2`, one of the packages installed with tidyverse. The `mpg` dataset contains information about car models and fuel economy. Run the following code, then use `glimpse()` to see its columns and data types.
+
+```{r}
+# Load the mpg dataset from the ggplot2 package.
+data("mpg", package = "ggplot2")
+## is mpg a tibble? Check with is_tibble().
+is_tibble(mpg)
+# View and inspect the imported dataset.
+mpg
+glimpse(mpg)
+```
+
+In 2-3 sentences, describe one variable you notice in `mpg` and one question you could explore with this dataset.
+
+One variable i notice within the `mpg` dataset is the `class` column. This column can be used as a question of what makes a car the type of class it is, and some machine learning predictions can be used to investigate it.

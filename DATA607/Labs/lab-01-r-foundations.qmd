@@ -1,0 +1,147 @@
+---
+title: "Lab 1: R and Quarto Foundations"
+author: "Student MSDS"
+subtitle: "Quarto, packages, data types, vectors, and basic syntax"
+date: "September 1, 2026"
+format:
+  html:
+    toc: true
+    code-fold: false
+
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Learning goals
+
+By the end of this lab, you should be able to:
+
+-   explain the purpose of a Quarto notebook and its YAML header;
+-   distinguish between installing and loading an R package;
+-   identify common R data types; and
+-   create vectors and use basic arithmetic and summary functions.
+
+## Understanding the YAML header
+
+The YAML header is the block at the very top of this `.qmd` file, between the two lines containing `---`. It provides instructions to Quarto about the document; it is not R code and does not run like a code chunk.
+
+-   `title` and `subtitle` set the text shown at the top of the rendered notebook.
+-   `format: html` tells Quarto to create an HTML document. `toc: true` adds a table of contents, and `code-fold: false` keeps code visible in the output.
+-   `execute` controls rendering behavior. Here, `echo: true` shows R code in the notebook, while `warning: false` and `message: false` keep routine package messages out of the rendered output.
+
+For Markdown conventions, see the official [Quarto Markdown Basics guide](https://quarto.org/docs/authoring/markdown-basics.html). For more detail about document metadata, see Quarto's [YAML front matter documentation](https://quarto.org/docs/authoring/front-matter.html).
+
+## R Syntax
+
+R code uses punctuation to express common operations. The symbols below appear in this lab.
+
+| Symbol | Meaning | Example |
+|------------------------|------------------------|------------------------|
+| `<-` | Assigns a value to an object. | `quiz_scores <- c(82, 91, 88)` |
+| `+`, `-`, `*`, `/`, `^` | Arithmetic: add, subtract, multiply, divide, and raise to a power. | `8 / 2` returns `4`; `2 ^ 3` returns `8` |
+| `%%`, `%/%` | Remainder and whole-number division. | `10 %% 3` returns `1` |
+| `==`, `!=`, `<`, `<=`, `>`, `>=` | Compares values and evaluates to `TRUE` or `FALSE`. Use `==` to test equality; do not use `=` for this. | `quiz_score >= 85` |
+| `&`, `|`, `!` | Logical operators: AND, OR, and NOT. | `score >= 85 & hours >= 5` |
+| `=` | Names an argument inside a function call. | `mean(x = quiz_scores)` |
+| `()` | Calls a function and holds its inputs, called arguments. | `mean(quiz_scores)` |
+| `,` | Separates arguments inside a function call or values inside `c()`. | `c(82, 91, 88)` |
+| `$` | Extracts a named column from a tibble/data frame or an element from a list. | `students$quiz_score` |
+| `|>` | The base R pipe. It passes the result on the left into the next function on the right. | `students |> filter(quiz_score >= 85)` |
+| `.` | Usually just part of an object or function name, not an operator. | `data.frame()` |
+| `[]` | Selects one or more elements by position or name. | `quiz_scores[1]` |
+| `:` | Creates a sequence of whole numbers. | `1:5` |
+| `#` | Starts a comment; R ignores everything after it on that line. | `# This is a comment` |
+| `{}` | Groups multiple lines of code, often in a function. | `function(x) { x + 1 }` |
+| `""` | Creates a character value (text). | `"DATA 607"` |
+| `L` | Marks a number as an integer. | `4L` |
+
+A period is sometimes used as a placeholder in older `tidyverse` pipe code (`%>%`). This lab uses the newer base R pipe, `|>`, so you do not need a period placeholder here.
+
+## Start a Quarto notebook
+
+Open this file in RStudio and select **Render**. Code chunks are the shaded blocks marked with `{r}`. Run a chunk with the green play button or with `Ctrl + Shift + Enter`.
+
+## Packages: install once, load each session
+
+R packages are collections of functions. You install a package once on a computer, then load it whenever you start a new R session.
+
+```{r}
+# Run this line only if tidyverse is not already installed. In your R Console.
+# install.packages("tidyverse")
+# once it is installed you can load it in this notebook with the following line:
+
+library(tidyverse)
+```
+
+`tidyverse` loads several useful packages, including `dplyr` for data manipulation and `ggplot2` for graphics.
+
+## R data types
+
+Create one object for each common data type.
+
+```{r}
+is_enrolled <- TRUE          # logical
+number_of_courses <- 4L      # integer
+course_average <- 91.5       # double (a numeric value with decimals)
+student_name <- "Avery"      # character
+```
+
+Use `typeof()` and `class()` to inspect the objects.
+
+```{r}
+typeof(is_enrolled)
+typeof(number_of_courses)
+typeof(course_average)
+typeof(student_name)
+
+class(course_average)
+```
+
+### Practice
+
+Create an object named `favorite_tool` that contains the name of a data tool as text. Then use `typeof()` to confirm its type.
+
+```{r}
+# TODO: Write your code here.
+favorite_tool <- "Python"
+typeof(favorite_tool) # character
+```
+
+## Vectors and useful functions
+
+A vector stores multiple values of the same general type.
+
+```{r}
+quiz_scores <- c(82, 91, 88, 95, 76,99,78,88)
+
+length(quiz_scores)
+mean(quiz_scores)
+min(quiz_scores)
+max(quiz_scores)
+```
+
+### Practice
+
+Create a numeric vector named `study_hours` with five values. Use `sum()` and `mean()` to summarize it.
+
+```{r}
+# TODO: Write your code here.
+study_hours <- c(5, 6.5, 3, 2, 7)
+
+sum(study_hours)
+mean(study_hours)
+```
+
+## Reflection
+
+In 2–3 sentences, explain the difference between installing a package and loading a package. Then name one R data type you expect to use often.
+
+The difference between installing a package and loading a package is when someone is using it for their software code versus someone installing it in their drive. For example, the tidyverse library was installed and loaded, so it is in the storage drive and it is being used in memory in this .qmd file. One R data type I expect to use often will be integers as we load in data, there are integers that are numerical or categorical and it is our job to manipulate those data successfully within the context of the task.
+
+## Before you finish
+
+-   Save this .qmd file.
+-   Run all code chunks from top to bottom.
+-   Render the notebook and confirm that it completes without errors.
