@@ -109,3 +109,5 @@ These 8 features create a clear picture for what a listener's demographic and li
 For future work, I plan to do an exploratory data analysis, visualizations that compare the counts of streaming platforms in this dataset, as well as a most played artist bar graph. Following that I would do a machine learning prediction of top genre.
 
 Given that this dataset has 5000 rows, in the future I would like to have a dataset where it contains more information to give a bigger sense as this dataset may have its limitations.
+
+**Video Explainer Link -** <https://www.loom.com/share/443e0af990524ab3a08f2847507bb3fc>
