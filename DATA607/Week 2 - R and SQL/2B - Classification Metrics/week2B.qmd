@@ -1,0 +1,82 @@
+---
+title: "Week 2B Assignment - Classification Metrics"
+author: "Muhammad Ali"
+format:
+  html:
+    code-fold: false
+    
+execute:
+  echo: true
+  warning: false
+  message: false
+
+editor: visual
+---
+
+# Evaluating Classification Model Performance
+
+## Approach
+
+The goal of this assignment is to analyze the performance of a binary classification model. Following that building and developing intuition on how probability affects model evaluation predictions.
+
+However before diving into the dataset and evaluating the model, an understanding of what a **Classification Problem** is necessary to approach this problem and future datasets where classification is required.
+
+-   [Classification Problem Reading](https://medium.com/@MohammedS/performance-metrics-for-classification-problems-in-machine-learning-part-i-b085d432082b)
+
+To note what is mentioned in simple definitions are:
+
+-   **Confusion Matrix:** a 2x2 diagram of the model predicting against reality
+
+|            |              |   Predicted    |   Predicted    |
+|:----------:|:------------:|:--------------:|:--------------:|
+|            |              |  **Positive**  |  **Negative**  |
+| **Actual** | **Positive** | True Positive  | False Negative |
+| **Actual** | **Negative** | False Positive | True Negative  |
+
+: Confusion Matrix Layout {#tbl-confusion}
+
+-   **Accuracy:** Overall Percentage of all correct predictions using the formula:
+
+    \begin{equation*}
+    \text{Accuracy} = \frac{\text{True Positive} + \text{True Negative}}{\text{Total Predictions}}
+    \end{equation*}
+
+-   **Precision:** Of all the predicted positives, how many of those were positve?
+
+    \begin{equation*}
+    \text{Precision} = \frac{\text{True Positive}}{\text{True Positive} + \text{False Positive}}
+    \end{equation*}
+
+-   **Recall (or Sensitivity):** Of all actual positives, how many did the model correctly identified?
+
+    \begin{equation*}
+    \text{Recall} = \frac{\text{True Positive}}{\text{True Positive} + \text{False Negative}}
+    \end{equation*}
+
+-   **Specificity:** Of all actual negatives, how many did the model correctly identified?
+
+    \begin{equation*}
+    \text{Specificity} = \frac{\text{True Negative}}{\text{True Negative} + \text{False Positive}}
+    \end{equation*}
+
+-   **F1 Score:** Calculates the harmonic mean <mark>uses both precision and recall in one variable</mark> and measures how balanced it is compared to an arithmetic mean calculation.
+
+    \begin{equation*}
+    \text{F1 Score} = 2 \times \frac{\text{Precision $\times$ Recall}}{\text{Precision $+$ Recall}}
+    \end{equation*}
+
+-   After reading this, now we start importing the dataset, `penguin_predictions.csv` from Github.
+
+-   [Raw Github CSV](https://raw.githubusercontent.com/acatlin/data/refs/heads/master/penguin_predictions.csv)
+
+The plan for this dataset is to practice fundamentals on machine learning, particularly the concept of a <mark>binary classification model.</mark> As I am doing this, I will dive into topics that will increase my understanding of modeling such as:
+
+-   Null Error Rate
+
+-   Confusion Matrices
+
+-   Performance Metrics
+
+-   Thresholds
+
+But first I will need to explore the data, by visualizing plots to compare the counts of females and males as a start, followed by steps to help me understand and approach this problem.
