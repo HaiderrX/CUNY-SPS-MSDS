@@ -1,0 +1,35 @@
+---
+title: "Week 2A Assignment - SQL and R – Movie Ratings"
+format:
+  html:
+    code-fold: false
+    
+execute:
+  echo: true
+  warning: false
+  message: false
+
+editor: visual
+---
+
+# Movie Ratings Analysis
+
+## Approach
+
+For this assignment, I had to create a survey using Google Form to collect data on opinions on 6 recently popular movies:
+
+-   Spider-Man: Brand New Day
+
+-   The Odyssey
+
+-   Coyote vs ACME
+
+-   The Whisper Man
+
+-   Toy Story 5
+
+-   Project Hail Mary
+
+What I will do with this information is to convert the responses from Google Form into a .csv file so reading in the data can be easier. Once I read in the data using PostgreSQL,
+
+I will then connect the PostgreSQL server to Rstudio to handle missing values, conduct some plot analysis such as comparing average ratings, comparing movies that people have not watched, and other calculations that will follow.
