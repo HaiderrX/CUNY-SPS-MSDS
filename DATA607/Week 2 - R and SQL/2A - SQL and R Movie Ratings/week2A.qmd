@@ -33,3 +33,197 @@ For this assignment, I had to create a survey using Google Form to collect data 
 What I will do with this information is to convert the responses from Google Form into a .csv file so reading in the data can be easier. Once I read in the data using PostgreSQL,
 
 I will then connect the PostgreSQL server to Rstudio to handle missing values, conduct some plot analysis such as comparing average ratings, comparing movies that people have not watched, and other calculations that will follow.
+
+## Codebase
+
+To start this assignment, I have taken the survey results and downloaded a CSV file. When I had created the survey, I had thought of an idea of how to handle missing values prior to coding a solution, and it was to create another option of "Have not seen it". If I had gone and set a label to "0" as a way to indicate someone has not seen something, it would mess up the data arithmetically, so a better way was to label it with a string text.
+
+Next I am going to open PostgreSQL in order for me to connect to R and to continue this assignment.
+
+```{r libraries}
+library(DBI)
+library(RPostgres)
+library(tidyr)
+library(dplyr)
+library(readr)
+```
+
+```{r reading-csv}
+#| include: false
+raw_data <- read_csv("C:/Users/haide/Documents/DATA607/Week 2/movies_responses_survey.csv")
+```
+
+```{r glimpse}
+glimpse(raw_data)
+```
+
+**Notes:**
+
+-   Missing Data: Realizing upon after using `glimpse`, I need to actually use NULL as a value instead of having string answers because it will not make the columns numerical.
+
+-   Will need to rename `Timestamp` column to `user_id` and replace its values with a categorical number to represent an id number.
+
+-   Will need to convert columns to numerical as mentioned for the movies
+
+-   Change column names to appropriate column names
+
+-   Then will connect PostgreSQL afterwards
+
+```{r mutating-columns}
+column_rename <- raw_data %>%
+  mutate(spider_man_bnd = as.integer(`Spider-Man: Brand New Day`)) %>%
+  mutate(the_odyssey = as.integer(`The Odyssey`)) %>%
+  mutate(coyote_vs_acme = as.integer(`Coyote vs ACME`)) %>%
+  mutate(the_whisper_man = as.integer(`The Whisper Man`)) %>%
+  mutate(toy_story_5 = as.integer(`Toy Story 5`)) %>%
+  mutate(project_hail_mary = as.integer(`Project Hail Mary`))
+```
+
+```{r glimpse-column-rename}
+glimpse(column_rename)
+```
+
+```{r user-id-dropping-original-columns}
+almost_clean <- column_rename %>%
+  mutate(user_id = row_number()) # creates a replacement for timestamp
+glimpse(almost_clean)
+colnames(almost_clean)
+```
+
+Last step to clean the data, select the columns we want
+
+```{r cleaned-df}
+movies_df_clean <- almost_clean |>
+  select(user_id,
+         spider_man_bnd,
+         the_odyssey,
+         coyote_vs_acme,
+         the_whisper_man,
+         toy_story_5,
+         project_hail_mary)
+
+# user_id is an int, need to convert to chr as it is a categorical column
+movies_df_clean$user_id <- as.character(movies_df_clean$user_id)
+
+# Cleaned, here is the head of the table
+head(movies_df_clean)
+```
+
+Data has been cleaned so now we can start the process of analyzing and connecting to PostgreSQL
+
+*Connection Chunk has been hidden for obvious reasons.*
+
+```{r postgre-sql-connection}
+#| include: false
+
+
+```
+
+```{r uploading-df-to-sql}
+# Creates the table to postgresql
+dbWriteTable(connection, "movie_ratings", movies_df_clean, overwrite = TRUE)
+
+dbExistsTable(connection, "movie_ratings") # table exists and checked in PostgreSQL
+```
+
+```{r using-sql-query}
+dbGetQuery(connection, "SELECT * FROM movie_ratings")
+```
+
+```{r closing sql connection}
+dbDisconnect(connection)
+```
+
+Now that the SQL portion of the assignment is done, now to do some analysis:
+
+**Summary Statistics**
+
+To handle missing values, using the `na.rm` argument in the `mean()` function, it ignores NA values
+
+```{r summary-statistics}
+# Spider-Man: Brand New Day
+bnd_summary <- movies_df_clean %>%
+  summarise(
+    Movie = "Spider-Man: Brand New Day",
+    mean_rating = round(mean(spider_man_bnd, na.rm = TRUE), 2),
+    missing_ratings = sum(is.na(spider_man_bnd)),
+    review_counts = sum(!is.na(spider_man_bnd)),
+    total_review_counts = n()
+  )
+
+# The Odyssey
+odyssey_summary <- movies_df_clean %>%
+  summarise(
+    Movie = "The Odyssey",
+    mean_rating = round(mean(the_odyssey, na.rm = TRUE), 2),
+    missing_ratings = sum(is.na(the_odyssey)),
+    review_counts = sum(!is.na(the_odyssey)),
+    total_review_counts = n()
+  )
+
+# Coyote vs ACME
+coyote_vs_acme_summary <- movies_df_clean %>%
+  summarise(
+    Movie = "Coyote vs ACME",
+    mean_rating = round(mean(coyote_vs_acme, na.rm = TRUE), 2),
+    missing_ratings = sum(is.na(coyote_vs_acme)),
+    review_counts = sum(!is.na(coyote_vs_acme)),
+    total_review_counts = n()
+  )
+
+# The Whisper Man
+whisper_man_summary <- movies_df_clean %>%
+  summarise(
+    Movie = "The Whisper Man",
+    mean_rating = round(mean(the_whisper_man, na.rm = TRUE), 2),
+    missing_ratings = sum(is.na(the_whisper_man)),
+    review_counts = sum(!is.na(the_whisper_man)),
+    total_review_counts = n()
+  )
+
+# Toy Story 5
+toy_story_5_summary <- movies_df_clean %>%
+  summarise(
+    Movie = "Toy Story 5",
+    mean_rating = round(mean(toy_story_5, na.rm = TRUE), 2),
+    missing_ratings = sum(is.na(toy_story_5)),
+    review_counts = sum(!is.na(toy_story_5)),
+    total_review_counts = n()
+  )
+
+# Project Hail Mary
+project_hail_mary_summary <- movies_df_clean %>%
+  summarise(
+    Movie = "Project Hail Mary",
+    mean_rating = round(mean(project_hail_mary, na.rm = TRUE), 2),
+    missing_ratings = sum(is.na(project_hail_mary)),
+    review_counts = sum(!is.na(project_hail_mary)),
+    total_review_counts = n()
+  )
+```
+
+```{r stacking-summary-tables}
+# After creating 6 separate summary tables, now I need to stack them or rather bind them: 
+
+final_summary_table <- bind_rows(bnd_summary, odyssey_summary, coyote_vs_acme_summary, whisper_man_summary, toy_story_5_summary, project_hail_mary_summary)
+
+final_summary_table
+```
+
+After combining the summary tables, there are some noticeable findings in the survey collections:
+
+-   Spider-Man: Brand New Day, The Whisper Man and Project Hail Mary have almost the same average ratings
+
+-   The Odyssey is the lowest ranked movie on this list
+
+-   A lot of people that filled the survey out has not seen The Whisper Man and yet it still came out as a high average rating
+
+-   A lot of people have seen Project Hail Mary and then Spider-Man: Brand New Day
+
+-   Coyote vs ACME and Toy Story 5 seems to me in the middle in terms of average rating and people that have seen the movie
+
+## Conclusion
+
+Collecting data through surveys or polls is one of the most important ways to get data as it can be used as a reflection peoples opinions, such as in politics. In this assignment, even though I had gotten 19 responses within a day, it'd be nicer if I had a better way to reach out to people to collect more information which can be something I could figure out if I were to do future work in survey collecting.
+
+As far as workload is concerned, I have had experience in handling missing values when I had taken a class using R in my undergradutate studies, but it did give me enjoyment that even though I did all this before I am still going to use it no matter what. The new thing I had learned whilst doing this was stacking rows on top of each other, when doing the summary tables, I wanted to do it the way in terms of combining the tables using SQL, but I had gone for a different approach and then learned the `bind_rows` command if I ever want to do something like this again.
