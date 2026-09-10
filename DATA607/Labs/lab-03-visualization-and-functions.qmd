@@ -1,0 +1,148 @@
+---
+title: "Lab 3: Adding Layers with ggplot2 and Data Preparation"
+author: "Muhammad Ali"
+subtitle: "Visualizing `mtcars`, Wrangling Tidy Data, and Simple Predictions"
+format: html
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Learning goals
+
+By the end of this lab, you should be able to:
+
+1.  Prepare and recode variables using modern `dplyr` pipelines (`%>%` and `|>`).
+2.  Build a `ggplot2` chart one layer at a time, including faceting.
+3.  Build and label a scatter plot that compares different car metrics.
+
+## 1. Load the Tidyverse and Inspect the Data
+
+We will use the built-in `mtcars` dataset. First, load `tidyverse`, which includes both `dplyr` (for data manipulation) and `ggplot2` (for visualization).
+
+```{r}
+library(tidyverse)
+
+head(mtcars)
+```
+
+We will focus on:
+
+-   `wt`: weight, in 1,000 pounds
+-   `mpg`: miles per gallon
+-   `am`: transmission type (`0` = automatic, `1` = manual)
+-   `cyl`: number of cylinders (`4`, `6`, or `8`)
+
+## 2. Data Management: Cleaning and Labeling Variables
+
+Instead of transforming data types inside our plotting code, good data-management practice means preparing our dataset explicitly first. We will convert numeric codes into informative factors.
+
+This lab uses `%>%` for its `dplyr` pipelines. The base R pipe, `|>`, moves data from the left side into the function on the right in the same general way.
+
+```{r}
+mtcars_clean <- mtcars %>%
+  mutate(
+    transmission = factor(am, levels = c(0, 1), labels = c("Automatic", "Manual")),
+    cylinders = factor(cyl)
+  )
+
+glimpse(mtcars_clean)
+```
+
+## 3. Build a Plot Layer by Layer
+
+### Step 3a: Initialize the Canvas
+
+`ggplot()` defines the dataset and basic visual mapping using `aes()`.
+
+```{r}
+ggplot(mtcars_clean, aes(x = wt, y = mpg))
+```
+
+### Step 3b: Add Data Points and Color
+
+We use `+` to add `geom_point()`. Mapping `color = transmission` uses our newly cleaned factor variable.
+
+```{r}
+ggplot(mtcars_clean, aes(x = wt, y = mpg, color = transmission)) +
+  geom_point(size = 3)
+```
+
+### Step 3c: Add Trend Lines and Labels
+
+`geom_smooth()` adds linear trend lines (`method = "lm"`). `labs()` updates the title and axis labels.
+
+```{r}
+ggplot(mtcars_clean, aes(x = wt, y = mpg, color = transmission)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "Fuel Efficiency vs. Car Weight",
+    subtitle = "Comparing Automatic and Manual Transmissions",
+    x = "Weight (1,000 lbs)",
+    y = "Miles Per Gallon (MPG)",
+    color = "Transmission Type"
+  ) +
+  theme_minimal()
+```
+
+## 4. Multi-Panel Visualizations (Faceting)
+
+To avoid visual clutter when comparing subgroups, we can split plots into side-by-side panels using `facet_wrap()`.
+
+```{r}
+ggplot(mtcars_clean, aes(x = wt, y = mpg, color = transmission)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ cylinders) +
+  labs(
+    title = "Fuel Efficiency vs. Weight Faceted by Engine Cylinders",
+    x = "Weight (1,000 lbs)",
+    y = "Miles Per Gallon (MPG)",
+    color = "Transmission"
+  ) +
+  theme_minimal()
+```
+
+## 5. Practice: Build and Label Your Own Plot
+
+Now create your own plot using `mtcars_clean`. Choose two numeric car metrics to compare. You may use:
+
+-   `mpg`: miles per gallon
+-   `wt`: weight, in 1,000 pounds
+-   `hp`: horsepower
+-   `disp`: engine displacement
+-   `qsec`: time to complete one-quarter mile
+
+Add a point for each car and label each point with its number of cylinders. Put `label = cylinders` inside `aes()` in `geom_text()`. Use `labs()` to give your chart a clear title, axis labels, and a legend label for the number of cylinders.
+
+```{r}
+# Choose two numeric variables for x and y.
+# Add geom_point() and geom_text(aes(label = cylinders)).
+# Use labs() to explain your chart clearly.
+
+ggplot(mtcars_clean, aes(x = hp , y = mpg, color = transmission)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ cylinders) +
+  labs(
+    title = "Fuel Efficiency vs Horsepower Faceted by Engine Cylinders",
+    x = "Horsepower",
+    y = "Miles Per Gallon (MPG)",
+    color = "Transmission"
+  ) +
+  theme_bw()
+```
+
+## Reflection Questions
+
+1.  Which two car metrics did you compare, and what pattern do you see in your plot?
+2.  How do the cylinder labels help you interpret the points?
+3.  What layer did you add last, and what did it change in the chart?
+
+1\) The car metrics I compared were horsepower and miles per gallon. The patterns I see within my plot is that both manual and automatic cars seem to have a negative trend line as the cylinders go up.
+
+2\) The cylinder labels help me interpret my points by showing different trends within different cylinder groups. As seen in the previous plot, 2 out of the three faceted plots had different trendlines whereas this plot they all seem to be the same trend lines for the 3 plots.
+
+3\) I put `theme_bw()` as it shows a different aesthetic for the 3 plots than `theme_minimal()` aesthetic. It shows the engine cylinder in a gray box at the top to indicate the categorical number and then the the separated plot as mentioned.
