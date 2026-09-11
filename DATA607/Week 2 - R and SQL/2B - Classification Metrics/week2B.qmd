@@ -17,11 +17,15 @@ editor: visual
 
 ## Approach
 
+#### **Goal and Background Information:**
+
 The goal of this assignment is to analyze the performance of a binary classification model. Following that building and developing intuition on how probability affects model evaluation predictions.
 
 However before diving into the dataset and evaluating the model, an understanding of what a **Classification Problem** is necessary to approach this problem and future datasets where classification is required.
 
 -   [Classification Problem Reading](https://medium.com/@MohammedS/performance-metrics-for-classification-problems-in-machine-learning-part-i-b085d432082b)
+
+#### Terminology:
 
 To note what is mentioned in simple definitions are:
 
@@ -35,7 +39,11 @@ To note what is mentioned in simple definitions are:
 
 : Confusion Matrix Layout {#tbl-confusion}
 
--   **Accuracy:** Overall Percentage of all correct predictions using the formula:
+**Image with Description**
+
+![](images/clipboard-1849942088.png)
+
+-   **Accuracy:** Overall percentage of all correct predictions using the formula:
 
     \begin{equation*}
     \text{Accuracy} = \frac{\text{True Positive} + \text{True Negative}}{\text{Total Predictions}}
@@ -59,15 +67,23 @@ To note what is mentioned in simple definitions are:
     \text{Specificity} = \frac{\text{True Negative}}{\text{True Negative} + \text{False Positive}}
     \end{equation*}
 
--   **F1 Score:** Calculates the harmonic mean <mark>uses both precision and recall in one variable</mark> and measures how balanced it is compared to an arithmetic mean calculation.
+-   **F1 Score:** Calculates the harmonic mean <mark>*uses both precision and recall in one variable*</mark> and measures how balanced it is compared to an arithmetic mean calculation.
 
     \begin{equation*}
     \text{F1 Score} = 2 \times \frac{\text{Precision $\times$ Recall}}{\text{Precision $+$ Recall}}
     \end{equation*}
 
--   After reading this, now we start importing the dataset, `penguin_predictions.csv` from Github.
+**Supplemental Videos:**
+
+-   [Confusion Matrix](https://youtu.be/Kdsp6soqA7o?si=XOWN_FOd8BtgL5kW)
+
+-   [Recall (Sensitivity) and Specificity](https://youtu.be/vP06aMoz4v8?si=8dl2zWciNfr2QZ5G)
+
+After reading this, now we start importing the dataset, `penguin_predictions.csv` from Github.
 
 -   [Raw Github CSV](https://raw.githubusercontent.com/acatlin/data/refs/heads/master/penguin_predictions.csv)
+
+#### The Plan:
 
 The plan for this dataset is to practice fundamentals on machine learning, particularly the concept of a <mark>binary classification model.</mark> As I am doing this, I will dive into topics that will increase my understanding of modeling such as:
 
@@ -79,4 +95,255 @@ The plan for this dataset is to practice fundamentals on machine learning, parti
 
 -   Thresholds
 
-But first I will need to explore the data, by visualizing plots to compare the counts of females and males as a start, followed by steps to help me understand and approach this problem.
+But first I will need to explore the data, by visualizing a plot to compare the counts of females and males as a start, followed by steps to help me understand and approach this problem.
+
+## Codebase
+
+```{r library-import}
+library(tidyverse)
+library(readr)
+```
+
+#### Reading in the data and inspecting
+
+```{r read-data}
+raw_data <- read_csv("https://raw.githubusercontent.com/acatlin/data/refs/heads/master/penguin_predictions.csv")
+
+glimpse(raw_data)
+head(raw_data)
+```
+
+-   `sex` is the class we want to use during model training
+
+### Null Error Rate
+
+To calculate Null Error Rate, the formula is:
+
+\begin{equation*}
+\text{Null Error Rate} = 1 - \frac{\text{Majority Count}}{\text{Total Number}}
+\end{equation*}
+
+In this case, what we are going to calculate is the `sex` column, there are:
+
+-   93 total counts, which is going to be our denominator
+
+-   Our numerator, we need to do a count check and plot it to ensure it is correct
+
+#### Bar Plot of Counts
+
+```{r barplot-of-counts}
+ggplot(raw_data, aes(x=sex, fill=sex)) + 
+  geom_bar(width = 0.4) +
+  geom_text(
+    stat = "count",
+    aes(label = after_stat(count)),
+    vjust = -0.1
+  ) +
+  labs(
+    title = "Counts of Male vs Female",
+    x = "Sex",
+    y = "Counts"
+  ) +
+  theme_gray()
+```
+
+After plotting, the counts are:
+
+-   Males: 54
+
+-   Females: 39
+
+```{r sanity-check-counts}
+# Sanity Check
+raw_data |> count(sex)
+```
+
+And our table has confirmed that the plot is true so now we can calculate the Null Error Rate
+
+#### Null Error Rate Calculation
+
+\begin{equation*}
+\text{Null Error Rate} = 1 - \frac{\text{54}}{\text{93}} \\
+= 1 - 0.58064516129 \\
+\boxed{= 0.41935483871}
+\end{equation*}
+
+What this result tells us are the following:
+
+-   With an accuracy of 58.06%, the model guessing male for every penguin will be right 54 times
+
+-   With a Null Error Rate of 41.93%, the model will guess males and get all 39 females incorrectly
+
+This step is important because the Null Error Rate is the first step in model creation. What this tells us is that if the model were to keep guessing the most common answer, in this case "male", it would be correct 58.06% of the time whilst being wrong 41.93% of the time because there are females that it would miss.
+
+As this is the start of model creation, it is imperative we improve upon the score of 41.93% if further work was to be made to improve on.
+
+### Confusion Matrices
+
+Before we make our confusion matrices, it is important to note there will be 3 thresholds the model will be trained on:
+
+-   0.2
+
+-   0.5
+
+-   0.8
+
+#### Making threshold columns
+
+```{r making-threshold-columns}
+penguins_df <- raw_data %>%
+  mutate(
+    pred02 = ifelse(.pred_female > 0.2, 1, 0),
+    pred05 = ifelse(.pred_female > 0.5, 1, 0),
+    pred08 = ifelse(.pred_female > 0.8, 1, 0),
+    sex = ifelse(sex == "female", 1, 0)
+  )
+
+head(penguins_df)
+```
+
+#### Creating Confusion Matrices
+
+To understand what makes something "True" or "False and "Positive" or "Negative" here is a pattern to follow below:
+
+-   **True/False:** Did the model get the prediction right <mark>(True)</mark> or wrong <mark>(False)</mark>
+
+-   **Positive/Negative:** Did the model say "yes"? <mark>(Positive)</mark> or "no" <mark>(Negative)</mark>
+
+**Example:**
+
+Model says gender is female <mark>(Positive)</mark>, the actual gender is a female <mark>(True)</mark>; True Positive.
+
+It is almost like reading it backwards to get the label of True Positive
+
+**Implementing Confusion Matrices**
+
+```{r confusion-matrix-0.2}
+cm_02 <- penguins_df %>%
+  summarise(
+    TP = sum(pred02 == 1 & sex == 1),
+    FP = sum(pred02 == 1 & sex == 0),
+    TN = sum(pred02 == 0 & sex == 0),
+    FN = sum(pred02 == 0 & sex == 1)
+  )
+
+cm_05 <- penguins_df %>%
+  summarise(
+    TP = sum(pred05 == 1 & sex == 1),
+    FP = sum(pred05 == 1 & sex == 0),
+    TN = sum(pred05 == 0 & sex == 0),
+    FN = sum(pred05 == 0 & sex == 1)
+  )
+
+cm_08 <- penguins_df %>%
+  summarise(
+    TP = sum(pred08 == 1 & sex == 1),
+    FP = sum(pred08 == 1 & sex == 0),
+    TN = sum(pred08 == 0 & sex == 0),
+    FN = sum(pred08 == 0 & sex == 1)
+  )
+```
+
+```{r threshold-columns-creation}
+cm_02 <- cm_02 %>% mutate(threshold = 0.2, .before = 1)
+cm_05 <- cm_05 %>% mutate(threshold = 0.5, .before = 1)
+cm_08 <- cm_08 %>% mutate(threshold = 0.8, .before = 1)
+
+#.before tells us to place in position 1 
+
+cm_02
+cm_05
+cm_08
+```
+
+### Performance Metrics
+
+**Calculating Accuracy**
+
+```{r calculating-accuracy}
+cm_02 <- cm_02 %>%
+  mutate(accuracy = (TP + TN) / (TP + FP + TN + FN))
+
+cm_05 <- cm_05 %>%
+  mutate(accuracy = (TP + TN) / (TP + FP + TN + FN))
+
+cm_08 <- cm_08 %>%
+  mutate(accuracy = (TP + TN) / (TP + FP + TN + FN))
+```
+
+**Calculating Precision**
+
+```{r calculating-precision}
+cm_02 <- cm_02 %>%
+  mutate(precision = (TP) / (TP + FP))
+
+cm_05 <- cm_05 %>%
+  mutate(precision = (TP) / (TP + FP))
+
+cm_08 <- cm_08 %>%
+  mutate(precision = (TP) / (TP + FP))
+```
+
+**Calculating Recall**
+
+```{r calculating-recall}
+cm_02 <- cm_02 %>%
+  mutate(recall = (TP) / (TP + FN))
+
+cm_05 <- cm_05 %>%
+  mutate(recall = (TP) / (TP + FN))
+
+cm_08 <- cm_08 %>%
+  mutate(recall = (TP) / (TP + FN))
+```
+
+**Calculating F1 Score**
+
+```{r calculating-f1-score}
+cm_02 <- cm_02 %>%
+  mutate(f1_score = 2 * ((precision * recall) / (precision + recall)))
+
+cm_05 <- cm_05 %>%
+  mutate(f1_score = 2 * ((precision * recall) / (precision + recall)))
+
+cm_08 <- cm_08 %>%
+  mutate(f1_score = 2 * ((precision * recall) / (precision + recall)))
+```
+
+**Showing the final confusion matrices**
+
+```{r confusion-matrices}
+cm_02
+cm_05
+cm_08
+```
+
+Comparing all these confusion matrices, as the threshold increases, all the performance metric increases either slightly (in their respective direction).
+
+### Threshold Use Cases
+
+#### What is a Threshold?
+
+To understand how 0.2 or a 0.8 threshold case can be used with a real life example, we need to understand what exactly is a "0.2 threshold" or a "0.8 threshold". *To note: the default threshold is 0.5.*
+
+-   **0.2 Threshold:** A 20% chance that something is present. So in this assignment's case, 20% that someone is a female, say they are a female.
+
+-   **0.8: Threshold:** A 80% chance that the model is certain of something, so the expectation is much higher to pass off if someone is a female as an example.
+
+#### Real World Example
+
+-   One real world scenario where a 0.2 threshold would be preferable would be in a medical field. If someone were to be scanned for a disease, it is better to catch it before it grows into something bigger.
+
+-   A real world example where a 0.8 threshold would be preferable would be to check if an email is spam. Since the threshold is high, it means that it does not want a false positive result back.
+
+## Conclusion
+
+This assignment was my first time tackling machine learning concepts hands on rather than theory. I had no idea how to properly tackle this assignment without AI assistance for terminology as well as coding approach. But nonetheless I had a lot of fun working with machine learning and wish to do it more.
+
+In the future I would love to work with a dataset where I get to compare model performance metrics and see why certain models wouldn't work in certain situations.
+
+## AI Use:
+
+-   [Gemini Chat - Vocabulary at Approach](https://share.gemini.google/AX4eaSdxtGHE)
+
+-   [Claude Chat - Guidance throughout the assignment](https://claude.ai/share/f9ca6b81-5719-455d-a492-cfa5a70abf94)
