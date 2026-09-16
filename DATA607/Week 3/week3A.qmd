@@ -1,0 +1,56 @@
+---
+title: "Week 3A Assignment - Global Baseline Estimate"
+author: "Muhammad Ali"
+format: html
+editor: visual
+---
+
+# Global Baseline Estimate
+
+## Approach
+
+### Recap
+
+This assignment is a follow up on the previous assignment Week 2A's assignment, [**Movie Ratings**](https://github.com/HaiderrX/CUNY-SPS-MSDS/blob/main/DATA607/Week%202%20-%20R%20and%20SQL/2A%20-%20SQL%20and%20R%20Movie%20Ratings/week2A.qmd) where the goal of that assignment was to conduct a survey using a Google Form about recent popular movies and the users ratings of them.
+
+### Goal
+
+To expand on the use of that survey's data, we will now be creating a recommender system using the <mark>Global Baseline Algorithm</mark> to estimate what a user would rate a movie they had not seen using a formula that consists of information of:
+
+-   Global Mean $\mu$
+
+-   User Bias $b_u$
+
+-   Item Bias $b_i$
+
+\begin{equation*}
+\hat{r}_{ui} = \mu + b_u + b_i
+\end{equation*}
+
+### About the Algorithm
+
+The algorithm as mentioned is an estimate to predict what a user would rate something that they had not seen before.
+
+We have the formula above, but what does it mean specifically rather than taking averages in a spreadsheet and computing addition and subtraction between the variables?
+
+**Definitions**
+
+-   <mark>Predicted Rating</mark> $\hat{r}_{ui}$: Our *predicted* rating after computing the arithmetic among the variables. **This is not an observed rating**.
+
+-   <mark>Global Mean </mark> $\mu$: The mean of all the ratings for all movies in 1 variable.
+
+-   <mark>User Bias</mark> $b_u$: This is a way to see if the user rated a something higher or lower than the global mean with its users
+
+-   <mark>Item Bias</mark> $b_i$: Similar to user bias, this is a way to see if someone rated the movies higher than the global mean.
+
+In different contexts, the formula still applies but in this context it is on movie ratings as a great introduction to recommendation systems as in the future the complexity will increase.
+
+### The Plan
+
+Given that this is a step up to the previous assignment, we need to have the cleaned version of the dataset as it contains appropriate column names and column typings.
+
+Following that we need to rearrange our table from a wide table to a long table to be able to compute calculations easier.
+
+Once we have our long table, we can then start computing the averages by hand and then implementing it by code.
+
+After doing one person, we can apply the same format for people that had not seen a certain movie.
