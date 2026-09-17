@@ -122,7 +122,7 @@ connection <- dbConnect(
   host = "localhost",
   port = 5432,
   user = "postgres",
-  password = "haider14xx"
+  password = ""
 )
 ```
 
