@@ -43,7 +43,7 @@ Next I am going to open PostgreSQL in order for me to connect to R and to contin
 ```{r libraries}
 library(DBI)
 library(RPostgres)
-library(tidyr)
+library(tidyverse)
 library(dplyr)
 library(readr)
 ```
@@ -116,7 +116,60 @@ Data has been cleaned so now we can start the process of analyzing and connectin
 ```{r postgre-sql-connection}
 #| include: false
 
+connection <- dbConnect(
+  RPostgres::Postgres(),
+  dbname = "movie_db",
+  host = "localhost",
+  port = 5432,
+  user = "postgres",
+  password = "haider14xx"
+)
+```
 
+```{r create-table}
+dbExecute(connection, "DROP TABLE IF EXISTS movie_ratings;")
+
+create_table_query <- "
+CREATE TABLE IF NOT EXISTS movie_ratings (
+    user_id SERIAL PRIMARY KEY,
+    spider_man_bnd INT,
+    the_odyssey INT,
+    coyote_vs_acme INT,
+    the_whisper_man INT,
+    toy_story_5 INT,
+    project_hail_mary INT
+);
+"
+dbExecute(connection, create_table_query)
+```
+
+```{r inserting-into-table}
+insert_query <- "
+INSERT INTO movie_ratings (spider_man_bnd, the_odyssey, coyote_vs_acme, the_whisper_man, toy_story_5, project_hail_mary)
+VALUES 
+    (4,	NULL,	NULL,	NULL,	4,	5),
+    (4,	3,	NULL,	NULL,	NULL,	5),
+    (4,	3,	NULL,	NULL,	2,	5),
+    (4,	5,	NULL,	NULL,	4,	5),
+    (NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
+    (5,	NULL,	5,	NULL,	1,	5),
+    (5,	4,	5,	NULL,	4,	5),
+    (NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
+    (NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
+    (3,	5,	NULL,	NULL,	NULL,	5),
+    (4,	NULL,	NULL,	NULL,	NULL,	4),
+    (NULL,	NULL,	NULL,	NULL,	NULL,	1),
+    (5,	4,	4,	4,	5,	5),
+    (5,	5,	4,	NULL,	3,	3),
+    (NULL,	NULL,	NULL,	NULL,	NULL,	5),
+    (5,	1,	3,	5,	5,	2),
+    (3,	1,	2,	4,	NULL,	5),
+    (5,	5,	NULL,	NULL,	NULL,	5),
+    (5,	NULL,	NULL,	NULL,	5,	5),
+    (NULL,	NULL,	NULL,	NULL,	4,	5),
+    (NULL,	NULL,	NULL,	NULL,	NULL,	2);
+"
+dbExecute(connection, insert_query)
 ```
 
 ```{r uploading-df-to-sql}
@@ -127,7 +180,8 @@ dbExistsTable(connection, "movie_ratings") # table exists and checked in Postgre
 ```
 
 ```{r using-sql-query}
-dbGetQuery(connection, "SELECT * FROM movie_ratings")
+all_cols <- dbGetQuery(connection, "SELECT * FROM movie_ratings")
+all_cols
 ```
 
 ```{r closing sql connection}
@@ -227,3 +281,5 @@ After combining the summary tables, there are some noticeable findings in the su
 Collecting data through surveys or polls is one of the most important ways to get data as it can be used as a reflection peoples opinions, such as in politics. In this assignment, even though I had gotten 19 responses within a day, it'd be nicer if I had a better way to reach out to people to collect more information which can be something I could figure out if I were to do future work in survey collecting.
 
 As far as workload is concerned, I have had experience in handling missing values when I had taken a class using R in my undergradutate studies, but it did give me enjoyment that even though I did all this before I am still going to use it no matter what. The new thing I had learned whilst doing this was stacking rows on top of each other, when doing the summary tables, I wanted to do it the way in terms of combining the tables using SQL, but I had gone for a different approach and then learned the `bind_rows` command if I ever want to do something like this again.
+
+[**Video Explainer Link**](https://www.loom.com/share/383a58f61527498a8902b15c06ea6080)
