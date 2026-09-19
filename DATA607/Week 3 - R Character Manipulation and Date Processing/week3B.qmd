@@ -44,3 +44,170 @@ Following that dataset, we need to do the following steps:
 -   Understand window functions in SQL or R
 
 -   Apply the concept of window functions for the dataset
+
+### Dataset
+
+Given that this assignment allows leniency with either searching for a dataset online or generating a synthetic dataset using an LLM, I have taken the LLM approach and asked Gemeni to generate a synthetic dataset.
+
+-   [Github Dataset CSV](https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Week%203%20-%20R%20Character%20Manipulation%20and%20Date%20Processing/inventory_synthetic_data%20-%20Sheet1.csv)
+
+## Codebase
+
+Before being able to do anything with this csv file, the first thing to do was separate all of the data in Microsoft Excel using the `=TEXTSPLIT()` function. The reason this is essential is because when using a generated dataset from an LLM it pastes all of the information in one column separated by columns. So having to separate them into new columns using that function was a must. Following that we will need to import that dataset into R and to get rid of the first column as it is being used as a reference column.
+
+```{r libraries}
+library(DBI)
+library(RPostgres)
+library(tidyverse)
+library(dplyr)
+library(readr)
+```
+
+### Data Cleaning & Transformation
+
+```{r importing-dataset}
+raw_data <- read_csv("https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Week%203%20-%20R%20Character%20Manipulation%20and%20Date%20Processing/inventory_synthetic_data%20-%20Sheet1.csv")
+
+head(raw_data)
+colnames(raw_data)
+```
+
+As mentioned, we need to get rid of the first column in order to proceed. However we can also rename columns for conventional reasons.
+
+```{r data-cleaning}
+clean_data <- raw_data |>
+  select(
+    date = Date,
+    product_id = Product_ID,
+    product_name = Product_Name,
+    units_sold = Units_Sold,
+    price_per_unit = Price_Per_Unit,
+    revenue = Revenue,
+    ending_inventory_count = Ending_Inventory_Count
+  )
+```
+
+```{r}
+head(clean_data)
+glimpse(clean_data)
+```
+
+Data has been cleaned, we can now proceed.
+
+### SQL Connection
+
+```{r SQL-connector}
+connection <- dbConnect(
+  RPostgres::Postgres(),
+  dbname = "products_db",
+  host = "localhost",
+  port = 5432,
+  user = "postgres",
+  password = ""
+)
+```
+
+```{r creating-table}
+
+dbExecute(connection, "DROP TABLE IF EXISTS products_info;")
+
+create_table_query <- "
+CREATE TABLE IF NOT EXISTS products_info (
+    date DATE,
+    product_id VARCHAR(50),
+    product_name TEXT,
+    units_sold INT,
+    prices_per_unit NUMERIC(10, 2),
+    revenue NUMERIC(10,2),
+    ending_inventory_count INT
+);
+"
+
+dbExecute(connection, create_table_query)
+```
+
+```{r write-to-sql-table}
+dbWriteTable(
+  con = connection,
+  name = "products_info",
+  value = clean_data,
+  overwrite = TRUE,
+  field.types = c(
+    date                   = "DATE",
+    product_id             = "VARCHAR(50)",
+    product_name           = "TEXT",
+    units_sold             = "INTEGER",
+    price_per_unit         = "NUMERIC(10, 2)",
+    revenue                = "NUMERIC(10, 2)",
+    ending_inventory_count = "INTEGER"
+  )
+)
+
+
+# dbGetQuery(connection, "SELECT * FROM products_info")
+# Table works and everything is listed
+```
+
+Successfully imported the table to SQL, now to start Window Function queries.
+
+### Window Functions
+
+#### Average Year To date
+
+In this query, we want to get the average year to date on the average number of units sold for a product.
+
+```{r average-year-to-date}
+products_avg <- dbGetQuery(connection, "
+SELECT date,
+      product_id,
+      product_name,
+      units_sold,
+      revenue,
+      ROUND (
+        AVG(units_sold) OVER (
+          PARTITION BY product_id
+          ORDER BY date
+        )::numeric, 2 
+      ) AS avg_units_sold
+FROM products_info;
+") |>
+  as_tibble()
+
+products_avg
+```
+
+#### The Six Day Moving Average for Each Item
+
+In this query, we want the six day moving average for each item, which means we want to know what the average of something was for a six day period
+
+```{r six-day-moving-avg}
+moving_avg <- dbGetQuery(connection, "
+SELECT
+	product_id,
+	product_name,
+	date,
+	ROUND(
+		AVG(units_sold) OVER (
+	        PARTITION BY product_id 
+	        ORDER BY date 
+	        ROWS BETWEEN 5 PRECEDING AND CURRENT ROW
+		)::numeric, 2
+	) AS six_day_moving_avg
+FROM products_info;                         
+") |>
+  as_tibble()
+
+moving_avg
+```
+
+```{r closing sql connection}
+dbDisconnect(connection)
+```
+
+## Conclusion
+
+Working with SQL is very enjoyable for me as it is one of my favorite languages to work with as I can easily translate queries to the English language similarly to Python.
+
+With that being said, the frustrating part of this was the SQL connection and being able to write the rows of the CSV to SQL so I had to research how to do it which led me to the `dbWriteTable()` function which made it easier for me to import the dataframe to SQL.
+
+I would love to work with SQL queries in the future, and maybe more problems to do them with so I can get better at articulating the queries and the steps it takes to do them in.

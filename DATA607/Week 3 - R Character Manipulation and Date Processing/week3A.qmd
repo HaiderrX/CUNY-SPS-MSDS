@@ -1,7 +1,15 @@
 ---
 title: "Week 3A Assignment - Global Baseline Estimate"
 author: "Muhammad Ali"
-format: html
+format:
+  html:
+    code-fold: false
+    
+execute:
+  echo: true
+  warning: false
+  message: false
+
 editor: visual
 ---
 
@@ -54,3 +62,250 @@ Following that we need to rearrange our table from a wide table to a long table 
 Once we have our long table, we can then start computing the averages by hand and then implementing it by code.
 
 After doing one person, we can apply the same format for people that had not seen a certain movie.
+
+## Codebase
+
+First we need to import the data values once again into a tribble
+
+**Import Library**
+
+```{r importing-library}
+library(tidyverse)
+```
+
+### Creating Tribble
+
+```{r creating-tribble}
+ratings_wide <- tribble(
+  ~user, ~spider_man_bnd, ~the_odyssey, ~coyote_vs_acme, ~the_whisper_man, ~toy_story_5, ~project_hail_mary,
+  "1", 4, NA, NA, NA, 4, 5,
+  "2", 4, 3, NA, NA, NA, 5,
+  "3", 4, 3, NA, NA, 2, 5,
+  "4", 4, 5, NA, NA, 4, 5,
+  "5", NA, NA, NA, NA, NA, NA,
+  "6", 5, NA, 5, NA, 1, 5,
+  "7", 5, 4, 5, NA, 4, 5,
+  "8", NA, NA, NA, NA, NA, NA,
+  "9", NA, NA, NA, NA, NA, NA,
+  "10", 3, 5, NA, NA, NA, 5,
+  "11", 4, NA, NA, NA, NA, 4,
+  "12", NA, NA, NA, NA, NA, 1,
+  "13", 5, 4, 4, 4, 5, 5,
+  "14", 5, 5, 4, NA, 3, 3,
+  "15", NA, NA, NA, NA, NA, 5,
+  "16", 5, 1, 3, 5, 5, 2,
+  "17", 3, 1, 2, 4, NA, 5,
+  "18", 5, 5, NA, NA, NA, 5,
+  "19", 5, NA, NA, NA, 5, 5,
+  "20", NA, NA, NA, NA, 4, 5,
+  "21", NA, NA, NA, NA, NA, 2
+)
+
+ratings_wide
+```
+
+Now we have the data in tabular format, for this assignment and the algorithm in general, we need it in a long format rather than a wide so it is easier to calculate averages.
+
+### Wide to Long Format
+
+```{r wide-to-long}
+ratings_long <- ratings_wide |>
+  pivot_longer(-user, names_to = "movies", values_to = "rating") |>
+  drop_na(rating)
+
+ratings_long
+```
+
+We have successfully converted the table to a long format. Which means every row is now stacked upon each other
+
+### Global Average Rating
+
+```{r global_mean}
+global_mean <- mean(ratings_long$rating)
+global_mean
+```
+
+We now have one of the variables for our formula:
+
+-   $\mu$: 4.04918
+
+### User Bias
+
+The next step is to retrieve our $b_u$ variable, the user bias, which indicates if the user average rating is higher or lower than the global mean
+
+```{r user-bias}
+user_bias <- ratings_long |>
+  group_by(user) |>
+  summarize(b_u = mean(rating) - global_mean)
+
+user_bias
+```
+
+We now have our user bias variable for each user, and at first glance, there are those slightly above or below, or way below the global mean average.
+
+### Item Bias
+
+```{r item-bias}
+item_bias <- ratings_long |>
+  group_by(movies) |>
+  summarize(b_i = mean(rating) - global_mean)
+
+item_bias
+```
+
+We have successfully created our last variable for our formula.
+
+With all this information we can now proceed to predict what certain users would rate a movie that they had not seen.
+
+### Some Examples Of Predictions
+
+Given that there are 21 rows and some users have not seen all of the movies or most of them, I will be doing 3 examples to show that the formula and arithmetic works.
+
+#### First Example - User 4
+
+For the first example, we will predict movies user number 4 had not seen and predict what they would rate it had they seen it.
+
+```{r example-1-user-4}
+four_seen <- ratings_long |>
+  filter(user == "4") |>
+  distinct(movies)
+
+four_seen
+```
+
+Let us do the predictions arithmetically before writing in code:
+
+|          Quantity           | Rounded Value |            How?             |
+|:---------------------------:|:-------------:|:---------------------------:|
+|     Global Mean, $\mu$      |     4.05      | Global mean given from code |
+|     User 4 Bias, $b_u$      |     0.45      | Refer to User Bias Section  |
+| `Coyote vs ACME` Bias $b_i$ |     -0.22     | Refer to Item Bias Section  |
+
+**Prediction:** 4.05 + 0.45 + (-0.22) = 4.28
+
+|           Quantity           | Rounded Value |            How?             |
+|:----------------------------:|:-------------:|:---------------------------:|
+|      Global Mean, $\mu$      |     4.05      | Global mean given from code |
+|      User 4 Bias, $b_u$      |     0.45      | Refer to User Bias Section  |
+| `The Whisper Man` Bias $b_i$ |     0.28      | Refer to Item Bias Section  |
+
+**Prediction:** 4.05 + 0.45 + 0.28 = 4.78
+
+```{r predict-four}
+four_predictions <- ratings_long |>
+  distinct(movies) |>
+  anti_join(four_seen, by = "movies") |>
+  mutate(user = "4") |> 
+  left_join(user_bias, by = "user") |>
+  left_join(item_bias, by = "movies") |>
+  mutate(predicted_rating = global_mean + b_u + b_i) |>
+  arrange(desc(predicted_rating))
+
+four_predictions
+```
+
+After computing the arithmetic by carefully referring to each variable respective tibbles, we were able to code the prediction tibble and get a return of the predicted rating in a non-rounded format, but it does align with our results.
+
+A simple formula for the R Code above:
+
+1.  Retrieve Distinct Movies
+2.  That they have not seen (NA values)
+3.  Mutate so that we create a column with only showing "4"
+4.  Left Join to bring in user bias
+5.  Left Join to bring item bias
+6.  Mutate to create a new column for predicted rating
+7.  Arrange in descending order
+
+### Example 2: User 7
+
+This time we will predict this user who has seen one of the movies out of the 6.
+
+```{r seven-seen}
+seven_seen <- ratings_long |>
+  filter(user == "7") |>
+  distinct(movies)
+
+seven_seen
+```
+
+Let us do the predictions arithmetically before writing in code:
+
+|           Quantity           | Rounded Value |            How?             |
+|:----------------------------:|:-------------:|:---------------------------:|
+|      Global Mean, $\mu$      |     4.05      | Global mean given from code |
+|      User 4 Bias, $b_u$      |     0.95      | Refer to User Bias Section  |
+| `The Whisper Man` Bias $b_i$ |     0.28      | Refer to Item Bias Section  |
+
+**Prediction:** 4.05 + 0.55 + 0.28 = 4.88
+
+```{r seven-prediction}
+seven_predictions <- ratings_long |>
+  distinct(movies) |>
+  anti_join(seven_seen, by = "movies") |>
+  mutate(user = "7") |>
+  left_join(user_bias, by = "user") |>
+  left_join(item_bias, by = "movies") |>
+  mutate(predicted_rating = global_mean + b_u + b_i) |>
+  arrange(desc(predicted_rating))
+
+seven_predictions
+```
+
+Once again, this formulaic and arithmetic calculation was correct yet again.
+
+### Final Example - User 10
+
+Lets try with 3 missing ratings:
+
+```{r ten-seen}
+ten_seen <- ratings_long |>
+  filter(user == "10") |>
+  distinct(movies)
+
+ten_seen
+```
+
+|          Quantity           | Rounded Value |            How?             |
+|:---------------------------:|:-------------:|:---------------------------:|
+|     Global Mean, $\mu$      |     4.05      | Global mean given from code |
+|     User 10 Bias, $b_u$     |     0.28      | Refer to User Bias Section  |
+| `Coyote vs ACME` Bias $b_i$ |     -0.22     | Refer to Item Bias Section  |
+
+**Prediction:** 4.05 + 0.28+ (-0.22) = 4.11
+
+|           Quantity           | Rounded Value |            How?             |
+|:----------------------------:|:-------------:|:---------------------------:|
+|      Global Mean, $\mu$      |     4.05      | Global mean given from code |
+|     User 10 Bias, $b_u$      |     0.28      | Refer to User Bias Section  |
+| `The Whisper Man` Bias $b_i$ |     0.28      | Refer to Item Bias Section  |
+
+**Prediction:** 4.05 + 0.28 + 0.28 = 4.61
+
+|         Quantity         | Rounded Value |            How?             |
+|:------------------------:|:-------------:|:---------------------------:|
+|    Global Mean, $\mu$    |     4.05      | Global mean given from code |
+|   User 10 Bias, $b_u$    |     0.28      | Refer to User Bias Section  |
+| `Toy Story 5` Bias $b_i$ |     -0.35     | Refer to Item Bias Section  |
+
+**Prediction:** 4.05 + 0.28+ (-0.35) = 3.98
+
+```{r ten-predictions}
+ten_predictions <- ratings_long |>
+  distinct(movies) |>
+  anti_join(ten_seen, by = "movies") |>
+  mutate(user = "10") |>
+  left_join(user_bias, by = "user") |>
+  left_join(item_bias, by = "movies") |>
+  mutate(predicted_rating = global_mean + b_u + b_i) |>
+  arrange(desc(predicted_rating))
+
+ten_predictions
+```
+
+As seen, the user would predict The Whisper Man the highest followed by Coyote vs ACME and lastly Toy Story 5.
+
+## Conclusion
+
+The topics introduced in this assignment was slightly easier to understand versus in assignment two and it did give me more of an interest in machine learning and to elevate my knowledge in these things.
+
+I would like to be able to learn different recommendation systems and previously mentioned in Week 2A's assignment, I wish I had more survey data and additionally I wish I had more movies suggestion rather than being limited to 6 so i can see variation in survey results.
