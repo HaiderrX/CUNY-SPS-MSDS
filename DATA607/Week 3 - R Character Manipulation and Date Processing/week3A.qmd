@@ -233,7 +233,7 @@ Let us do the predictions arithmetically before writing in code:
 |           Quantity           | Rounded Value |            How?             |
 |:----------------------------:|:-------------:|:---------------------------:|
 |      Global Mean, $\mu$      |     4.05      | Global mean given from code |
-|      User 4 Bias, $b_u$      |     0.95      | Refer to User Bias Section  |
+|      User 7 Bias, $b_u$      |     0.95      | Refer to User Bias Section  |
 | `The Whisper Man` Bias $b_i$ |     0.28      | Refer to Item Bias Section  |
 
 **Prediction:** 4.05 + 0.55 + 0.28 = 4.88
