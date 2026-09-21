@@ -1,0 +1,72 @@
+---
+title: "Project 1"
+author: "Muhammad Ali"
+format:
+  html:
+    code-fold: false
+    
+execute:
+  echo: true
+  warning: false
+  message: false
+
+editor: visual
+---
+
+# Chess Text File Analysis
+
+## Approach
+
+Given that this is a project and not a typical assignment, the work to be done will require extensive research on several functions, terminology, and writing and compiling code with trial and error.
+
+### Focused Concepts
+
+-   Regular Expressions
+
+-   Non-CSV Files
+
+-   R
+
+### The Project
+
+Chess is a game that requires strategy, ability to think ahead, make tough choices and to learn during or after a match. With all these things in chess, it turned into a phenomena to which people host chess tournaments.
+
+Just like any other tournament, there needs to be a way to keep track of every player and their statistics throughout, which leads to this project.
+
+We will be given a file containing information from a chess tournament, our job is to make sure we can convert a non-csv file to a tabular format to be able to use it in SQL or adjacent scenarios.
+
+### Dataset Structure
+
+To give an idea of how the dataset is structured, below is a snippet:
+
+![](images/clipboard-1087542734.png)
+
+With this snippet, it is clear that the approach will be different than a typical CSV file. Given that, we can apply use cases for <mark>regex</mark>, regular expressions, to be able to extract pieces of information into their respective variables.
+
+**Information Needed:**
+
+-   Player’s Name
+
+-   Player’s State
+
+-   Total Number of Points
+
+-   Player’s Pre-Rating
+
+-   Average Pre Chess Rating of Opponents
+
+With the nature of this text file, there are patterns shown to be able to extract information such as "----" and a delimiter of "\|".
+
+### The Plan
+
+<mark>*Note: this will be a tentative plan*</mark>
+
+After importing the dataset, the idea will focus on testing for one player rather than the whole file at once, because if it works for one person then it will work for the rest.
+
+Skip the header rows as it does not contain information to extract, it is there to help us identify the values.
+
+Work row by row to extract values with the correct pattern for their respective variables and values.
+
+After extracting each pieces of information, then comes the tricky part of average pre chess rating of opponents. First I will need a way to map the player to their pre-rating in order to do the numerical calculation, following that, I need to find the average within the rows rather than columns.
+
+Then after several extractions and calculations, the final table can be built.
