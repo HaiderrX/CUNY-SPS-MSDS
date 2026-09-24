@@ -1,5 +1,5 @@
 ---
-title: "Project 1"
+title: "Chess Tournament Analysis"
 author: "Muhammad Ali"
 format:
   html:
@@ -33,7 +33,7 @@ Chess is a game that requires strategy, ability to think ahead, make tough choic
 
 Just like any other tournament, there needs to be a way to keep track of every player and their statistics throughout, which leads to this project.
 
-We will be given a file containing information from a chess tournament, our job is to make sure we can convert a non-csv file to a tabular format to be able to use it in SQL or adjacent scenarios.
+We will be given a file containing information from a chess tournament, our job is to make sure we can convert a non-csv file to a tabular format to be able to use it in SQL or in other scenarios.
 
 ### Dataset Structure
 
@@ -55,18 +55,357 @@ With this snippet, it is clear that the approach will be different than a typica
 
 -   Average Pre Chess Rating of Opponents
 
-With the nature of this text file, there are patterns shown to be able to extract information such as "----" and a delimiter of "\|".
+With the nature of this text file, there are patterns shown to be able to extract information such as "- - - - - -" and a delimiter of "\|".
 
 ### The Plan
 
 <mark>*Note: this will be a tentative plan*</mark>
 
-After importing the dataset, the idea will focus on testing for one player rather than the whole file at once, because if it works for one person then it will work for the rest.
+-   After importing the dataset, the idea will focus on testing for one player rather than the whole file at once, because if it works for one person then it will work for the rest, but there will be some rows where there will be refinement but that will come in later.
 
-Skip the header rows as it does not contain information to extract, it is there to help us identify the values.
+-   We can skip the header rows as it does not contain information to extract, it is there to help us identify the values.
 
-Work row by row to extract values with the correct pattern for their respective variables and values.
+-   Work row by row to extract values with the correct pattern for their respective variables and values. We can do that by separating into two different variables and to bind them later.
 
-After extracting each pieces of information, then comes the tricky part of average pre chess rating of opponents. First I will need a way to map the player to their pre-rating in order to do the numerical calculation, following that, I need to find the average within the rows rather than columns.
+-   After extracting each pieces of information, then comes the tricky part of average pre chess rating of opponents. First I will need a way to map the player to their pre-rating in order to do the numerical calculation, following that, I need to find the average within the rows rather than columns.
 
-Then after several extractions and calculations, the final table can be built.
+-   Then after several extractions and calculations, the final table can be built.
+
+### Helpful Resources
+
+-   [Regex101](https://regex101.com/) - Website to help visualize the pattern
+-   [Regex Cheatsheet](https://web.mit.edu/hackl/www/lab/turkshop/slides/regex-cheatsheet.pdf) - Guide to show the matching sequences
+
+When working with Regex, it is not easy to come up with the pattern off the top of your head, using Regex101 will assist in visualizing the pattern and the key components needed for the lines, along with the cheatsheet to explain what each command does in the pattern.
+
+## Codebase
+
+### Packages To Install
+
+Remove the '\#' to install package if you do not have it install already.
+
+```{r install-package}
+# install.packages("tidyverse")
+```
+
+### Libraries to import
+
+```{r import-libraries}
+library(tidyverse)
+```
+
+### Reading in the data
+
+```{r reading-data}
+raw_data_text <- readLines("https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Projects/Project_1/tournamentinfo.txt")
+
+head(raw_data_text)
+```
+
+### Inspecting FIle Format
+
+```{r inspect-player-row}
+raw_data_text[4:7]
+```
+
+From this chunk above each player statistics are surrounded with a dashed line above and below.
+
+Another thing worth mentioning, each player information are two rows rather than `[4:7]`. In the example above, `[4:7]` contains the table with the surrounding dashed lines, but if we were to change the numbers to `[5:6]` it will show the information only without the dashed lines.
+
+```{r example-non-dashed-line}
+raw_data_text[5:6]
+```
+
+Another thing to note, we can see that we can actually start at line 5 rather than 1, so when we actually start the process of extraction we can just start at 5.
+
+However, it is easier to safely remove the "- - - - - -" lines and create a new variable to store the new format.
+
+### Filtering Boundary Lines
+
+Doing this step is crucial as it can safely remove lines that will affect text extraction.
+
+```{r filtering-lines}
+filtered_lines <- raw_data_text[!grepl("---", raw_data_text)]
+
+head(filtered_lines)
+```
+
+### Line Extraction
+
+To make it easier to extract pieces of the puzzle, it is better to extract both lines in their respective variables:
+
+-   `player_line`: First line of player name and matches
+
+-   `player_state_line`: Second line that contains information such as state, ratings
+
+#### Player Name Extraction
+
+To reiterate the line we would be extracting
+
+```{r example-of-line}
+filtered_lines[3]
+```
+
+To build up the pattern for `player_line`, what we want to do is:
+
+1.  Start at the beginning of the line
+2.  Locate a whitespaces or tabs
+3.  Locate the digit(s)
+4.  Noting that there is a pipe delimiter with a space before it
+
+```{r testing-pattern}
+test_line_1 <- filtered_lines[3]
+str_match(test_line_1, "^\\s*\\d+\\s*\\|\\s*([^|]+?)\\s*\\|\\s*(\\d+\\.\\d+)")
+```
+
+**Pattern Test Explain:**
+
+-   `^\\s*\\d+\\s\\|` finds lines with a pair number next to a pipe:
+
+    -   *Example:* `1 |`
+
+-   `\\s*(\[\^\|\]+?)\\s*\\\|` captures the name without a pipe operator
+
+    -   *Example:* `GARY HUA`
+
+-   `\\s*(\\d+\\.\\d+)` captures the total points
+
+    -   *Example:* `6.0`
+
+```{r player-line-extract}
+player_lines <- filtered_lines[str_detect(filtered_lines, "^\\s*\\d+\\s*\\|\\s*([^|]+?)\\s*\\|\\s*(\\d+\\.\\d+)")]
+
+head(player_lines)
+```
+
+We have successfully extracted the player lines without their state rows, now the next step is to split the information so we can extract their names only.
+
+#### Player Name Split Extraction
+
+Within this chunk, the goal is to split each row with the pipe delimiter as well as to correctly format each name so that it is not all capitalized.
+
+Additionally, we want to split the total points for each row to its own variable as that will be its own column in the final table.
+
+```{r player_names_split}
+player_split <- strsplit(player_lines, "\\|") # splits with the pipe as a delimeter
+
+# list has been made, we need to trim rows and apply this across the list, use sapply and trim rows function
+
+# the list is in 2 dimensions, so we need the 2nd position for names, and 3rd for total points
+
+head(player_split, 3)
+
+# Player Names 
+#\(x) refers to the vector we split
+player_name <- trimws(sapply(player_split, \(x) x[2]))
+player_name_titled <- str_to_title(player_name)
+head(player_name_titled) 
+
+# Total Points
+total_points <- as.numeric(trimws(sapply(player_split, \(x) x[3])))
+head(total_points)
+```
+
+#### State and Rating Extraction
+
+Same approach as before, we can test on one line before on all of them.
+
+We want the state name and pre_rating score.
+
+```{r test-pattern-2}
+test_line_2 <- filtered_lines[4]
+str_match(test_line_2, "^\\s*(\\w*)\\s*\\|\\s*\\d+\\s*/\\s*\\w*\\D\\s*(\\d+)")
+```
+
+**Pattern Test Explain:**
+
+-   `^\\s*(\\w*)\\s*\\|` finds lines with a string text next to a pipe:
+
+    -   *Example:* `ON |`
+
+-   `\\s*\\d+\\s*/` After the pipe it will go through the digits (the player ID) up to forward slash
+
+    -   *Example:* `15445895`
+
+-   `\\s*\\w*\\D\\s*(\\d+)` After the forward slash, it will go up to their pre-rating score
+
+    -   *Example:* `R: 1794`
+
+```{r state-rating-extraction}
+player_state_line <- filtered_lines[str_detect(filtered_lines, "^\\s*(\\w*)\\s*\\|\\s*\\d+\\s*/\\s*\\w*\\D\\s*(\\d+)")]
+
+head(player_state_line)
+```
+
+#### State Name Split Extraction
+
+Similar to the player name split extraction part, we want to split each row with the pipe as the delimiter.
+
+We can leave the states in their abbreviated format as it is easier to read.
+
+For pre-ratings, we will need to do more regex to extract it as it is further down in each line.
+
+```{r player-state-split}
+state_split <- strsplit(player_state_line, "\\|")
+head(state_split, 3)
+
+# State Names 
+#\(x) refers to the vector we split
+player_state <- trimws(sapply(state_split, \(x) x[1]))
+head(player_state) 
+
+# Pre-Rating
+# To note, we need to extract it as it is combined with other things too
+pre_rating_full_text <- trimws(sapply(state_split, \(x) x[2]))
+head(pre_rating_full_text, 3) # extract again to make it simpler
+pre_rating <- as.numeric(str_match(pre_rating_full_text, "^\\d+\\s\\/\\s\\w\\D\\s*(\\d+)")[,2])
+head(pre_rating)
+```
+
+### Combining Variables to Table
+
+Now that we have 90% of the pieces of the puzzle, we can create a new dataframe to store these information.
+
+A new column will be added to mimic the `pair_num` column at the start so it can be utilized to calculate the last column, the opponents average pre-rating.
+
+```{r creating-table}
+players_df <- data.frame(
+  pair_num = 1:length(player_name_titled),
+  player_name = player_name_titled,
+  state = player_state,
+  total_points = total_points,
+  pre_rating = pre_rating
+)
+
+head(players_df)
+```
+
+### Opponents Average Pre-Rating
+
+The final requirement to compute the opponent average pre-rating.
+
+[**Example:**]{.underline}
+
+1.  Player: Gary Hua
+2.  Played Against: Players 39, 21, 18, 7, 12, 4
+3.  Map the their pair number with their pre-rating
+4.  Calculate Pre-Rating and store in variable
+5.  Create column that does it for each player
+
+We know that the opponents' pair number is in the first row, `player_split`, so we can use that variable to start the process of creating that column.
+
+#### Extracting Opponents Pair Numbers
+
+Using regex, we will extract from `player_split` to have strings such as: "W 39 W 21 W 18 W 14 W 7 D 12 D 4"
+
+```{r}
+test_line_3 <- player_lines[1]
+str_match(test_line_3, "[A-Z]\\s+\\d+")
+str_extract_all(test_line_3, "[A-Z]\\s+\\d+")
+```
+
+```{r regex-opponents-pair}
+opponent_numbers <- str_extract_all(player_lines, "[A-Z]\\s+\\d+")
+
+head(opponent_numbers, 3)
+```
+
+Now we can loop and apply the numbers into one column, thereby getting rid of the characters 'W', 'L', 'D'.
+
+```{r loop-apply}
+opponent_pair_numbers <- lapply(opponent_numbers, function(x) str_extract(x, "\\d+"))
+
+head(opponent_pair_numbers, 3)
+```
+
+We now have a new 2-D list `opponent_pair_numbers` which contains the pair numbers of the other players. Now the next step is to figure out how to map the number to the other players' pre-rating.
+
+#### Calculating Mean
+
+Lets test on the first row before doing for all of them:
+
+[**Example:**]{.underline}
+
+Gary Hua, his opponents pre-average rating would be 1605.
+
+```{r testing-mean}
+mean(players_df[players_df$pair_num %in% as.numeric(opponent_pair_numbers[[1]]), "pre_rating"]) |>
+  round(0)
+```
+
+After calculating, we have gotten 1605 correctly, now we need to do it for all of them.
+
+```{r calculating-pre-avg-mean}
+opponents_pre_avg_mean <- sapply(opponent_pair_numbers, function(x) {
+  round(mean(players_df[players_df$pair_num %in% as.numeric(x), "pre_rating"]), 0)
+})
+
+opponents_pre_avg_mean
+```
+
+### Creating the Final Table
+
+```{r}
+players_df_final <- data.frame(
+  pair_num = 1:length(player_name_titled),
+  player_name = player_name_titled,
+  state = player_state,
+  total_points = total_points,
+  pre_rating = pre_rating,
+  opponent_avg_pre_rating = opponents_pre_avg_mean
+)
+
+head(players_df_final)
+```
+
+And with that, we have created a new dataframe from a non-csv file to a csv file
+
+### Data Dictionary
+
++---------------------------+---------------------------------------------------------------------------------------+
+| Variable                  | Meaning                                                                               |
++:=========================:+:=====================================================================================:+
+| `pair_num`                | Identifier for player                                                                 |
++---------------------------+---------------------------------------------------------------------------------------+
+| `player_name`             | The player's name                                                                     |
++---------------------------+---------------------------------------------------------------------------------------+
+| `state`                   | Which state the player is from                                                        |
++---------------------------+---------------------------------------------------------------------------------------+
+| `total_points`            | Total points that the player has accumulated from games played                        |
++---------------------------+---------------------------------------------------------------------------------------+
+| `pre_rating`              | Player's pre-rating before playing games in the tournament                            |
+|                           |                                                                                       |
+| `opponent_avg_pre_rating` | The average of all the opponents that the player has played against in the tournament |
++---------------------------+---------------------------------------------------------------------------------------+
+
+### Export as CSV
+
+```{r export-to-csv}
+write.csv(
+  players_df_final,
+  "chess_tournament_results.csv",
+  row.names = FALSE
+)
+```
+
+## Conclusion
+
+As mentioned, this project would require more work than an ordinary assignment. To go from basic R to regex to learning functions to handle vectors, lists, and understanding complex logic. But nonetheless, this was a good exercise to push one to understand concepts in a broad sense to apply for future uses such as regex and the several apply functions. Being a computer scientist regardless of field pushes one to learn about programming, functions and logic that they will be implementing in their code or system.
+
+With that being said, the process of:
+
+-   Creating new variables
+
+-   Extracting
+
+-   Splitting
+
+was a recurring theme throughout this project as it shows me that working with non-csv files I would have to apply this type of methodology in the future.
+
+But nonetheless, this project definitely reminded me why I enjoy programming as it pushes me to learn and increase my problem solving skills.
+
+## AI Use
+
+-   [Claude](https://claude.ai/share/c7fc36dc-91cd-4775-a189-272feb98bede) - Provided guidance for some parts in the code
+
+-   [Gemeni](https://share.gemini.google/voGnQi9eBGBD) - Helped me format the Regex for R after using Regex101 to create the pattern
