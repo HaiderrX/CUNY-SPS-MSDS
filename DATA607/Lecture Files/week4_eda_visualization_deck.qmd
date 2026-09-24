@@ -1,0 +1,610 @@
+---
+title: "Week 4: Exploratory Data Analysis and Visualization"
+subtitle: "FiveThirtyEight bad-drivers data"
+author: "DW"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    transition: fade
+    include-after-body: week4_codefold.html
+
+  
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{=html}
+<style>
+.reveal .slides section.table-slide table {
+  font-size: 0.65em;
+  width: 100%;
+}
+
+.reveal .slides section.dense-table table {
+  font-size: 0.54em;
+}
+</style>
+```
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(skimr)
+library(janitor)
+library(naniar)
+library(GGally)
+library(ggridges)
+library(ggrepel)
+library(patchwork)
+```
+
+## Week 4
+
+Exploratory Data Analysis and Visualization
+
+Tidyverse and useful EDA libraries
+
+## Agenda
+
+-   Intro: CUNY Data Science first Data Science seminar
+-   Due this week
+-   Due next week
+-   Data science in context
+-   EDA with the tidyverse and skimr
+-   Visualizing patterns, unusual values, and relationships
+-   Missing values and next steps
+
+## Due this week {.table-slide}
+
+| Day      | Item                           |
+|----------|--------------------------------|
+| Tuesday  | Meetup, 8:00 p.m. ET           |
+| Thursday | Project 1 Approach due         |
+| Sunday   | Scenario Design Quiz due       |
+| Sunday   | Scenario Design Discussion due |
+| Sunday   | Project 1 Code Base due        |
+| Monday   | Project 1 Video Explainer due  |
+
+## Due next week {.table-slide}
+
+| Day       | Item                                 |
+|-----------|--------------------------------------|
+| Thursday  | 5A Airline Delays: Approach          |
+| Thursday  | 5B ELO Calculations: Approach        |
+| Sunday    | Discussion 5A: Untidy Dataset        |
+| Sunday    | Discussion/Quiz 5B: AI Nightmare     |
+| Sunday    | 5A Airline Delays: Code Base         |
+| Sunday    | 5B ELO Calculations: Code Base       |
+| Monday    | 5A Airline Delays: Video Explainer   |
+| Monday    | 5B ELO Calculations: Video Explainer |
+| Next Week | PROJECT 2 DUE                        |
+
+## CUNY Data Science seminar
+
+Tuesday, 8:00 p.m. ET
+
+![](DSFALL.png){fig-alt="CUNY Data Science Fall seminar announcement" width="56%"}
+
+## Today's data
+
+FiveThirtyEight's `bad-drivers.csv` contains one row for each state and the District of Columbia.
+
+It includes fatal-collision rates, shares involving speeding and alcohol impairment, plus insurance premiums and losses.
+
+Source: <https://github.com/fivethirtyeight/data/tree/master/bad-drivers>
+
+## The EDA mindset
+
+Exploratory data analysis helps us learn what is in a data set before we model it.
+
+-   What does each row represent?
+-   Which variables need cleaning?
+-   Are values missing, unusual, or implausible?
+-   Which comparisons deserve a closer look?
+
+## Cleaning and renaming columns
+
+`clean_names()` first converts the original labels to lowercase snake case. `rename()` then gives the measures short, readable names we can use throughout the lesson.
+
+```{r}
+#| label: clean-drivers
+#| output: false
+drivers <- read_csv("https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/bad-drivers/bad-drivers.csv", show_col_types = FALSE) |>
+  clean_names() |>
+  rename(
+    fatal_collisions = number_of_drivers_involved_in_fatal_collisions_per_billion_miles,
+    speeding = percentage_of_drivers_involved_in_fatal_collisions_who_were_speeding,
+    alcohol_impaired = percentage_of_drivers_involved_in_fatal_collisions_who_were_alcohol_impaired,
+    not_distracted = percentage_of_drivers_involved_in_fatal_collisions_who_were_not_distracted,
+    no_previous_accidents = percentage_of_drivers_involved_in_fatal_collisions_who_had_not_been_involved_in_any_previous_accidents,
+    premium = car_insurance_premiums,
+    losses = losses_incurred_by_insurance_companies_for_collisions_per_insured_driver
+  )
+```
+
+## Result: the cleaned data
+
+`glimpse()` shows the result of the full import, cleaning, and renaming pipeline: 51 rows and eight readable variables.
+
+```{r}
+#| label: glimpse-drivers
+drivers |> glimpse()
+```
+
+## A readable data dictionary {.table-slide}
+
+| Variable           | Meaning                                                |
+|---------------------|---------------------------------------------------|
+| `fatal_collisions` | Drivers involved in fatal collisions per billion miles |
+| `speeding`         | Percent of those drivers who were speeding             |
+| `alcohol_impaired` | Percent of those drivers who were alcohol-impaired     |
+| `premium`          | Average car-insurance premium in dollars               |
+| `losses`           | Insurer losses per insured driver in dollars           |
+
+## A compact EDA report with `skimr`
+
+`skim()` reports missing values, ranges, and distribution summaries. It is often the fastest first EDA step.
+
+```{r}
+#| label: skim-drivers
+drivers |> skim()
+```
+
+## Numeric summaries
+
+`summarise()` collapses many rows into a few summary values.
+
+```{r}
+#| label: collision-rate-summary
+drivers |>
+  summarise(
+    states = n(),
+    mean_collision_rate = mean(fatal_collisions),
+    median_collision_rate = median(fatal_collisions),
+    min_collision_rate = min(fatal_collisions),
+    max_collision_rate = max(fatal_collisions)
+  )
+```
+
+## Ordering states
+
+`arrange(desc(...))` sorts from largest to smallest. Use it to inspect extremes, not to draw a causal conclusion.
+
+```{r}
+#| label: largest-collision-rates
+drivers |>
+  select(state, fatal_collisions) |>
+  arrange(desc(fatal_collisions)) |>
+  slice_head(n = 8)
+```
+
+## Collision-rate distribution
+
+The histogram counts states in rate ranges. The density plot shows the same distribution as a smooth curve. `patchwork` places the two plots side by side.
+
+```{r}
+#| label: build-distribution-plots
+#| output: false
+plot_histogram <- drivers |>
+  ggplot(aes(x = fatal_collisions)) +
+  geom_histogram(binwidth = 2, boundary = 0, fill = "navy", color = "white") +
+  labs(
+    title = "Histogram",
+    x = "Fatal-collision rate\nper billion miles",
+    y = "Number of states"
+  ) +
+  theme_minimal(base_size = 16)
+
+plot_density <- drivers |>
+  ggplot(aes(x = fatal_collisions)) +
+  geom_density(fill = "navy", color = "navy", alpha = 0.7) +
+  labs(
+    title = "Density plot",
+    x = "Fatal-collision rate\nper billion miles",
+    y = "Density"
+  ) +
+  theme_minimal(base_size = 16)
+
+plot_collision_distribution <- plot_histogram + plot_density +
+  plot_layout(ncol = 2)
+```
+
+## Collision-rate distribution: rendered plot
+
+```{r}
+#| label: show-distribution-plots
+#| echo: false
+plot_collision_distribution
+```
+
+## Comparing all states
+
+```{r}
+#| label: build-state-comparison
+#| output: false
+plot_state_comparison <- drivers |>
+  ggplot(aes(x = reorder(state, fatal_collisions), y = fatal_collisions)) +
+  geom_col(fill = "navy") +
+  coord_flip() +
+  labs(
+    title = "Fatal-collision rates by state",
+    x = NULL,
+    y = "Drivers involved in fatal collisions per billion miles"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+## Comparing all states: rendered plot
+
+```{r}
+#| label: show-state-comparison
+#| echo: false
+plot_state_comparison
+```
+
+## A relationship to explore
+
+Does the share of drivers who were speeding rise with the fatal-collision rate?
+
+```{r}
+#| label: build-speeding-relationship
+#| output: false
+plot_speeding_collision <- drivers |>
+  ggplot(aes(x = speeding, y = fatal_collisions)) +
+  geom_point(size = 2.5, alpha = 0.75, color = "navy") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(
+    title = "Speeding and fatal-collision rates",
+    x = "Drivers involved in fatal collisions who were speeding (%)",
+    y = "Fatal collisions per billion miles"
+  ) +
+  theme_minimal(base_size = 16)
+```
+
+## Speeding and fatal-collision rates: rendered plot
+
+```{r}
+#| label: show-speeding-relationship
+#| echo: false
+plot_speeding_collision
+```
+
+## Label unusual observations
+
+Labels can make a plot easier to discuss. Here, `geom_label_repel()` labels only the three states with the largest collision rates and prevents overlapping labels.
+
+```{r}
+#| label: build-labeled-states
+#| output: false
+median_speeding <- median(drivers$speeding)
+
+plot_labeled_states <- drivers |>
+  ggplot(aes(x = speeding, y = fatal_collisions)) +
+  geom_point(size = 2.5, color = "navy") +
+  geom_vline(
+    xintercept = median_speeding,
+    linetype = "dotted",
+    color = "red"
+  ) +
+  annotate(
+    "label",
+    x = median_speeding + 1,
+    y = 7,
+    label = paste("Median speeding =", median_speeding, "%"),
+    fill = "white",
+    color = "red",
+    hjust = 0
+  ) +
+  geom_label_repel(
+    data = drivers |> filter(fatal_collisions >= 23),
+    aes(label = state),
+    fill = "white",
+    seed = 607
+  ) +
+  labs(
+    title = "States with the highest fatal-collision rates",
+    x = "Speeding (%)",
+    y = "Fatal collisions per billion miles"
+  ) +
+  theme_minimal(base_size = 16)
+```
+
+## Labeled observations: rendered plot
+
+```{r}
+#| label: show-labeled-states
+#| echo: false
+plot_labeled_states
+```
+
+## Alcohol impairment and collision rates
+
+```{r}
+#| label: build-alcohol-relationship
+#| output: false
+plot_alcohol_collision <- drivers |>
+  ggplot(aes(x = alcohol_impaired, y = fatal_collisions)) +
+  geom_point(size = 2.5, alpha = 0.75, color = "navy") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(
+    title = "Alcohol impairment and fatal-collision rates",
+    x = "Drivers involved in fatal collisions who were alcohol-impaired (%)",
+    y = "Fatal collisions per billion miles"
+  ) +
+  theme_minimal(base_size = 16)
+```
+
+## Alcohol impairment and collision rates: rendered plot
+
+```{r}
+#| label: show-alcohol-relationship
+#| echo: false
+plot_alcohol_collision
+```
+
+## Insurance premiums and losses
+
+```{r}
+#| label: build-premium-losses
+#| output: false
+plot_premium_losses <- drivers |>
+  ggplot(aes(x = premium, y = losses)) +
+  geom_point(size = 2.5, alpha = 0.75, color = "navy") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  scale_x_continuous(labels = scales::dollar) +
+  scale_y_continuous(labels = scales::dollar) +
+  labs(
+    title = "Insurance premiums and insurer losses",
+    x = "Average car-insurance premium",
+    y = "Insurer losses per insured driver"
+  ) +
+  theme_minimal(base_size = 16)
+```
+
+## Insurance premiums and losses: rendered plot
+
+```{r}
+#| label: show-premium-losses
+#| echo: false
+plot_premium_losses
+```
+
+## Stitching relationship plots with GGally
+
+`GGally::ggpairs()` stitches scatterplots, distributions, and correlations into one grid. Use it to screen several relationships, then make one focused chart for your audience.
+
+```{r}
+#| label: build-ggally-grid
+#| fig-width: 10
+#| fig-height: 7
+#| output: false
+plot_relationship_grid <- drivers |>
+  select(fatal_collisions, speeding, alcohol_impaired, premium, losses) |>
+  ggpairs(
+    lower = list(continuous = wrap("points", color = "navy")),
+    diag = list(continuous = wrap("densityDiag", fill = "navy", color = "navy"))
+  )
+```
+
+## GGally relationship grid: rendered plot
+
+```{r}
+#| label: show-ggally-grid
+#| echo: false
+#| fig-width: 10
+#| fig-height: 7
+plot_relationship_grid
+```
+
+## Ridge plots with ggridges
+
+Ridge plots compare the distribution of one numeric measure across groups. Here, each ridge shows fatal-collision rates for a broad U.S. region.
+
+```{r}
+#| label: build-ridge-plot
+#| output: false
+region_lookup <- tibble(
+  state = c(state.name, "District of Columbia"),
+  region = c(as.character(state.region), "South")
+)
+
+plot_ridges <- drivers |>
+  left_join(region_lookup, by = "state") |>
+  ggplot(aes(x = fatal_collisions, y = region)) +
+  geom_density_ridges(fill = "navy", color = "navy", alpha = 0.7) +
+  labs(
+    title = "Fatal-collision rates by broad U.S. region",
+    x = "Drivers involved in fatal collisions per billion miles",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 16)
+```
+
+## Ridge plots: rendered plot
+
+```{r}
+#| label: show-ridge-plot
+#| echo: false
+plot_ridges
+```
+
+## Correlation is a summary, not an explanation
+
+```{r}
+#| label: correlation-matrix
+drivers |>
+  select(-state) |>
+  cor() |>
+  round(2)
+```
+
+A correlation describes how two numeric variables move together in this data set. It does not establish why they move together.
+
+## Correlation heat map
+
+A heat map uses color to show the direction and strength of correlations. `GGally::ggcorr()` draws the plot directly from a correlation matrix. We keep only one triangular half, since every correlation otherwise appears twice.
+
+```{r}
+#| label: build-correlation-heatmap
+#| output: false
+correlation_matrix <- drivers |>
+  select(-state) |>
+  cor()
+
+correlation_matrix[upper.tri(correlation_matrix, diag = TRUE)] <- NA
+
+plot_correlation_heatmap <- GGally::ggcorr(
+  data = drivers |> select(-state),
+  cor_matrix = correlation_matrix,
+  low = "red",
+  mid = "white",
+  high = "navy",
+  label = TRUE,
+  label_round = 2,
+  label_size = 3
+  )
+```
+
+## Correlation heat map: rendered plot
+
+```{r}
+#| label: show-correlation-heatmap
+#| echo: false
+#| fig-width: 10
+#| fig-height: 8
+plot_correlation_heatmap
+```
+
+## Outliers in data science
+
+An outlier is an observation that falls unusually far from the other observations in a variable.
+
+-   An outlier is not automatically an error.
+-   It can reflect a data-entry issue, an unusual case, or a real pattern worth investigating.
+-   Before removing or changing one, check the data source and consider how it affects the question you are studying.
+
+## Faceted boxplots for possible outliers
+
+`pivot_longer()` places selected numeric variables into one column. `facet_wrap()` creates a separate small panel, called a facet, for each variable.
+
+-   Each facet contains one boxplot.
+-   The dark points beyond the whiskers are possible outliers to investigate.
+-   `scales = "free_y"` lets each panel use a readable y-axis even though the variables have different units.
+
+```{r}
+#| label: build-faceted-outliers
+#| output: false
+plot_numeric_outliers <- drivers |>
+  select(-state, -not_distracted) |>
+  pivot_longer(
+    cols = everything(),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  mutate(measure = str_replace_all(measure, "_", " ")) |>
+  ggplot(aes(y = value)) +
+  geom_boxplot(fill = "navy") +
+  facet_wrap(~ measure, , ncol = 4) +
+  labs(
+    title = "Boxplots of selected numeric variables",
+    x = NULL,
+    y = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+```
+
+## Numeric variables: rendered boxplots
+
+```{r}
+#| label: show-faceted-outliers
+#| echo: false
+#| fig-width: 12
+#| fig-height: 8
+plot_numeric_outliers
+```
+
+## EDA workflow
+
+1.  Identify the unit of observation and the question.
+2.  Inspect names, types, and missingness.
+3.  Summarize variables and inspect extremes.
+4.  Visualize distributions and relationships.
+5.  Record data-quality questions before modeling.
+
+## Practice
+
+Using `drivers`, create a plot that answers one question you care about.
+
+-   Choose two numeric variables.
+-   Make a scatterplot with clear axis labels.
+-   Add a trend line only if it helps your question.
+-   Write one sentence that distinguishes an observed pattern from a causal claim.
+
+## Missing values in EDA
+
+Missing values can change summaries, plots, and models. Explore them before choosing an imputation method.
+
+## Load data with missing values
+
+`airquality` is built into R. It records daily New York air-quality measures and already contains missing values in `Ozone` and `Solar.R`.
+
+```{r}
+#| label: load-airquality-data
+#| output: false
+airquality_data <- airquality |>
+  as_tibble()
+```
+
+## Count missing values
+
+```{r}
+#| label: summarize-airquality-missingness
+airquality_data |>
+  miss_var_summary()
+```
+
+## Visualize missing values
+
+`naniar::vis_miss()` displays observed and missing cells. Dark cells mark missing values.
+
+```{r}
+#| label: build-airquality-missingness-plot
+#| output: false
+plot_missingness <- airquality_data |>
+  select(Ozone, Solar.R, Wind, Temp) |>
+  vis_miss()
+```
+
+## Missing values: rendered plot
+
+```{r}
+#| label: show-airquality-missingness-plot
+#| echo: false
+plot_missingness
+```
+
+## Common imputation techniques {.table-slide .dense-table}
+
+| Technique | R function or package | Useful when | Main caution |
+|------------------|------------------|------------------|------------------|
+| Remove incomplete rows | `drop_na()` | Only a small amount is missing | Can discard useful data or introduce bias |
+| Mean or median replacement | `replace_na()` | A simple numeric baseline is needed | Makes the data look less variable than it is |
+| Mode or `"Unknown"` category | `replace_na()` | A categorical value is missing | Can distort category proportions |
+| Forward or backward fill | `tidyr::fill()` | Rows have a meaningful order, such as time | Do not use for unrelated observations |
+| k-nearest-neighbors imputation | `VIM::kNN()` | Similar observations can help estimate a value | Results depend on scaling and the distance rule |
+| Multiple imputation | `mice()` and `complete()` | An analysis needs uncertainty from missingness reflected | Requires careful assumptions and diagnostics |
+
+## EDA toolkit recap
+
+-   **Tidyverse:** import, clean, reshape, and summarize data with `readr`, `dplyr`, and `tidyr`.
+-   **Data quality:** use `skimr` for quick profiles and `naniar` to explore missing values.
+-   **`ggplot2`:** make rich visualizations - distributions, bar charts, scatterplots, boxplots, facets, and trend lines.`ggrepel` makes labels readable.
+-   **Visualization extensions:** `patchwork` combines plots; `GGally` explores pairs and correlations; `ggridges` compares group densities;

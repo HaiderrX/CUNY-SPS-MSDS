@@ -1,0 +1,763 @@
+---
+title: "DATA 607: Week 3"
+subtitle: "Recommender Systems, Window Functions, and Character Data"
+author: "Darwhin Gomez"
+format:
+  html:
+    output-file: week3_character_strings_page.html
+    toc: true
+    code-fold: true
+
+editor: visual
+execute:
+  echo: true
+---
+
+## DATA 607
+
+### Week 3: Character Data and String Manipulation
+
+::: notes
+Tonight we will work with text as data. Our examples use Jane Austen novels, but the same tools work for names, survey responses, addresses, product titles, and log files.
+:::
+
+## Tonight's agenda
+
+-   Due this week and next week
+-   Global baseline estimates for recommenders
+-   Window functions in SQL
+-   Why character data needs cleaning
+-   Working with strings in R
+-   `janeaustenr` examples
+-   A first look at regular expressions
+-   Practice and next steps
+
+## Due this week
+
++---------------+----------------------------------------------------------+
+| Thursday      | Assignment 3A Global Baseline Estimate: Approach \|      |
++---------------+----------------------------------------------------------+
+| Thursday      | Assignment 3B Window Functions: Approach                 |
++---------------+----------------------------------------------------------+
+| Sunday        | Quiz: Data Centric AI                                    |
++---------------+----------------------------------------------------------+
+| Sunday        | Discussion: Data Centric AI                              |
++---------------+----------------------------------------------------------+
+| Sunday        | Assignment 3A Global Baseline Estimate: Code Base        |
++---------------+----------------------------------------------------------+
+| Sunday        | Assignment 3B Window Functions: Code Base                |
++---------------+----------------------------------------------------------+
+| Monday        | Assignment 3A Global Baseline Estimate: Video Explainer  |
++---------------+----------------------------------------------------------+
+| Monday        | Assignment 3B Global Baseline Estimate: Video Explainer\ |
++---------------+----------------------------------------------------------+
+
+## Due next week
+
+-   Thursday: Project 1 approach
+-   Sunday: Project 1 code base
+-   Sunday: Scenario Design quiz and discussion
+-   Monday: Project 1 video explainer
+
+## Global baseline estimates
+
+A recommender system estimates how a user might rate an item they have not yet rated.
+
+The simplest useful prediction starts with a baseline:
+
+-   the typical rating across the whole dataset
+-   how a particular critic tends to rate
+-   how a particular item tends to be rated
+
+## The bias-based formula
+
+$$
+\widehat{r}_{ui} = \mu + b_u + b_i
+$$
+
+| Term  | Meaning                                                      |
+|-------|--------------------------------------------------------------|
+| $\mu$ | Global mean rating                                           |
+| $b_u$ | User bias: this user rates above or below average            |
+| $b_i$ | Item bias: this item receives above or below average ratings |
+
+The hat means "predicted," not an observed rating.
+
+## Critic-movie ratings data {.smaller}
+
+Your ratings matrix has one row per critic and one column per movie. Blank cells mean a rating was not observed; the question mark is the rating we want to predict.
+
+```{r}
+# Load dplyr and tidyr functions for this example.
+library(tidyverse)
+
+ratings_wide <- tribble(
+  ~critic, ~CaptainAmerica, ~Deadpool, ~Frozen, ~JungleBook, ~PitchPerfect2, ~StarWarsForce,
+  "Burton", NA, NA, NA, 4, NA, 4,
+  "Charley", 4, 5, 4, 3, 2, 3,
+  "Dan", NA, 5, NA, NA, NA, 5,
+  "Dieudonne", 5, 4, NA, NA, NA, 5,
+  "Matt", 4, NA, 2, NA, 2, 5,
+  "Mauricio", 4, NA, 3, 3, 4, NA,
+  "Max", 4, 4, 4, 2, 2, 4,
+  "Nathan", NA, NA, NA, NA, NA, 4,
+  "Param", 4, 4, 1, NA, NA, 5,
+  "Parshu", 4, 3, 5, 5, 2, 3,
+  "Prashanth", 5, 5, 5, 5, NA, 4,
+  "Shipra", NA, NA, 4, 5, NA, 3,
+  "Sreejaya", 5, 5, 5, 4, 4, 5,
+  "Steve", 4, NA, NA, NA, NA, 4,
+  "Vuthy", 4, 5, 3, 3, 3, NA,
+  "Xingjia", NA, NA, 5, 5, NA, NA
+)
+ratings_wide
+
+ratings <- ratings_wide |>
+  pivot_longer(-critic, names_to = "movie", values_to = "rating") |>
+  drop_na(rating)
+
+ratings
+```
+
+`pivot_longer()` changes the ratings matrix into one row per observed critic-movie rating.
+
+## Step 1: global mean
+
+```{r}
+global_mean <- mean(ratings$rating)
+global_mean
+```
+
+If we know nothing else, this is our prediction for every user-movie pair.
+
+## Step 2a: critic bias
+
+A critic bias measures whether that critic usually rates above or below the global mean.
+
+```{r}
+critic_bias <- ratings |>
+  group_by(critic) |>
+  summarize(b_u = mean(rating) - global_mean)
+
+critic_bias
+```
+
+A positive value means the critic tends to give higher ratings than the typical rating.
+
+## Step 2b: movie bias
+
+A movie bias measures whether a movie usually receives ratings above or below the global mean.
+
+```{r}
+movie_bias <- ratings |>
+  group_by(movie) |>
+  summarize(b_i = mean(rating) - global_mean)
+
+movie_bias
+```
+
+A negative value means the movie tends to receive lower ratings than the typical rating.
+
+## Predict Param's `PitchPerfect2` rating
+
+Do the arithmetic by hand before writing any code.
+
++-----------------------------+------------------------------+---------------+
+| Quantity                    | Calculation                  | Rounded value |
++=============================+==============================+==============:+
+| Global mean, $\mu$          | mean of all observed ratings | 3.93          |
++-----------------------------+------------------------------+---------------+
+| Param bias, $b_u$           | $3.50 - 3.93$                | -0.43         |
++-----------------------------+------------------------------+---------------+
+| `PitchPerfect2` bias, $b_i$ | $2.71 - 3.93$                | -1.22         |
++-----------------------------+------------------------------+---------------+
+
+**Prediction:** `3.93 + (-0.43) + (-1.22) = 2.28`
+
+Your task is to create the tibble of biases and implement this arithmetic. Then score every movie Param has not rated and recommend the highest predicted rating.
+
+## Recommend a movie for Param
+
+First, identify movies Param has not rated. Then calculate the baseline prediction for every candidate and sort from highest to lowest.
+
+```{r}
+param_seen <- ratings |>
+  filter(critic == "Param") |>
+  distinct(movie)
+param_seen
+
+candidate_predictions <- ratings |>
+  distinct(movie) |>
+  anti_join(param_seen, by = "movie") |>
+  mutate(critic = "Param") |>
+  left_join(critic_bias, by = "critic") |>
+  left_join(movie_bias, by = "movie") |>
+  mutate(predicted_rating = global_mean + b_u + b_i) |>
+  arrange(desc(predicted_rating))
+
+candidate_predictions
+```
+
+Recommend the first row: `JungleBook`. It has the highest global-baseline prediction among the movies Param has not rated.
+
+## When is a global baseline useful?
+
+**Useful for**
+
+-   a transparent first model
+-   sparse data or cold-start comparisons
+-   checking a more complex recommender
+
+**Not enough for**
+
+-   user-item interactions
+-   content similarity
+-   changing preferences over time
+
+## Window functions: PostgreSQL to R
+
+We will work with the `afc_east` table in the `NFL607` PostgreSQL database.
+
+1.  Connect to PostgreSQL from R.
+2.  Import the table into `afc_east_df`.
+3.  Send SQL window-function queries to PostgreSQL.
+4.  Bring each query result back to R as a tibble.
+
+The rendered examples use the local NFL607 database so you can inspect each returned result.
+
+## Connect to the NFL607 database
+
+```{r}
+#| eval: true
+# Install once if needed:
+# install.packages(c("DBI", "RPostgres"))
+
+library(DBI)
+library(RPostgres)
+library(tidyverse)
+
+pg_pw <- Sys.getenv("NFL607_DB_PASSWORD")
+if (!nzchar(pg_pw)) stop("Set NFL607_DB_PASSWORD in .Renviron before rendering.")
+
+con <- dbConnect(
+  RPostgres::Postgres(),
+  dbname = "NFL607",
+  host = "localhost",
+  port = 5432,
+  user = "postgres",
+  password = pg_pw
+)
+```
+
+Store the password in an environment variable. Do not put a real password in a Quarto file or Git repository.
+
+## Import the SQL table into an R data frame
+
+```{r}
+#| eval: true
+afc_east_df <- dbReadTable(con, "afc_east") |>
+  as_tibble() |>
+  mutate(game_date = as.Date(game_date))
+
+head(afc_east_df)
+```
+
+`afc_east_df` is now an R tibble. The PostgreSQL table remains unchanged in the database.
+
+## Window functions keep every game row
+
+`GROUP BY` reduces many game rows to one row per team. A window function adds a calculation while preserving every game row.
+
+``` sql
+AVG(home_points) OVER (PARTITION BY home_team)
+```
+
+Read the query result directly into a tibble with `dbGetQuery()`.
+
+## Overall average and differential
+
+```{r}
+#| eval: true
+overall_scores_df <- dbGetQuery(con, "
+  SELECT home_team,
+         game_date,
+         home_points,
+         ROUND(AVG(home_points) OVER (), 1) AS home_avg,
+         ROUND(home_points - AVG(home_points) OVER (), 1) AS home_differential
+  FROM afc_east
+  ORDER BY home_team, game_date
+") |>
+  as_tibble()
+
+overall_scores_df
+```
+
+`OVER ()` means every row belongs to one window: the full result set.
+
+## Average by home team
+
+```{r}
+#| eval: true
+team_average_df <- dbGetQuery(con, "
+  SELECT home_team,
+         game_date,
+         home_points,
+         ROUND(AVG(home_points) OVER (PARTITION BY home_team), 1) AS home_team_avg
+  FROM afc_east
+  ORDER BY home_team, game_date
+") |>
+  as_tibble()
+
+team_average_df
+```
+
+`PARTITION BY home_team` restarts the calculation for each team.
+
+## Rank scores within each team
+
+```{r}
+#| eval: true
+ranked_games_df <- dbGetQuery(con, "
+  SELECT home_team,
+         game_date,
+         home_points,
+         RANK() OVER (
+           PARTITION BY home_team
+           ORDER BY home_points DESC
+         ) AS home_rank
+  FROM afc_east
+  ORDER BY home_team, home_rank
+") |>
+  as_tibble()
+
+ranked_games_df
+```
+
+The highest home score for each team receives rank 1.
+
+## Running total by team
+
+```{r}
+#| eval: true
+running_scores_df <- dbGetQuery(con, "
+  SELECT home_team,
+         game_date,
+         home_points,
+         SUM(home_points) OVER (
+           PARTITION BY home_team
+           ORDER BY game_date
+           ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+         ) AS cumulative_home_points
+  FROM afc_east
+  ORDER BY home_team, game_date
+") |>
+  as_tibble()
+
+running_scores_df
+```
+
+The window starts with each team's first game and ends at the current game row.
+
+## The R equivalent after import
+
+After `afc_east_df` is in R, `dplyr` can perform a similar running-total calculation.
+
+```{r}
+#| eval: true
+afc_east_df |>
+  arrange(home_team, game_date) |>
+  group_by(home_team) |>
+  mutate(cumulative_home_points = cumsum(home_points)) |>
+  ungroup()
+```
+
+The SQL version calculates in PostgreSQL. The R version calculates after the table has been imported.
+
+## PostgreSQL window functions mapped to dplyr
+
+A PostgreSQL window function is usually a `dplyr` `mutate()` after the data has been grouped and ordered. Both approaches add a value to every original row.
+
++-----------------------------+----------------------+----------------------------------------+----------------------------------------------------------+
+| PostgreSQL idea             | PostgreSQL pattern   | `dplyr` counterpart                    | What it does                                             |
++=============================+======================+========================================+==========================================================+
+| All rows in one window      | `AVG(x) OVER ()`     | `mutate(avg_x = mean(x))`              | Repeats one overall value on every row.                  |
++-----------------------------+----------------------+----------------------------------------+----------------------------------------------------------+
+| A window for each group     | `PARTITION BY team`  | `group_by(team)`                       | Restarts a calculation for each team.                    |
++-----------------------------+----------------------+----------------------------------------+----------------------------------------------------------+
+| Order inside a window       | `ORDER BY game_date` | `arrange(game_date, .by_group = TRUE)` | Sets the order used by ranks, lags, and running totals.  |
++-----------------------------+----------------------+----------------------------------------+----------------------------------------------------------+
+| Keep every original row     | `... OVER (...)`     | `mutate(...)`                          | Adds a calculated column without reducing rows.          |
++-----------------------------+----------------------+----------------------------------------+----------------------------------------------------------+
+| Reduce to one row per group | `GROUP BY team`      | `group_by(team) |> summarise(...)`     | Produces a summary table instead of a row-by-row result. |
++-----------------------------+----------------------+----------------------------------------+----------------------------------------------------------+
+
+## Aggregate functions: PostgreSQL to dplyr
+
++-------------------------------------------+-------------------------------------------------+------------------------------+
+| PostgreSQL                                | `dplyr` inside `mutate()`                       | `dplyr` inside `summarise()` |
++===========================================+=================================================+==============================+
+| `AVG(x) OVER (...)`                       | `mean(x, na.rm = TRUE)`                         | `mean(x, na.rm = TRUE)`      |
++-------------------------------------------+-------------------------------------------------+------------------------------+
+| `SUM(x) OVER (...)`                       | `sum(x, na.rm = TRUE)`                          | `sum(x, na.rm = TRUE)`       |
++-------------------------------------------+-------------------------------------------------+------------------------------+
+| `MIN(x) OVER (...)` / `MAX(x) OVER (...)` | `min(x, na.rm = TRUE)` / `max(x, na.rm = TRUE)` | Same functions               |
++-------------------------------------------+-------------------------------------------------+------------------------------+
+| `COUNT(*) OVER (...)`                     | `n()`                                           | `n()`                        |
++-------------------------------------------+-------------------------------------------------+------------------------------+
+
+Use these functions inside `mutate()` when you want to keep each game row. Use them inside `summarise()` when you want one result per group.
+
+## Ranks, offsets, and running totals: PostgreSQL to dplyr
+
++----------------------------------------------------------------------+---------------------------------+-----------------------------------------------------------------+
+| PostgreSQL                                                           | `dplyr` counterpart             | Meaning                                                         |
++======================================================================+=================================+=================================================================+
+| `RANK() OVER (ORDER BY x DESC)`                                      | `min_rank(desc(x))`             | Equal values share a rank, and later ranks have gaps.           |
++----------------------------------------------------------------------+---------------------------------+-----------------------------------------------------------------+
+| `DENSE_RANK() OVER (ORDER BY x DESC)`                                | `dense_rank(desc(x))`           | Equal values share a rank, with no gaps afterward.              |
++----------------------------------------------------------------------+---------------------------------+-----------------------------------------------------------------+
+| `ROW_NUMBER() OVER (ORDER BY x DESC)`                                | `row_number(desc(x))`           | Gives every row a unique position, including tied values.       |
++----------------------------------------------------------------------+---------------------------------+-----------------------------------------------------------------+
+| `LAG(x) OVER (ORDER BY date)`                                        | `lag(x)` after `arrange(date)`  | Reads the previous row's value.                                 |
++----------------------------------------------------------------------+---------------------------------+-----------------------------------------------------------------+
+| `LEAD(x) OVER (ORDER BY date)`                                       | `lead(x)` after `arrange(date)` | Reads the next row's value.                                     |
++----------------------------------------------------------------------+---------------------------------+-----------------------------------------------------------------+
+| `SUM(x) OVER (... ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)` | `cumsum(x)` after `arrange()`   | Adds values from the first ordered row through the current row. |
++----------------------------------------------------------------------+---------------------------------+-----------------------------------------------------------------+
+
+## One dplyr pipeline that matches the SQL examples
+
+```{r}
+#| eval: true
+window_map_df <- afc_east_df |>
+  group_by(home_team) |>
+  arrange(game_date, .by_group = TRUE) |>
+  mutate(
+    home_team_avg = mean(home_points, na.rm = TRUE),
+    home_rank = min_rank(desc(home_points)),
+    prior_home_points = lag(home_points),
+    next_home_points = lead(home_points),
+    cumulative_home_points = cumsum(home_points)
+  ) |>
+  ungroup()
+
+window_map_df
+```
+
+Read this pipeline from top to bottom: `group_by()` matches `PARTITION BY`; `arrange()` matches `ORDER BY`; and `mutate()` matches the `OVER (...)` calculation that keeps each game row.
+
+## When SQL and dplyr differ
+
+Use PostgreSQL when the data is stored in the database and you want the database to do the work. Use `dplyr` after importing data when you need to continue analyzing it in R. In both tools, choose `mutate()`/`OVER()` to keep rows and `summarise()`/`GROUP BY` to collapse rows.
+
+## Close the database connection
+
+```{r}
+#| eval: true
+dbDisconnect(con)
+```
+
+Close the connection when you are done querying the database.
+
+## Window-function checklist
+
+Before writing the query, state in words:
+
+1.  What does one row represent?
+
+2.  Which rows should be compared together?
+
+3.  What order matters?
+
+4.  Should the output preserve every original row?
+
+    For example: "For each team, ordered by game date, calculate home points scored to date." \## Why character data matters
+
+## Text is everywhere in data work:
+
+-   names, emails, and addresses
+-   survey comments and reviews
+-   categories imported from files
+-   dates stored as text
+-   IDs such as `NY-2026-0142`
+
+## Before analysis, text often needs to be standardized, searched, split, or combined.
+
+## Learning goals
+
+By the end of this session, you should be able to:
+
+-   recognize a character vector in R
+-   clean inconsistent capitalization and whitespace
+-   find text with `str_detect()`
+-   extract or replace part of a string
+-   use simple regular expressions to describe a pattern
+
+## Packages for tonight
+
+```{r}
+# Install once if needed:
+# install.packages(c("tidyverse", "janeaustenr"))
+
+library(tidyverse)
+library(janeaustenr)
+```
+
+`stringr` is included when you load the tidyverse.
+
+## What is a string?
+
+A **string** is text inside quotation marks.
+
+```{r}
+movie <- "Pride and Prejudice"
+year <- "1813"
+rating <- "4.5"
+```
+
+All three objects are character strings, even when their contents look like a number.
+
+## Character vectors
+
+A character vector stores multiple strings.
+
+```{r}
+characters <- c("Elizabeth", "Darcy", "Jane", "Bingley")
+characters
+
+class(characters)
+length(characters)
+```
+
+Each position is one string; the whole object is one vector.
+
+## Load a novel as data
+
+`janeaustenr` provides complete Austen novels as character vectors.
+
+```{r}
+pride <- prideprejudice
+
+length(pride)
+head(pride, 8)
+```
+
+Each element of `pride` is one line from *Pride and Prejudice*.
+
+## Make a small tibble
+
+Tibbles work especially well with `dplyr` and `stringr`.
+
+```{r}
+pride_tbl <- tibble(
+  line_number = seq_along(pride),
+  text = pride
+)
+
+pride_tbl |> slice(1:6)
+```
+
+## Count characters
+
+`str_length()` counts the characters in each string.
+
+```{r}
+str_length(c("Darcy", "Elizabeth", "Mr. Bingley"))
+
+pride_tbl |>
+  mutate(characters = str_length(text)) |>
+  arrange(desc(characters)) |>
+  slice(1:3)
+```
+
+## Change capitalization
+
+Use a predictable case before matching names or categories.
+
+```{r}
+names <- c("ELIZABETH", "mr. darcy", "JaNe")
+
+str_to_lower(names)
+str_to_upper(names)
+str_to_title(names)
+```
+
+Do not change case if capitalization carries meaning in your data.
+
+## Remove extra whitespace
+
+Whitespace can make identical-looking values fail to match.
+
+```{r}
+messy_names <- c("  Elizabeth", "Darcy  ", "  Jane  Bennet  ")
+
+str_trim(messy_names)      # remove edges
+str_squish(messy_names)    # remove edges and repeat spaces
+```
+
+## Replace text
+
+`str_replace()` changes the first match. `str_replace_all()` changes every match.
+
+```{r}
+line <- "Mr. Darcy spoke to Mr. Bingley."
+
+str_replace(line, "Mr\\.", "Mister")
+str_replace_all(line, "Mr\\.", "Mister")
+```
+
+The double backslash tells R to send a literal backslash to the pattern engine.
+
+## Combine strings
+
+`str_c()` joins strings together.
+
+```{r}
+first <- c("Elizabeth", "Fitzwilliam")
+last  <- c("Bennet", "Darcy")
+
+str_c(first, last, sep = " ")
+str_c("Chapter ", 1:3)
+```
+
+`sep` is placed between pieces. `collapse` joins a whole vector into one string.
+
+## Find a word
+
+`str_detect()` returns `TRUE` or `FALSE` for each string.
+
+```{r}
+str_detect(
+  c("Elizabeth smiled.", "Darcy was silent.", "Jane arrived."),
+  "Elizabeth"
+)
+```
+
+This is useful because `filter()` keeps rows where a condition is `TRUE`.
+
+## Search the novel
+
+Find lines that mention Elizabeth.
+
+```{r}
+pride_tbl |>
+  filter(str_detect(text, "Elizabeth")) |>
+  slice(1:5)
+```
+
+This search is case-sensitive: `"elizabeth"` would not match `"Elizabeth"`.
+
+## Ignore capitalization in a search
+
+Wrap the pattern in `regex(..., ignore_case = TRUE)`.
+
+```{r}
+pride_tbl |>
+  filter(str_detect(text, regex("darcy", ignore_case = TRUE))) |>
+  slice(1:5)
+```
+
+Use this when you want `Darcy`, `DARCY`, and `darcy` to count as the same text.
+
+## Count matches
+
+`str_count()` counts how often a pattern appears in each string.
+
+```{r}
+str_count(
+  c("ha", "ha ha", "perhaps"),
+  "ha"
+)
+```
+
+Unlike `str_detect()`, this returns a number rather than `TRUE` or `FALSE`.
+
+## Which lines mention Darcy most?
+
+```{r}
+pride_tbl |>
+  mutate(darcy_mentions = str_count(text, "Darcy")) |>
+  filter(darcy_mentions > 0) |>
+  arrange(desc(darcy_mentions)) |>
+  select(line_number, darcy_mentions, text) |>
+  slice(1:5)
+```
+
+This keeps the original line and adds a new measurement.
+
+## Extract part of a string
+
+`str_sub()` selects characters by position.
+
+```{r}
+books <- c("Emma", "Persuasion", "Mansfield Park")
+
+str_sub(books, 1, 3)
+str_sub(books, -4, -1)
+```
+
+Negative positions count backward from the end of a string.
+
+## Split into columns
+
+When every value has the same structure, `separate_wider_delim()` is often clearer.
+
+```{r}
+tibble(code = c("NY-2026-0142", "CA-2026-0143")) |>
+  separate_wider_delim(
+    code,
+    delim = "-",
+    names = c("state", "year", "record_id")
+  )
+```
+
+This converts one packed character column into three usable columns.
+
+## Useful regex building blocks
+
+| Pattern | Meaning           | Example match          |
+|---------|-------------------|------------------------|
+| `.`     | any one character | `c.t` matches `cat`    |
+| `\\d`   | a digit           | `2026` contains digits |
+| `\\s`   | whitespace        | a space or tab         |
+| `^`     | start of a string | `^Mr`                  |
+| `$`     | end of a string   | `ing$`                 |
+
+Use regex one small piece at a time and test your pattern.
+
+## Practice: find a pattern
+
+Use `str_detect()` to find IDs that begin with `NY-`.
+
+```{r}
+ids <- c("NY-2026-0142", "CA-2026-0143", "NY-2025-0088")
+
+# Write your pattern here:
+str_detect(ids, "...")
+```
+
+Hint: the start-of-string symbol is `^`.
+
+## A dependable text-cleaning workflow
+
+1.  Inspect the original strings.
+2.  Decide what consistent means for this task.
+3.  Add a cleaned column; preserve the original.
+4.  Test a few known examples.
+5.  Count or filter to check the result.
+6.  Document any rule that removes or changes data.
+
+## Key functions to remember
+
+| Goal             | Function                           |
+|------------------|------------------------------------|
+| Count characters | `str_length()`                     |
+| Clean spaces     | `str_trim()`, `str_squish()`       |
+| Change case      | `str_to_lower()`, `str_to_title()` |
+| Find text        | `str_detect()`                     |
+| Count matches    | `str_count()`                      |
+| Replace text     | `str_replace_all(), str_replace()` |
+| Extract text     | `str_sub()`                        |
+| Split text       | `str_split()`                      |
+
+## 
