@@ -304,6 +304,10 @@ str_match(test_line_3, "[A-Z]\\s+\\d+")
 str_extract_all(test_line_3, "[A-Z]\\s+\\d+")
 ```
 
+**Pattern Test Explainer:**
+
+-   `[A-Z]\\s+\\d+` Find any uppercase character from A to Z, then check for space at least once, then find a digit that appears more than once.
+
 ```{r regex-opponents-pair}
 opponent_numbers <- str_extract_all(player_lines, "[A-Z]\\s+\\d+")
 
