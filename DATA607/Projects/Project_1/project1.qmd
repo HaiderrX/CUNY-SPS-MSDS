@@ -413,3 +413,5 @@ But nonetheless, this project definitely reminded me why I enjoy programming as 
 -   [Claude](https://claude.ai/share/c7fc36dc-91cd-4775-a189-272feb98bede) - Provided guidance for some parts in the code
 
 -   [Gemeni](https://share.gemini.google/voGnQi9eBGBD) - Helped me format the Regex for R after using Regex101 to create the pattern
+
+Video Explainer -
