@@ -1,0 +1,61 @@
+---
+title: "Week 5 - Airline Delays"
+author: "Muhammad Ali"
+format:
+  html:
+    code-fold: true
+    
+execute:
+  echo: true
+  warning: false
+  message: false
+
+editor: visual
+---
+
+# Airline Delays Analysis
+
+## Approach
+
+### Background Information
+
+The goal of this analysis is to get comfortable with <mark>Exploratory Data Analysis</mark> (EDA) as well as the concept of <mark>tidying </mark> and <mark>transforming</mark> our data.
+
+### Dataset
+
+With this analysis, we will need to recreate the data in a .CSV file similar to the one below:
+
+![](images/clipboard-395144163.png)
+
+However to make things more challenging we can do the following:
+
+-   Create more rows of information
+
+-   Create new columns to have more data to work with
+
+-   Include missing values to work on handling missing values
+
+-   Allow room to format column names, values
+
+### The Plan
+
+1.  **Creating and importing the data**
+    -   Create the dataset in Google Sheets with own twists to mimic sample data above. Then import to R.
+2.  **Data Cleaning**
+    -   Column names
+
+    -   Handle Missing Values
+
+    -   Normalizing the data so it is on the same scale
+
+    -   Converting from a wide table to a long table format so it is easier for mathematical computation
+3.  **Conduct an EDA**
+    -   Create visualizations of comparing arrivals or delays for 2 airlines overall
+
+    -   Create visualizations of comparing arrivals or delays for 2 airlines across 5 cities
+
+    -   Describe discrepancy between comparing two airlines’ flight performances city-by-city and overall with a visualization
+
+    -   Explain discrepancy between comparing two airlines’ flight performances city-by-city and overall
+4.  **Revise Explanations**
+    -   After each visualization or code chunk, make sure it is not too technical and easy to comprehend
