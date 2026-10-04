@@ -23,24 +23,14 @@ The goal of this analysis is to get comfortable with <mark>Exploratory Data Anal
 
 ### Dataset
 
-With this analysis, we will need to recreate the data in a .CSV file similar to the one below:
+With this analysis, we will need to recreate the data in a .CSV file with the exact information to the one below:
 
 ![](images/clipboard-395144163.png)
-
-However to make things more challenging we can do the following:
-
--   Create more rows of information
-
--   Create new columns to have more data to work with
-
--   Include missing values to work on handling missing values
-
--   Allow room to format column names, values
 
 ### The Plan
 
 1.  **Creating and importing the data**
-    -   Create the dataset in Google Sheets with own twists to mimic sample data above. Then import to R.
+    -   Create the dataset in Google Sheets using the data above. Then import to R.
 2.  **Data Cleaning**
     -   Column names
 
@@ -59,3 +49,235 @@ However to make things more challenging we can do the following:
     -   Explain discrepancy between comparing two airlines’ flight performances city-by-city and overall
 4.  **Revise Explanations**
     -   After each visualization or code chunk, make sure it is not too technical and easy to comprehend
+
+## Codebase
+
+### Packages To Install
+
+Remove the '\#' to install package if you do not have it install already.
+
+```{r install-packages}
+# install.packages("tidyverse")
+```
+
+### Libraries to import
+
+```{r import libraries}
+library(tidyverse)
+```
+
+### Reading in the data
+
+```{r reading-data}
+raw_data <- read.csv("https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Week%205%20-%20Working%20with%20Tidy%20Data/week5_airline_delays%20-%20Sheet1.csv")
+
+# head of data
+head(raw_data)
+
+#glimpse of data
+glimpse(raw_data)
+```
+
+#### Data Inspection
+
+1.  We need to fix the column names so all of them are lower cased. In addition we need to replace the "." to an underscore for spacing
+2.  Get rid of that missing line as it is affecting certain columns by adding the NA value or converting them to characters.
+3.  Convert chr to numeric types
+4.  Fill in the missing airline for the "delayed" rows so that when we convert to a long format it is easier to manipulate the data.
+
+### Data Cleaning
+
+#### Column Rename
+
+```{r rename-columns}
+columns_renamed <- raw_data %>%
+  rename(
+    airline = airline,
+    airline_status = status,
+    los_angeles = Los.Angeles,
+    phoenix = Phoenix,
+    san_diego = San.Diego,
+    san_francisco = San.Francisco,
+    seattle = Seattle
+  )
+
+colnames(columns_renamed)
+```
+
+#### Filling Missing Values & Numeric Conversion
+
+```{r fill-numeric-conversion}
+clean_data_wide <- columns_renamed |>
+  mutate(across(where(is.character), ~ na_if(trimws(.x), ""))) |>
+  filter(if_any(everything(), ~ !is.na(.x))) |>
+  mutate(across(-c(airline, airline_status),
+                ~ parse_number(as.character(.x)))) |>
+  fill(airline)
+
+head(clean_data_wide)
+glimpse(clean_data_wide)
+```
+
+### Wide Table to Long Table
+
+For this analysis, to make it easier for us to do mathematical computations, it is best if we convert the table from a wide to a long format.
+
+```{r wide-to-long}
+clean_data_long <- clean_data_wide |>
+  pivot_longer(
+    cols = c(los_angeles, phoenix, san_diego, san_francisco, seattle),
+    names_to = "city",
+    values_to = "value"
+  )
+
+clean_data_long
+```
+
+### Exploratory Data Analysis
+
+#### Comparing Delays Across Airlines
+
+**Getting Overall Statistics**
+
+```{r overall}
+overall <- clean_data_long |>
+  group_by(airline, airline_status) |>
+  summarise(total = sum(value), .groups = "drop") |>
+  group_by(airline) |>
+  mutate(pct = total / sum(total)) |>
+  ungroup()
+
+overall
+```
+
+**Filtering for Overall Delayed**
+
+We want to compare with delayed so lets filter for that and set it to a new variable.
+
+```{r overall-delayed}
+overall_delayed <- overall |>
+  filter(airline_status == "delayed")
+
+overall_delayed
+```
+
+**Plotting Bar Plot**
+
+```{r bar-plot-airline-delays}
+ggplot(overall_delayed, aes(x = airline, y = pct, fill = airline)) +
+  geom_col(width = 0.3) +
+  geom_text(aes(label = scales::percent(pct, accuracy = 0.1)), vjust = -0.3) +
+  scale_y_continuous(labels = scales::percent,
+                     limits = c(0, max(overall_delayed$pct) * 1.2)) +
+    labs(title = "Share of Flights Delayed, All Cities Combined",
+       x = NULL, y = "Percent of flights delayed") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+Based on this combined city plot, Alaska airlines leads with the highest overall delay rate at 13.3%, while AM West follows at 11.5%. Given a choice between these two airlines heading to the same city, one would be better off flying with AM West as there is a less chance of a delay.
+
+#### Comparing Arrivals Across Airlines
+
+**Filtering for Overall Arrivals**
+
+We want to compare with delayed so lets filter for that and set it to a new variable.
+
+```{r}
+overall_arrival <- overall |>
+  filter(airline_status == "on time")  
+
+overall_arrival
+```
+
+**Plotting Bar Plot**
+
+```{r}
+ggplot(overall_arrival, aes(x = airline, y = pct, fill = airline)) +
+  geom_col(width = 0.3) +
+  geom_text(aes(label = scales::percent(pct, accuracy = 0.1)), vjust = -0.3) +
+  scale_y_continuous(labels = scales::percent,
+                     limits = c(0, max(overall_arrival$pct) * 1.2)) +
+    labs(title = "Share of Flights Arrival on Time, All Cities Combined",
+       x = NULL, y = "Percent of flights arrived on time") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+With an added visual to support our previous findings, Alaska Airlines have an on time rate of 86.7% versus AM West's 88.5%. The point remains that AM West's airlines arrives on time more often than Alaska airlines.
+
+#### Comparing Delays Across Cities
+
+**Filtering for Cities**
+
+```{r city-rates}
+city_rates <- clean_data_long |>
+  group_by(airline, city) |>
+  mutate(pct = value / sum(value)) |>
+  ungroup()
+
+city_rates
+```
+
+Filtering for delayed rates
+
+```{r city-rates-delayed}
+city_rates_delayed <- city_rates |>
+  filter(airline_status == "delayed")
+
+city_rates_delayed
+```
+
+```{r city-rates-arrival}
+city_rates_arrival <- city_rates |>
+  filter(airline_status == "on time")
+
+city_rates_arrival
+```
+
+**Plotting Bar Plot**
+
+```{r city_delay_plot}
+plot_city <- function(data, title, ylab) {
+  data |>
+    mutate(city = str_to_title(str_replace_all(city, "_", " "))) |>
+    ggplot(aes(x = city, y = pct, fill = airline)) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label = scales::percent(pct, accuracy = 0.1)),
+              position = position_dodge(width = 0.9), vjust = -0.5, size = 3) +
+    scale_y_continuous(labels = scales::percent,
+                       limits = c(0, max(data$pct) * 1.2)) +
+    labs(title = title, x = NULL, y = ylab, fill = "Airline") +
+    theme_minimal()
+}
+
+plot_city(city_rates_delayed, "Share of Flights Delayed, by City", "Percent delayed")
+```
+
+With a side by side comparison we can see for each city the delay rates between Alaska airlines and AM West. In this plot, we see that in certain cities there are more delay rates than other cities, such as San Francisco and Seattle), and for the most part AM West have more of a delay rate in each city than Alaska airlines.
+
+```{r plotting-on-time-rates}
+plot_city(city_rates_arrival,  "Share of Flights On Time, by City", "Percent on time")
+```
+
+With the same format of seeing the data side by side, it is shown that Alaska airlines have more of an arrival rate than AM West. However for certain cities as previously mentioned both airlines don't have similar numbers compared to the rest of the cities.
+
+#### Discrepency Within the Data Across Airlines and by City
+
+Interestingly enough, both plots seem to be telling two different stories:
+
+-   Overall one airline is better than the other, in this case AM West.
+
+-   City by City AM West airlines doesn't perform better than the Alaska airlines.
+
+This can be caused by certain cities performing better in terms of on-time arrivals as well as the amount of flights sent to a certain city. For example, it seems that there are more flights sent to Phoenix and San Diego versus San Francisco or Seattle.
+
+## Conclusion
+
+The challenge in this assignment was figuring out the correct plot to display the information in an comprehensible way, and for all of them luckily was set to be a bar plot and the tools needed to fill up the plot.
+
+In addition to figuring out the correct plot was drawing conclusions for why the data was being presented in the way it was presented, but nonetheless it builds up critical thinking skills. In this instance the discrepancy that an aggregated plot versus a city by city plot were showing two different things.
+
+## AI Use
+
+[Claude](https://claude.ai/share/f1abeb30-67fb-4635-a1f0-0f49592d2ba7) - Guidance for assignment
