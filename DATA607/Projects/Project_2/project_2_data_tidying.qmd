@@ -1,0 +1,37 @@
+---
+title: "Project 2 — Data Tidying"
+author: "Muhammad Ali"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: flatly
+    
+execute:
+  echo: true
+  warning: false
+  message: false
+
+editor: visual
+---
+
+# Multiple Dataset Analysis
+
+## Approach
+
+### The Project
+
+### Background and Information
+
+### Datasets
+
+#### Dataset 1
+
+#### Dataset 2
+
+#### Dataset 3
+
+### The Plan
+
+## Codebase
