@@ -16,22 +16,958 @@ execute:
 editor: visual
 ---
 
-# Multiple Dataset Analysis
+# Multiple Tidy Data Analysis
 
 ## Approach
 
 ### The Project
 
+This project is a culmination of the topics learned so far:
+
+-   <mark>Exploratory Data Analysis</mark>
+
+-   <mark>Visualizing Data</mark>
+
+-   <mark>Tidying Data</mark>
+
+-   <mark>Data Transformations</mark>
+
 ### Background and Information
+
+With these concepts mentioned in the previous subsection, the focus of this project will be to take 3 datasets and to practice preparing them for analysis. In addition, this project will focus on using long-formatted datasets rather than a wide tabular dataset.
+
+Lastly, this project will also assist and improve upon drawing conclusions, interpreting results and the skill of choosing which plot is appropriate for the data and the question being asked.
 
 ### Datasets
 
-#### Dataset 1
+#### Dataset 1 - Movies Dataset
 
-#### Dataset 2
+-   [Kaggle Movies Dataset](%5Bhttps://www.kaggle.com/datasets/rishabhchaudhary07/top-movies-ratings-genres-popularity-and-metadata%5D(https://www.kaggle.com/datasets/rishabhchaudhary07/top-movies-ratings-genres-popularity-and-metadata))
 
-#### Dataset 3
+-   [Github Raw CSV](https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Projects/Project_2/datasets/Top%20Movies%20dataset.csv)
+
+-   This dataset was obtained from Kaggle.com and contains information regarding:
+
+    -   Movies
+
+    -   Genre of Movies
+
+    -   Popularity
+
+    -   Rating
+
+-   The data was culminated from public information.
+
+#### Dataset 2 - Zara Dataset
+
+-   [Kaggle Zara Dataset](https://www.kaggle.com/datasets/marixe/zara-sales-for-eda)
+
+-   [Github Raw CSV](https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Projects/Project_2/datasets/Zara_sales_EDA.csv)
+
+-   This dataset was obtained from Kaggle.com and contains information about Zara's products.
+
+-   The data was culminated from several public datasets from Github and Kaggle.
+
+#### Dataset 3 - 2025 Monthly Patients Dataset
+
+-   [Github Raw CSV](https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Projects/Project_2/datasets/monthly_patients_project_2.csv)
+
+-   This dataset is a fictional dataset provided by classmate Renee Watson, which contains information about patients visited in different medical facility in the year 2025.
 
 ### The Plan
 
+Due to this project having 3 different datasets to work with. the workflow will be similar:
+
+1.  Storing and Importing the datasets
+    -   Upload `.csv` to Github
+
+    -   Import to R
+2.  Data Cleaning
+    -   Column Names
+
+    -   Normalizing Values
+
+    -   Handle Missing Values
+
+    -   Handling Inconsistencies
+
+    -   Column Type Conversion
+3.  Exploratory Data Analysis
+    -   Creating Summary Tables
+
+    -   Visualization Plots
+
+    -   Interpret the result
+4.  Revise Documentation
+    -   Once finished with EDA, revise work in the `.qmd` document to check for grammar, spelling, code procedure.
+5.  Publish Documentation
+    -   Publish to RPubs
+
 ## Codebase
+
+### Packages To Install
+
+Remove the ‘#’ to install package if you do not have it install already.
+
+```{r install-packages}
+# install.packages("tidyverse")
+# install.packages(lubridate)
+# install.packages(ggridges)
+```
+
+### Import Libraries
+
+```{r libraries to import}
+library(tidyverse)
+library(lubridate)
+library(ggridges)
+set.seed(11235)
+```
+
+### 1. Movies Dataset Analysis
+
+#### Import Data
+
+```{r reading-movies-dataset}
+raw_data1 <- read.csv("https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Projects/Project_2/datasets/Top%20Movies%20dataset.csv")
+
+head(raw_data1, 3)
+```
+
+#### Data Cleaning
+
+Upon Inspection on the raw data the following must be done:
+
+-   Column names need to be changed
+
+-   Change column to correct types
+
+-   Get rid of certain columns such as `Overview` and `Poster_Url`
+
+-   Converting from Wide format to Long format
+
+##### Column Renaming & Selection
+
+```{r movies-column-renaming-preservation}
+movies_renamed <- raw_data1 |>
+  select(
+    release_date = Release_Date,
+    title = Title,
+    popularity_score = Popularity,
+    vote_count = Vote_Count,
+    vote_avg = Vote_Average,
+    genre = Genre,
+    language = Original_Language
+  )
+
+head(movies_renamed, 3)
+glimpse(movies_renamed)
+```
+
+##### Column Type Conversion
+
+We need to change the following columns to these typings:
+
+-   `release_date`: chr $\to$ date
+
+-   `vote_count`: chr $\to$ dbl
+
+-   `vote_avg`: chr $\to$ dbl
+
+<mark>*Note: `release_date` has DD/MM/YEAR format*</mark>
+
+```{r movies-column-convert}
+clean_movies_wide <- movies_renamed |>
+  mutate(across(c(vote_count, vote_avg), as.numeric)) |>
+  mutate(release_date = dmy(release_date))
+
+glimpse(clean_movies_wide)
+```
+
+<mark>*Note: `release_date` is now YEAR-MM-DD format*</mark>
+
+##### Data Dictionary: `clean_movies_wide`
+
++--------------------+----------------------------------------------------------------+
+| Variable           | Meaning                                                        |
++:==================:+:==============================================================:+
+| `release_date`     | The release date for the movie                                 |
++--------------------+----------------------------------------------------------------+
+| `title`            | Movie's title                                                  |
++--------------------+----------------------------------------------------------------+
+| `popularity_score` | User Interest in the movie through searching, engagement, etc. |
++--------------------+----------------------------------------------------------------+
+| `vote_count`       | The number of people that voted a rating for the movie         |
++--------------------+----------------------------------------------------------------+
+| `vote_avg`         | Average Movie Rating                                           |
++--------------------+----------------------------------------------------------------+
+| `genre`            | The genre(s) the movie are categorized as                      |
+|                    |                                                                |
+| `language`         | The original language that the movie was in                    |
++--------------------+----------------------------------------------------------------+
+
+##### Checking Missing Values
+
+```{r checking-missing-movie}
+clean_movies_wide %>%
+  filter(is.na(genre) | genre == "" | trimws(genre) == "")
+```
+
+There is only 1 movie with missing information, which I can only find the genres for this movie. However for the other metrics, I cannot be certain to replace it with what I can find online as these are different measurements, so I will leave it blank.
+
+```{r fixing-missing-movie}
+fixed_clean_movies_wide <- clean_movies_wide
+
+fixed_clean_movies_wide$genre[1106] <- "Animation, Comedy, Family, Fantasy"
+```
+
+```{r movies-checking-NA_again}
+sum(is.na(fixed_clean_movies_wide))
+
+fixed_clean_movies_wide %>%
+  filter(if_any(everything(), is.na)) %>%
+  View()
+```
+
+It appears that we have 42 missing rows, so the approach will be to drop every NA row, but preserve the "Pixie Hollow Bake Off" as we have the genre for it, but no numerical metric value.
+
+```{r dropping-NA-movies}
+final_clean_movies_wide <- fixed_clean_movies_wide %>%
+  filter(
+    title == "Pixie Hollow Bake Off" |
+    if_all(everything(), ~ !is.na(.x))
+  )
+```
+
+##### Converting Wide to Long Format
+
+```{r movies-long-format}
+# separate Genre because more than 1
+# then take the popularity and votes columns and categorize them as metrics
+clean_movies_long <-  final_clean_movies_wide |>
+  separate_rows(genre, sep = ", ") |>
+  pivot_longer(
+    cols = c(popularity_score, vote_count, vote_avg),
+    names_to = "metric",
+    values_to = "value"
+  )
+
+head(clean_movies_long, 10)
+```
+
+##### Data Dictionary: `clean_movies_long`
+
+| Variable | Meaning |
+|:--:|:--:|
+| `release_date` | The release date for the movie |
+| `title` | Movie's title |
+| `genre` | The genre(s) the movie are categorized as in separate rows |
+| `language` | The original language that the movie was in |
+| `metric` | Contains information such as `popularity_score`, `vote_count`, `vote_avg` |
+| `value` | Contains values for said metric respectively |
+
+#### Exploratory Data Analysis
+
+##### Summary Table for Genre Counts
+
+```{r summary-table-genres}
+genre_table <- clean_movies_long %>%
+  group_by(genre) %>%
+  summarise(
+    movie_counts= n_distinct(title),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Total_Percent = round((movie_counts / sum(movie_counts)) * 100, 1)
+  ) %>%
+  arrange(desc(movie_counts))
+
+genre_table
+```
+
+##### Bar Plot for Genre Counts
+
+```{r plot-of-genres}
+ggplot(genre_table, aes(x=reorder(genre, movie_counts), y=movie_counts, fill = genre)) +
+  geom_col() +
+  coord_flip() +
+   geom_text(
+    aes(label = movie_counts),
+    vjust = 0.5,
+    hjust = -0.05,
+    color = "black",
+    size = 3
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    title = "Counts of Genres",
+    subtitle = "Arranged from greatest to least",
+    x = "Genre",
+    y = "Counts",
+    fill = "Movie Genres"
+  ) +
+  theme_minimal() +
+    theme(
+      legend.position = "right",
+    ) +
+  guides(fill = guide_legend(ncol = 2)) 
+```
+
+###### Interpretation of Summary Table and Bar Plot
+
+With a summary plot and the provided bar plot, we can see that the majority of movies have the genre 'Drama' in this dataset by $14.5\%$. Which is followed by 'Comedy' with $11.9\%$ and going all the way down to 'Western' which has a $0.5\%$ appearance in this dataset.
+
+```{r genre-table-stat-summary}
+genre_table %>%
+  summarize(avg = round(mean(movie_counts), 1),
+            median = median(movie_counts),
+            St.Dev = round(sd(movie_counts), 1))
+```
+
+With this statistical summary table, we can see that there is a huge variation within the genre counts in this dataset. Which begs the question, are the metrics skewed or have a higher spread?
+
+##### Popularity Metric Analysis
+
+In this part, we will examine the popularity metric using the statistical summaries and plotting it.
+
+In this dataset and in general for movies, popularity is defined as:
+
+-   How much attention a movie gets
+
+-   Viewer Engagement
+
+-   Search Traffic
+
+as opposed to how one would rate a movie based on what is being presented to them.
+
+```{r popularity-table-movies}
+popularity_table <- clean_movies_long %>%
+  group_by(genre) %>%
+  filter(metric == "popularity_score") %>%
+  summarise(
+    Mean = mean(value, na.rm = TRUE),
+    Median = median(value, na.rm = TRUE),
+    Standard_Deviation = sd(value, na.rm = TRUE),
+    .groups = "drop"
+  )
+popularity_table
+```
+
+##### Plot for Popularity Metric
+
+```{r plot-popularity-metric}
+ggplot(popularity_table, aes(y = reorder(genre, Standard_Deviation))) +
+  geom_errorbarh(aes(xmin = pmax(0.1, Mean - Standard_Deviation), xmax = Mean + Standard_Deviation), 
+                 height = 0.2, color = "cornsilk4", linewidth = 0.7) +
+  geom_point(aes(x = Mean, color = "Mean"), size = 2.5) +
+  geom_point(aes(x = Median, color = "Median"), size = 2.5) +
+  scale_color_manual(values = c("Mean" = "midnightblue", "Median" = "red4")) +
+  scale_x_log10() +
+  labs(
+    title = "Genre Popularity Spreads",
+    subtitle = "Arranged by Standard Deviation",
+    x = "Popularity Score (Log 10 Scale)",
+    y = "Genre",
+    color = "Statistical Metric"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom" 
+  )
+```
+
+###### Interpretation for plot and table
+
+With this plot and the summary table, we can see that this plot represents
+
+-   Standard Deviation
+
+-   A point of Mean and Median per genre
+
+-   Scaled by $log_{10}$
+
+In this plot, we can see that the median and means are spread apart in some genres and are relatively close in some. However interestingly in with the error bars (the standard deviation), we can see that there is more spread on the genres at the top, Science Fiction, Crime, Adventure.
+
+What this is telling us that those genres are more unpredictable as anything can happen with good plot lines, and other conditions that causes them to create engagement or not. For example one of the Sci-Fi movies, Spider-Man: No Way Home, it created massive engagement due to the nature of the movie and the character itself versus another movie where it would have a lower engagement between viewers.
+
+Knowing this, any movie within a certain genre can be prone to what makes something popular:
+
+-   Character
+
+-   Plot
+
+-   Company producing the movie
+
+-   Age group
+
+With these factors it creates unpredictability for what makes something popular.
+
+##### Vote Average Metric Analysis
+
+Similar to what we did previously, we will examine the vote average of genres.
+
+Vote Average is defined by a collection of a viewer's rating for a movie and then aggregating it into an average.
+
+```{r summary-table-vote-movies}
+vote_avg_table <- clean_movies_long %>%
+  group_by(genre) %>%
+  filter(metric == "vote_avg") %>%
+  summarise(
+    Mean = mean(value, na.rm=TRUE),
+    Median = median(value, na.rm=TRUE),
+    Standard_Deviation = sd(value, na.rm=TRUE),
+    .groups = "drop"
+  )
+
+vote_avg_table
+```
+
+##### Ridge Plot for Average Vote
+
+```{r plot-vote-avg}
+clean_movies_long %>%
+  filter(metric == "vote_avg") %>%
+  ggplot(aes(x = value, y = reorder(genre, value, FUN=mean, na.rm = TRUE), fill = genre)) +
+  geom_density_ridges(
+    quantile_lines = TRUE,
+    quantiles = 2,
+    alpha = 0.6,
+    show.legend = FALSE,
+    color = "grey30"
+  ) + 
+  scale_x_continuous(limits=c(0,10), breaks = 0:10) +
+  labs(
+    title = "Distribution of Movie Ratings by Genre",
+    subtitle = "Vertical lines inside the ridges represent the Median rating",
+    x = "Vote Average (0 - 10 Scale)",
+    y = "Genre"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.minor = element_blank(),
+  )
+```
+
+With the summary table and the provided ridgeplot, we can see the distribution across all genres provided with the mean, median, and standard deviation. However in the ridgeplot, the choice was to use the median as the vertical line as we cannot use an average for an aggregated result in the distribution.
+
+Across all genres, the median seems to be around $[6,7]$ and the mean seems to be within a 6. There is not that much of a spread across each genre respectively just by going through the numbers.
+
+One thing to note, that the lowest genre rating is Horror and the highest seems to be War. Such factors could include:
+
+-   Poor writing
+
+-   Less promotion to promote a movie
+
+-   Insufficient budget for a movie
+
+However, it is worth noting that even though there may not be as much movies for a certain genre it still has a higher statistic than others, such as War versus Sci-Fi, and crime.
+
+#### Conclusions
+
+When it comes to films, regardless of it being a movie, television, or anything, it can create enjoyment and entertainment for a viewer.
+
+In this dataset, it was discovered that certain genres have more spreads of popularity than others such as: sci-fi, crime, animation, to list a few.
+
+With the supplied voter average, we can see what the real story is when it comes to how viewers rate a movie based on plot in an aggregated way.
+
+This part is where the contrast is interesting as a movie can create engagement in terms of how good or awful the writing was, the CGI, the acting, and other factors. Whereas one can vote how they feel about the movie as they would have seen it which is where the contrast comes in.
+
+In horror where the average vote is lower than all of them, it still causes a lot of engagement due to the theme of it as well as some people enjoying the aspect of the genre.
+
+### 2. Zara Dataset Analysis
+
+#### Import Data
+
+```{r import-zara-data}
+raw_data2 <- read_delim("https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Projects/Project_2/datasets/Zara_sales_EDA.csv", delim= ";")
+
+head(raw_data2, 3)
+glimpse(raw_data2)
+```
+
+#### Data Cleaning
+
+For this data cleaning process, we are going to have to do the following:
+
+-   Keep certain columns
+
+-   Rename Columns
+
+-   Convert from wide to long format
+
+Which is less than the previous dataset, but will have to inspect the new subset to see if anything else needs to be done
+
+```{r subset-zara-wide-1}
+subset_data_zara <- raw_data2 %>%
+  select(
+    product_id = 'Product ID',
+    product_name = name,
+    promotion = Promotion,
+    seasonal = Seasonal,
+    units_sold = 'Sales Volume',
+    price = price,
+    type_clothing = terms,
+    material = material,
+    country_manufacturer = origin
+  )
+
+head(subset_data_zara)
+glimpse(subset_data_zara)
+```
+
+-   Need to change product_id to chr as it is a categorical value
+
+-   Can keep "yes" and "no" as is, no need to convert to binary 0 or 1
+
+-   No need to map certain values to numbers, such as the `type_clothing` or `material` column.
+
+```{r change-column-first-table}
+clean_zara_wide_1 <- subset_data_zara %>%
+  mutate(product_id = as.character(product_id))
+
+glimpse(clean_zara_wide_1)
+```
+
+**Problem:** This dataset has 2 values, `price` and `units_sold` so to convert to a long formatted dataset, cutting down on columns will need to happen.
+
+```{r subset-the-subset}
+clean_zara_wide_2 <- clean_zara_wide_1 %>%
+  select(
+    product_name,
+    promotion,
+    type_clothing,
+    units_sold,
+    price
+  )
+
+head(clean_zara_wide_2)
+```
+
+##### Checking Missing Values
+
+```{r zara-missing-values}
+clean_zara_wide_2 %>% 
+  filter(if_any(everything(), is.na))
+
+# We are going to drop it as it is only 1 row
+
+clean_zara_wide_3 <- clean_zara_wide_2 %>%
+  drop_na()
+
+clean_zara_wide_3 %>% 
+  filter(if_any(everything(), is.na))
+```
+
+##### Data Dictionary: `clean_zara_wide_3`
+
+|    Variable    |                       Meaning                       |
+|:--------------:|:---------------------------------------------------:|
+| `product_name` |                Name of the product.                 |
+|  `promotion`   | If there was a promotion happening for the product. |
+|  `units_sold`  |      How many units of that product was sold.       |
+|    `price`     |       How much that product costed as 1 unit.       |
+
+##### Converting from wide to long:
+
+```{r convert-zara-to-long}
+clean_zara_long <- clean_zara_wide_3 %>%
+  pivot_longer(
+    cols = c(units_sold, price),
+    names_to = "metric",
+    values_to = "value"
+  )
+
+head(clean_zara_long)
+```
+
+##### Data Dictionary: `clean_zara_long`
+
+| Variable | Meaning |
+|:--:|:--:|
+| `product_name` | Name of the product. |
+| `promotion` | If there was a promotion happening for the product. |
+| `type_clothing` | Identifies what type of clothing it is, like a jacket, or shoes, or jeans. |
+| `metric` | Contains `price` or `units_sold`. |
+| `value` | Contains value of the price or the unit sold. |
+
+#### Exploratory Data Analysis
+
+```{r seeing-head-of-table}
+head(clean_zara_long,3)
+```
+
+##### Summary Table for Clothing Types
+
+```{r clothing-type-table}
+clothing_type_table <- clean_zara_long %>%
+  group_by(type_clothing) %>%
+  summarise(
+    clothing_counts = n_distinct(product_name),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Total_Percent = round((clothing_counts / sum(clothing_counts)) * 100, 1)
+  ) %>%
+  arrange(desc(clothing_counts))
+
+clothing_type_table
+```
+
+##### Bar Plot for Clothing Type Counts
+
+```{r plot-for-clothing-counts}
+ggplot(clothing_type_table, aes(x=reorder(type_clothing, -clothing_counts), y=clothing_counts, fill = type_clothing)) +
+  geom_col() +
+  #coord_flip() +
+  geom_text(
+    aes(label = clothing_counts),
+    vjust = -0.3,
+    color = "black",
+    size = 3
+  ) + 
+  labs(
+    title = "Count of Clothing Types",
+    subtitle = "Arranged from highest mean to lowest",
+    x = "Clothing Type",
+    y = "Counts",
+    fill = "Clothing Type"
+  ) +
+  theme_minimal()
+```
+
+###### Interpretation of Summary Table and Plot
+
+In this dataset, we can see that there are more jackets in this dataset, with a presence of $53.8\%$, than any other piece of clothing. The least amount of presence in this dataset happens to be jeans which covers $3.4\%$. Which gives us a few questions for this dataset:
+
+-   For each clothing type, what were the total units sold?
+
+-   What are the average price for each clothing type?
+
+-   Are the prices different with or without a promotion per clothing type?
+
+##### Total Units Sold Per Clothing Type Table
+
+```{r table-total-units-sold}
+total_units_sold_table <- clean_zara_long %>%
+  group_by(type_clothing) %>%
+  filter(metric == "units_sold") %>%
+  summarise(
+    Total = sum(value, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+ total_units_sold_table
+```
+
+##### Column Plot for Total Units Sold Per Clothing Type
+
+```{r plot-for-total-units}
+ggplot(total_units_sold_table, aes(x=reorder(type_clothing, -Total), y=Total, fill = type_clothing)) +
+  geom_col() +
+  #coord_flip() +
+  geom_text(
+    aes(label = Total),
+    vjust = -0.1,
+    color = "black",
+    size = 3
+  ) + 
+  labs(
+    title = "Total Units Sold per Clothing Type",
+    subtitle = "Arranged from greatest to least",
+    x = "Clothing Type",
+    y = "Counts",
+    fill = "Clothing Type"
+  ) +
+  theme_minimal()
+```
+
+###### Interpretation for Plot and Summary Table
+
+With the provided plot, these total units sold seems to be consistent with the previous findings of how many clothing types there are in this dataset. These total units sold are ordered in the same way by how much they appear in the dataset. Jackets seem to be the most popular and jeans aren't as popular, as the gap between shoes and jeans are by a lot.
+
+##### Statistic Table for Price Per Clothing Type
+
+```{r Statistic-price-table}
+statistic_price_table <- clean_zara_long %>%
+  group_by(type_clothing) %>%
+  filter(metric == "price") %>%
+  summarise(
+    Mean = round(mean(value, na.rm = TRUE),2),
+    Median = median(value, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(Mean))
+
+statistic_price_table
+```
+
+##### Box Plot for Price per Clothing Type
+
+```{r box-plot-zara}
+clean_zara_long %>%
+  filter(metric == "price") %>%
+  ggplot(aes(x=reorder(type_clothing, -value, FUN=mean), y = value, fill = type_clothing)) +
+  geom_boxplot() +
+  labs(
+    title = "Price Distribution per Clothing Type",
+    subtitle = "Arranged from highest mean to lowest",
+    x = "Clothing Type",
+    y = "Price ($)",
+    fill = "Clothing Type"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+###### Interpretation for BoxPlot and Summary Table
+
+This part of the analysis is considered an "answer" as to why things are being sold more than others or not. In this case, we can see that on average, t-shirts have a higher price of \$43.15 than any of the other categories, with jackets being the lowest on average with \$41.56.
+
+With the added boxplot, we can see that there are several outliers for almost all clothing categories except for jeans.
+
+An assumption can be drawn that more people buy their jackets as they are slightly a bit cheaper than the other items on offer at their store.
+
+##### Facet Jitter Plot for Trend per Clothing Type
+
+```{r jitter-plot-zara}
+clean_zara_long %>%
+  filter(metric == "price") %>%
+  ggplot(aes(x = promotion, y = value, color = promotion)) +
+  geom_jitter(width = 0.2, height = 0, size = 2.5, alpha = 0.7) +
+  scale_color_manual(values = c("Yes" = "#2ECC71", "No" = "#E74C3C")) + 
+  facet_wrap(~ type_clothing, scales = "free_x") +
+  labs(
+    title = "Price Distribution Broken Down by Clothing Type",
+    subtitle = "Comparing prices with and without active promotions",
+    x = "Promotion Active",
+    y = "Price ($)",
+    color = "Promotion"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom"
+  )
+```
+
+The last visualization is to measure how much of a difference prices are with or without promotions. Like previously mentioned in the boxplot, the assumption is that the jackets have a better price offering than the other categories, and in this plot we can see that jackets get more promotion sales than anything else. Jeans would get the least amount. Which verifies that people would spend their money when something is on sale or at a reasonable price.
+
+#### Conclusions
+
+Throughout this analysis, it was interesting to find that the jackets are the most sold, yet on average their prices are the lowest.
+
+Yet the jackets have the most outliers when it comes to pricing as Zara may be putting higher prices on certain products such as seasonal items, collectibles, or something currently trendy.
+
+This could be due to the nature of the dataset as it contains $53.8\%$ of information about jackets and everything else falling between $3.4\%$ to $16.6\%$.
+
+Additionally jeans do not get a lot of promotional notice whereas jackets and other clothing types do. Which means that if they wanted to sell more jeans, they could balance the price with the other stores that sell jeans as well as create more promotional notice.
+
+### 3. Monthly Patients Dataset
+
+#### Import Data
+
+```{r reading-dataset-3}
+raw_data3 <- read.csv("https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Projects/Project_2/datasets/monthly_patients_project_2.csv")
+
+head(raw_data3)
+glimpse(raw_data3)
+```
+
+#### Data Cleaning
+
+-   There is nothing to clean about this dataset. However, the months shortened to three characters is enough clarity for the reader to understand, but nonetheless it will be changed to their full name.
+
+-   As well as format the column names properly
+
+-   Convert from wide to long
+
+```{r cleaning-months-name}
+clean_data_wide_patients <- raw_data3 %>%
+  rename(
+    clinic_name = Clinic,
+    january = Jan,
+    february = Feb,
+    march = Mar,
+    april = Apr,
+    may = May,
+    june = Jun,
+    july = Jul,
+    august = Aug,
+    september = Sep,
+    october = Oct,
+    november = Nov,
+    december = Dec
+  )
+
+colnames(clean_data_wide_patients)
+```
+
+##### Data Dictionary: `clean_date_wide_patients`
+
+|   Variable    |             Meaning              |
+|:-------------:|:--------------------------------:|
+| `clinic_name` |       Name of the clinic.        |
+|   `january`   | Visited patients for this month. |
+|  `february`   | Visited patients for this month. |
+|    `march`    | Visited patients for this month. |
+|    `april`    | Visited patients for this month. |
+|     `may`     | Visited patients for this month. |
+|    `june`     | Visited patients for this month. |
+|    `july`     | Visited patients for this month. |
+|   `august`    | Visited patients for this month. |
+|  `september`  | Visited patients for this month. |
+|   `october`   | Visited patients for this month. |
+|  `november`   | Visited patients for this month. |
+|  `december`   | Visited patients for this month. |
+
+##### Converting from wide to long format
+
+```{r changing-patients-wide-to-long}
+clean_patients_long <- clean_data_wide_patients %>%
+  pivot_longer(
+    cols = c(january, february, march, april, may, june, july, august, september, october, november, december),
+    names_to = "month",
+    values_to = "value"
+  )
+
+head(clean_patients_long)
+glimpse(clean_patients_long)
+```
+
+##### Data Dictionary: `clean_patients_long`
+
+|   Variable    |                          Meaning                           |
+|:-------------:|:----------------------------------------------------------:|
+| `clinic_name` |                    Name of the clinic.                     |
+|    `month`    |          Listing months from January to December.          |
+|    `value`    | Visited patients for the respective month for that clinic. |
+
+#### Exploratory Data Analysis
+
+##### Table for Total Patients per Month Across All Hospitals
+
+```{r monthly-patients-visit-table}
+month_patient_counts <- clean_patients_long %>%
+  group_by(month) %>%
+  summarise(
+    month_counts = sum(value, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(month_counts))
+
+month_patient_counts
+```
+
+##### Bar Plot showcasing Total Patients Visited Across All Hospitals
+
+```{r bar-plot-monthly-patients}
+ggplot(month_patient_counts, aes(x=reorder(month, month_counts), y = month_counts, fill = month)) +
+  geom_col() +
+  coord_flip() +
+  geom_text(
+    aes(label = month_counts),
+    vjust = 0.5,
+    hjust = -0.05,
+    color = "black",
+    size = 3
+  ) +
+  labs(
+    title = "Patients per Month",
+    subtitle = "Arranged from greatest to least", 
+    x = "Month",
+    y = " Counts",
+    fill = "Months"
+  ) +
+  theme_minimal() +
+    theme(
+      legend.position = "bottom"
+    ) +
+    guides(fill = guide_legend(nrow = 2)) 
+```
+
+###### Interpretation for Plot and Table
+
+We can see that in the month of December they have the most patients across all hospitals followed by November, October, ... all the way down to February.
+
+Interestingly, it seems that the fall season has more patients visiting than the summer or spring season. This could be due to the seasons changing and people's bodies getting adjusted to the weather.
+
+##### Which Hospitals has more Patients Table
+
+```{r table-showing-most-hospital-visits}
+frequent_visited_hospital <- clean_patients_long %>%
+  group_by(clinic_name) %>%
+  summarise(
+    total_patient_counts = sum(value, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    total_percent = round((total_patient_counts / sum(total_patient_counts)) * 100, 1)
+  ) %>%
+  arrange(desc(total_patient_counts))
+
+frequent_visited_hospital
+```
+
+##### Plot Showcasing Top Visited Hospitals
+
+```{r plot-most-visited-hospitals}
+ggplot(frequent_visited_hospital, aes(x = reorder(clinic_name, total_patient_counts), y = total_patient_counts, fill = clinic_name)) +
+  geom_col() + 
+  coord_flip() + 
+  geom_text(
+    aes(label = total_patient_counts),
+    vjust = 0.5,
+    hjust = 0.09,
+    color = "black",
+    size = 2.5
+  ) +
+  labs(
+    title = "Total Patients Visited per Hospital",
+    subtitle = "Arranged from greatest to least",
+    x = "Clinic",
+    y = "Counts",
+    fill = "Clinic Name"
+  ) +
+  theme_minimal() + 
+  theme(legend.position = "bottom") +
+    guides(fill = guide_legend(nrow=4))
+```
+
+###### Interpretation of Summary Table and Plot
+
+The range of patients visiting a hospital falls within $7.2\%$ to $13.4\%$ which is fairly balanced distribution for this dataset. As noted there are certain hospitals which are not visited as much compared to others. This could be due to:
+
+-   Professionalism in the workplace
+
+-   Availability
+
+-   Location
+
+-   Needs
+
+However without more information it is hard to say or investigate exactly what makes a hospital more prominent than another.
+
+#### Conclusions
+
+Given that this dataset only contains information about the clinic and how many patients visited that clinic for each month, there are heavy limitations with what can be done with the data. The only thing we can do is create plots and table for the volume of patients visiting a hospital and monthly patient visits across all hospitals.
+
+### Conclusion
+
+Working with different datasets require being able to think:
+
+-   What does the dataset need?
+
+-   What are you trying to accomplish
+
+-   What are the limitations of the dataset?
+
+-   What are the appropriate plots for each dataset?
+
+-   Can the data be turned to a long formT
+
+The most common theme were the type of plots being used, as most data can be read with bar plots such as counts or aggregated plots.
+
+Converting data from a wide to a long format can create much easier calculations for statistical analysis or other forms of analysis.
+
+With the freedom of being able to experiment with different plots, it showed the different contexts of being able to use certain plots such as the box plot in the Zara dataset. As well as the jitter plot to showcase the volume of promotions for clothing type.
+
+Lastly, being able to draw conclusions is dependent on what is presented in the data or through external research depending on the dataset.
