@@ -1,0 +1,61 @@
+---
+title: "Week 7 - HTML and JSON"
+author: "Muhammad Ali"
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
+execute:
+  eval: true
+  echo: true
+editor: visual
+---
+
+# HTML & JSON Scraping
+
+## Approach
+
+### Background and Information
+
+This assignment focuses on building the foundation for `<mark`{=html}web scraping`></mark>`{=html}, working with <mark>HTML</mark> and <mark>JSON</mark>. Not only it is to build these foundations but it will create a path for one to understand and work with <mark>APIs</mark>.
+
+#### Terminology
+
+-   HTML: A structural code for documents that creates the foundation of websites that we see on the internet.
+
+-   JSON: *Short for JavaScript Object Notation,* it is used to store hierarchical data (nested information) and communicates between user and website.
+
+-   API: Set of rules that allows two softwares to communicate, follow rules, and to share data with each other. *In this case, requesting data from a website.*
+
+-   Web Scraping: A process where a computer program automatically extract data from websites and stores it in a dataset.
+
+### Goal
+
+The goal for this assignment is to manually create two data files and to store it in:
+
+-   HTML file
+
+-   JSON file
+
+What both of these files will contain are attributes about books such as
+
+-   Title
+
+-   Author(s)
+
+And additional attributes to list a few:
+
+-   Genre
+
+-   Publisher
+
+-   ISBN
+
+-   Rating
+
+### The Plan
+
+1.  In order to proceed with this, first we need to find 3 books to do this on, which will be mentioned when starting the codebase portion of this assignment.
+2.  After deciding the three books, manually create an `.html` and `.json` file for the books.
+3.  Load the two files into R using libraries that handle these file types and compare how identical the dataframes are or aren't.
