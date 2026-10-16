@@ -1,0 +1,20 @@
+[
+  {
+    "title": "R for Data Science",
+    "authors": "Hadley Wickham, Mine Çetinkaya-Rundel, Garrett Grolemund",
+    "year": 2023,
+    "publisher": "O'Reilly Media"
+  },
+  {
+    "title": "Python Data Science Handbook",
+    "authors": "Jake VanderPlas",
+    "year": 2023,
+    "publisher": "O'Reilly Media"
+  },
+  {
+    "title": "Hands-On Programming with R",
+    "authors": "Garrett Grolemund",
+    "year": 2014,
+    "publisher": "O'Reilly Media"
+  }
+]
