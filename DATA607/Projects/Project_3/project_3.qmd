@@ -1,0 +1,81 @@
+---
+title: "Project 3 - Most Valued Data Science Skills"
+author: "Muhammad Ali"
+format:
+  html:
+    toc: true
+    toc-title: "Sections"
+    toc-location: left
+    code-fold: true
+    code-summary: "View Code"
+    linkcolor: "#bc1c1c"
+    embed-resources: true
+    theme: journal
+    # journal, Materia, Lumen, Cosmo, default
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+editor: visual
+---
+
+# Data Science Skills Analysis
+
+## Approach
+
+### Background and Information
+
+This project is a combination of research with a main focus on exploratory data analysis on in-demand skills within data science jobs. With this project, research will be conducted on:
+
+-   Data sources
+
+-   Websites with jobs listings (i.e. Linkedin)
+
+-   What skills are currently used
+
+### The Question
+
+Which data science skills are most valued?
+
+### Data Source Acquistition
+
+With this project, I will be scraping data from Adzuna API as it gives insight on current skills in demand rather than data from 2024 or 2025 as things can change within the market or the demand of skills needed. In addition this will also create foundations with working with APIs and web scraping.
+
+-   [Adzuna API](https://developer.adzuna.com/overview)
+
+    -   ***Registering for a free key is required***
+
+    -   Returns data in JSON
+
+### The Plan
+
+In order to conduct an analysis on the data, we need to do the following:
+
+-   Get the dataset from Adzuna API
+
+-   Create schema for the data in tables
+
+-   Load and then clean the dataset
+
+-   See if the dataset requires further modifications to extract keywords for jobs
+
+-   Conduct analysis such as plots and tables
+
+## Codebase
+
+### Install Packages
+
+```{r install packages}
+#install.packages(c("tidyverse", "rvest", "robotstxt", "jsonlite", "rlang", "httr2"))
+```
+
+### Import Libraries
+
+```{r import libraries}
+library(tidyverse)
+library(rvest)
+library(robotstxt)
+library(jsonlite)
+library(httr2)
+```
