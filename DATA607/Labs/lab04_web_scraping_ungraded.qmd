@@ -1,0 +1,134 @@
+---
+title: "Ungraded Hands-On Lab: Web Scraping"
+author: "Muhammad Ali"
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: Materia
+    # , Lumen, Cosmo, default
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+editor: visual
+---
+
+## Web Scraping Practice
+
+In this ungraded lab we will be practicing the concept of reading from a webpage and creating a table from an HTML.
+
+### Install Packages
+
+```{r install-packages}
+#install.packages(c("tidyverse", "rvest", "robotstxt", "jsonlite"))
+```
+
+### Import Libraries
+
+```{r import-libraries}
+library(tidyverse) 
+library(rvest) 
+library(robotstxt) 
+library(jsonlite)
+```
+
+### Dataset (Webpage)
+
+We will be scraping a sports webpage with a list of super bowl winners and results.
+
+-   [Webpage](https://www.espn.com/nfl/superbowl/history/winners)
+
+The goal is to extract information and to turn it into a csv file.
+
+### Attempt at doing
+
+-   Do note that there is a provided [solution](https://rpubs.com/Radcliffe/superbowl) by Professor Gomez
+
+#### Reading HTML
+
+-   Take the URL
+
+-   Read into an html
+
+```{r reading html}
+url <- "https://www.espn.com/nfl/superbowl/history/winners"
+
+webpage <- read_html(url)
+```
+
+```{r extracting nodes from the html}
+sb_table <- html_nodes(webpage, 'table') 
+sb <- html_table(sb_table[[1]], header=TRUE)
+head(sb)
+```
+
+What did we do in the above chunk? We went on the website and used inspect element to see the html code. In there we see (refer to screenshot below) a developer comment indicating that there is a table and we can use that and the function `html_nodes()` to extract said table and then use `html_table()` to convert to a df.
+
+![](images/clipboard-3694984231.png)
+
+#### Properly name the column headers
+
+Now we loaded in the dataframe, but we don't have the column names loaded in correctly. Hypothetically, lets say there are millions of columns, we cannot manually change it one by one, in this case we see the correct column headers in the first row, so we need to just shift it upwards to become a header.
+
+```{r rename columns}
+col_names <- unlist(sb[2, ])
+colnames(sb) <- col_names # takes second row as the column name
+sb_clean <- sb[-c(1:2), ] # removes the first two rows
+names(sb_clean) <- c("number", "date", "site", "result") # rename columns all at once
+head(sb_clean)
+```
+
+To note what we did
+
+-   When we first loaded the data in, the second row had the correct column names, so we had to extract the 2nd row as a vector and set `colnames()` to those respective columns.
+
+-   Then we removed the first two rows as it is just a header and the original column names
+
+-   Renamed Columns
+
+-   Then we get the full table of information, which we still need to clean
+
+#### Data Cleaning
+
+-   Replace roman numerals
+
+-   Covert to date format
+
+-   Separate the result column for winners and losers and then their score
+
+##### Numeric and Date Conversion
+
+```{r numeric and date convert}
+sb_clean$number <- 1:59
+sb_clean$date <- as.Date(sb_clean$date, "%B. %d, %Y")
+head(sb_clean)
+```
+
+##### Split results
+
+```{r splitting results column}
+sb_clean <- sb_clean |> separate_wider_delim(
+  cols = result,
+  delim = ", ",
+  names = c("winner", "loser")
+)
+
+head(sb_clean)
+```
+
+##### Splitting Scores With Regex
+
+```{r score split}
+pattern <- " \\d+$"
+sb_clean$winner_score <- as.numeric(str_extract(sb_clean$winner, pattern))
+sb_clean$loser_score <- as.numeric(str_extract(sb_clean$loser, pattern))
+sb_clean$winner <- gsub(pattern, "", sb_clean$winner)
+sb_clean$loser <- gsub(pattern, "", sb_clean$loser)
+head(sb_clean)
+```
+
+What we did we used Regex to extract the digits (the score) and separated into two new columns.
+
+With that, we have completed our data cleaning and successfully scraped information from a webpage to a dataframe.
