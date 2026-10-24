@@ -38,23 +38,33 @@ This project is a combination of research with a main focus on exploratory data 
 
 Which data science skills are most valued?
 
-### Data Source Acquistition
+### Data Source Acquisition
 
-With this project, I will be scraping data from Adzuna API as it gives insight on current skills in demand rather than data from 2024 or 2025 as things can change within the market or the demand of skills needed. In addition this will also create foundations with working with APIs and web scraping.
+With this project I will scrape off a website to get the data I need, after research I have decided to scrape off of Glassdoor with job listings.
 
--   [Adzuna API](https://developer.adzuna.com/overview)
+However, since there are restrictions with certain websites, I have decided to create a tibble to check various companies if I am allowed to scrape off of or not.
 
-    -   ***Registering for a free key is required***
+-   Scraped October 24th, 2026
 
-    -   Returns data in JSON
+<!-- -->
+
+-   [Glassdoor](https://www.glassdoor.com/Job/data-scientist-jobs-SRCH_KO0,14.htm)
+
+-   654 Job Postings
+
+### Tools
+
+-   [**Github:**]{.underline} Storing Data and Files
+
+-   [**RStudio:**]{.underline} Where the code will be written in R using Quarto
+
+-   [**RPubs:**]{.underline} To publish at the end of this project
 
 ### The Plan
 
 In order to conduct an analysis on the data, we need to do the following:
 
--   Get the dataset from Adzuna API
-
--   Create schema for the data in tables
+-   Extract data from one job board with different companies
 
 -   Load and then clean the dataset
 
@@ -67,7 +77,7 @@ In order to conduct an analysis on the data, we need to do the following:
 ### Install Packages
 
 ```{r install packages}
-#install.packages(c("tidyverse", "rvest", "robotstxt", "jsonlite", "rlang", "httr2"))
+install.packages(c("tidyverse", "rvest", "robotstxt", "jsonlite", "rlang", "httr2", "usethis"))
 ```
 
 ### Import Libraries
@@ -78,4 +88,134 @@ library(rvest)
 library(robotstxt)
 library(jsonlite)
 library(httr2)
+library(usethis)
+```
+
+### Extracting the Data
+
+```{r checking one company, include=FALSE}
+slug <- "airbnb"   # any company that uses Greenhouse
+
+resp <- request(paste0("https://boards-api.greenhouse.io/v1/boards/", slug, "/jobs")) |>
+  req_url_query(content = "true") |>
+  req_perform()
+
+dir.create("data/raw", recursive = TRUE, showWarnings = FALSE)
+writeLines(resp_body_string(resp), paste0("data/raw/", slug, "_", Sys.Date(), ".json"))
+
+jobs <- resp_body_json(resp)$jobs
+length(jobs)        # how many postings
+names(jobs[[1]])    # what fields each posting has
+```
+
+```{r checking the contents of the data, include=FALSE}
+postings <- tibble(
+  id         = map_dbl(jobs, "id"),
+  company    = map_chr(jobs, "company_name"),
+  title      = map_chr(jobs, "title"),
+  location   = map_chr(jobs, \(j) pluck(j, "location", "name", .default = NA_character_)),
+  department = map_chr(jobs, \(j) pluck(j, "departments", 1, "name", .default = NA_character_)),
+  published  = map_chr(jobs, \(j) pluck(j, "first_published", .default = NA_character_)),
+  content    = map_chr(jobs, \(j) pluck(j, "content", .default = NA_character_))
+)
+
+glimpse(postings)
+```
+
+```{r filtering for data science related, include=FALSE}
+ds_pattern <- regex(
+  "data scien|data analy|data engineer|analytics|machine learning|\\bML\\b|\\bAI\\b|applied scien|research scien|statistic|business intelligence|\\bBI\\b",
+  ignore_case = TRUE
+)
+
+ds_postings <- postings |>
+  filter(str_detect(title, ds_pattern))
+
+nrow(ds_postings)
+ds_postings |> select(company, title) |> print(n = 50)
+```
+
+```{r getting data, include=FALSE}
+collect_board <- function(slug) {
+  resp <- request(paste0("https://boards-api.greenhouse.io/v1/boards/", slug, "/jobs")) |>
+    req_url_query(content = "true") |>
+    req_perform()
+
+  writeLines(resp_body_string(resp), paste0("data/raw/", slug, "_", Sys.Date(), ".json"))
+  jobs <- resp_body_json(resp)$jobs
+
+  tibble(
+    id         = map_dbl(jobs, "id"),
+    company    = map_chr(jobs, "company_name"),
+    title      = map_chr(jobs, "title"),
+    location   = map_chr(jobs, \(j) pluck(j, "location", "name", .default = NA_character_)),
+    department = map_chr(jobs, \(j) pluck(j, "departments", 1, "name", .default = NA_character_)),
+    published  = map_chr(jobs, \(j) pluck(j, "first_published", .default = NA_character_)),
+    content    = map_chr(jobs, \(j) pluck(j, "content", .default = NA_character_))
+  )
+}
+
+slugs <- c("airbnb", "stripe", "databricks", "coinbase", "datadog",
+           "instacart", "reddit", "lyft", "dropbox", "discord")
+more <- c("anthropic", "pinterest", "robinhood", "doordash", "figma", "asana",
+          "gitlab", "cloudflare", "mongodb", "twilio", "okta", "duolingo",
+          "affirm", "etsy", "squarespace", "airtable")
+slugs <- c(slugs, more)
+
+results <- map(slugs, \(s) {
+  Sys.sleep(1)  # be polite to the server
+  tryCatch(collect_board(s), error = \(e) { message("Failed: ", s); NULL })
+})
+
+all_postings <- bind_rows(results)
+ds_postings  <- all_postings |> filter(str_detect(title, ds_pattern))
+
+count(all_postings, company)
+count(ds_postings, company)
+```
+
+```{r writing csv, include=FALSE}
+dir.create("data", showWarnings = FALSE)
+write_csv(ds_postings, paste0("data/ds_postings_", Sys.Date(), ".csv"))
+```
+
+### Load in the Data
+
+```{r loading in dataset}
+data <- read_csv("https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Projects/Project_3/data/ds_postings_2026-10-24.csv")
+
+head(data)
+```
+
+### Fix the HTML Part of the Column
+
+```{r fix html column}
+html_to_text <- function(x) {
+  if (is.na(x)) return(NA_character_)
+  once <- read_html(paste0("<body>", x, "</body>")) |> html_text()  # &lt;p&gt; -> <p>
+  read_html(paste0("<body>", once, "</body>")) |> html_text2()      # strip the tags
+}
+
+ds_postings <- ds_postings |>
+  mutate(description = map_chr(content, html_to_text))
+
+# the head
+ds_postings |> select(company, title, location, department, published) |> head(10)
+
+# one cleaned description, to check it reads like normal text
+ds_postings$description[1] |> str_trunc(1500) |> cat()
+```
+
+```{r trim repeated message}
+ds_postings <- ds_postings |>
+  mutate(description_trimmed = str_remove(
+    description,
+    regex("(Our Commitment To Inclusion|Reasonable Accommodations|Equal Employment Opportunity).*$",
+          dotall = TRUE)
+  ))
+```
+
+```{r checking for duplicates or repeated titles}
+ds_postings |> count(id) |> filter(n > 1)                      # same posting pulled twice?
+ds_postings |> count(company, title) |> filter(n > 1)          # same title repeated
 ```
