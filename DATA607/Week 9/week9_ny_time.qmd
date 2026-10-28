@@ -1,0 +1,71 @@
+---
+title: "Week 9 - NY Times API"
+author: 
+  - name: "Muhammad Ali"
+    affiliation: "CUNY School of Professional Studies"
+date: last-modified
+# abstract: "Using the New York Times API in R."
+format:
+  html:
+    theme: lumen
+    # materia,lumen, cosmo, default
+    toc: true
+    toc-location: left
+    toc-depth: 50
+    toc-expand: true
+    code-fold: true
+    code-copy: true
+    smooth-scroll: true
+    code-summary: "Show code"
+    df-print: paged
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+editor: visual
+---
+
+# Using the New York Times API
+
+## Approach
+
+### Background & Information
+
+In this assignment, the focus will be to accessing data from the New York Times via an <mark>API</mark>.
+
+Accessing data with an <mark>API Key</mark> is the ultimate goal of web scraping, as it is a way to get data in real time from sources such as The New York Times, a census of NYC, sports data such as Formula 1, Premier League, the Super Bowl and so on rather than an old "snapshot" from 2 years ago.
+
+But for this, we will be using the NY Times as mentioned and we will be accessing an <mark>endpoint</mark> to answer a question about the data that comes to mind.
+
+### Terminology
+
+-   [**API:**]{.underline} *Application Programming Interface.* Set of rules that allows two softwares to communicate, follow rules, and to share data with each other. In this case, requesting data from a website.
+
+-   [**API Key:**]{.underline} A string of text that acts as a secure passcode for an application to ask a server for the data it is requesting. ***This is not to be shared with anyone!***
+
+-   [**Endpoint:**]{.underline} A specific digital location or web address where a software application can access the digital resources it needs. *Like a library book located in a certain section and we the user want to access and use that book.*
+
+### Data Source
+
+-   [New York Times Developer Network](https://developer.nytimes.com/) - Where to request for an API Key. *First create an account!*
+
+-   [New York Times APIs](https://developer.nytimes.com/apis) - Available Endpoints
+
+-   For this, I will be using the Books API endpoint
+
+### Question
+
+Which books have been on a list the longest, and which categories?
+
+### Plan Outline
+
+-   Create an account on the NY Times and request an API Key on the Books API
+
+-   Create requests to the server to extract data
+
+-   Parse from JSON format to use in R tibble
+
+-   Conduct analysis
+
+## Codebase
