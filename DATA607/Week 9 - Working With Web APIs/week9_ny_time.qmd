@@ -17,7 +17,7 @@ format:
     code-copy: true
     smooth-scroll: true
     code-summary: "Show code"
-    df-print: paged
+    df-print: kable
 execute:
   eval: true
   echo: true
