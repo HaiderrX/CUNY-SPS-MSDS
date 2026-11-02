@@ -46,6 +46,10 @@ But for this, we will be using the NY Times as mentioned and we will be accessin
 
 -   [**Endpoint:**]{.underline} A specific digital location or web address where a software application can access the digital resources it needs. *Like a library book located in a certain section and we the user want to access and use that book.*
 
+-   [**Request:**]{.underline} The user asking the server if they can extract information without changing anything on the server end.
+
+-   [**Response:**]{.underline} An answer in the form of status codes (200, 400, etc.) from the server to the user. For this definition, getting a response code of 200 means we are permitted to send a request to the server.
+
 ### Data Source
 
 -   [New York Times Developer Network](https://developer.nytimes.com/) - Where to request for an API Key. *First create an account!*
@@ -56,7 +60,15 @@ But for this, we will be using the NY Times as mentioned and we will be accessin
 
 ### Question
 
-Which books have been on a list the longest, and which categories?
+With the Books API Endpoint, I will be conducting analysis to ask the following questions:
+
+-   What is the longest that a book has been on the best sellers list?
+
+-   What genre stays on the list the longest?
+
+-   Who are the most publishers in this dataset?
+
+-   Which authors recur the most?
 
 ### Plan Outline
 
@@ -69,3 +81,296 @@ Which books have been on a list the longest, and which categories?
 -   Conduct analysis
 
 ## Codebase
+
+### Install Packages
+
+```{r install packages}
+# Install packages once if they are missing.
+# install.packages(c("httr2", "tidyverse", "usethis"))
+
+# Received an error with my Renviron file for the API key, so this will allow me to use it.
+usethis::edit_r_environ()
+```
+
+### Load Packages
+
+```{r load packages}
+library(tidyverse)
+library(httr2)
+library(usethis)
+```
+
+### API Request
+
+#### Request Parameters
+
+-   [Base URL:]{.underline} `https://api.nytimes.com/svc/books/v3`
+
+-   [Endpoint:]{.underline} `/lists/overview.json`
+
+-   [API Key:]{.underline} `nyt_api_key` Read from using `Sys.getenv()` *Saved using .Renviron file*
+
+```{r API Request}
+api_key <- Sys.getenv("nyt_api_key")
+api_url <- "https://api.nytimes.com/svc/books/v3/lists/overview.json"
+
+req <- request(api_url) |>
+  req_headers(
+    Accept = "application/json",
+    `User-Agent` = "DATA-607-week9-homework"
+  ) |>
+  req_url_query(`api-key` = api_key)
+
+req
+```
+
+```{r dry run request}
+req_dry_run(req)
+```
+
+### Performing & Confirming The Request
+
+```{r performing request}
+resp <- req |>
+  req_perform()
+
+# Confirm that the server accepted the request.
+resp_status(resp)
+resp_status_desc(resp)
+resp_content_type(resp)
+```
+
+### Read the JSON body
+
+As we have loaded in the API data, we need to investigate where the information we want is located and we located it in `lists` and in `books`.
+
+```{r reading JSON}
+books_json <- resp |>
+  resp_body_json(simplifyVector = TRUE)
+
+names(books_json)
+names(books_json$results) # "lists" is most likely where the book information is located.
+names(books_json$results$lists) # books is where the books we want are stored, and it is in a dataframe
+```
+
+### Parse JSON to Tibble
+
+We are working with a JSON file, so what we want to do is unnest the json to use in a tabular format adding things from the `list` dataframe as well as the `books` dataframe.
+
+```{r parsing json}
+list_column <- books_json$results$lists
+
+# Flatten the list and books
+flat_books <- tibble(
+  list_name = list_column$list_name,
+  books_df = list_column$books
+) |>
+  unnest(books_df)
+
+head(flat_books)
+glimpse(flat_books)
+```
+
+### Creating Table
+
+We have a large flattened table, but we want only the relevant information regarding books such as the title, author, rank on the list, and such, which are selected below and explained with the provided data dictionary.
+
+```{r creating Books Table}
+books_table <- flat_books |>
+  select(
+    book_title = title,
+    author,
+    rank,
+    book_genre = list_name,
+    weeks_on_list,
+    publisher
+    )
+
+head(books_table)
+```
+
+|   Column Name   |                    Definition                     |
+|:---------------:|:-------------------------------------------------:|
+|  `book_title`   |                 Name of the book                  |
+|    `author`     |             The author(s) of the book             |
+|     `rank`      | Book's current position on the list for this week |
+|  `book_genre`   |      The genre(s) that the book is listed as      |
+| `weeks_on_list` |      How long the book has been on the list       |
+|   `publisher`   |              Who published the book               |
+
+: Data Dictionary
+
+### Reproducibility Metadata
+
+This part is crucial as it lists the time of retrieving the source data and url with values.
+
+And to be safe so we don't abuse the requests on the server, I will save it in a csv file so I can do offline work on this data.
+
+```{r API Reproducibility}
+retrieved_at <- format(Sys.time(), tz = "UTC", usetz = TRUE)
+
+matches_snapshot <- books_table |>
+  mutate(
+    retrieved_at = retrieved_at,
+    request_url = api_url,
+    .before = 1
+  )
+
+head(matches_snapshot,3)
+
+# Save to CSV
+write.csv(matches_snapshot, "books_table.csv", row.names = FALSE)
+```
+
+### Analysis
+
+#### Load Data
+
+For some reason there is a new column created, so I had to clean that column up and rearrange the columns
+
+```{r read csv}
+data <- read_csv("https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Week%209%20-%20Working%20With%20Web%20APIs/books_table.csv")
+
+head(data)
+glimpse(data)
+clean_data <- data |> select(
+  book_title,
+  author,
+  book_genre,
+  rank,
+  weeks_on_list,
+  publisher,
+  retrieved_at,
+  request_url
+)
+```
+
+```{r}
+head(clean_data)
+glimpse(clean_data)
+```
+
+Let us ask a first question:
+
+-   What is longest on a list in this dataset?
+
+#### Top 20 Longest on List
+
+```{r longest weeks on list}
+top_n_longest_books <- clean_data |>
+  group_by(book_title) |>
+  summarize(weeks_on_list = max(weeks_on_list, na.rm = TRUE)) |>
+  ungroup() |>
+  slice_max(weeks_on_list, n = 20, with_ties = FALSE)
+
+ggplot(top_n_longest_books, aes(x = reorder(str_to_title(book_title), weeks_on_list), y = weeks_on_list)) +
+  geom_col(fill = "indianred1") +
+  coord_flip() +
+  labs(
+    title = "Top 20 Longest Books", 
+    x = "Book Title", 
+    y = "Weeks on List"
+    ) +
+  theme_minimal()
+```
+
+##### Interpretations
+
+With the plot showing the top 20 books listed on the best sellers page, we can see that 'Diary of a Wimpy Kid', the first in the series, has been on the best sellers list for the longest time followed by Harry Potter.
+
+We can also take note that half of the books listed on this plot are series book and the other being standalone books, and most being for children or young adults and the latter for adults.
+
+#### Which genre stays on the list the longest?
+
+```{r genres question}
+genre_summary <- clean_data |>
+  group_by(book_genre) |>
+  summarize(
+    avg_weeks = round(mean(weeks_on_list),0),
+    median_weeks = median(weeks_on_list),
+    max_weeks = max(weeks_on_list),
+    n_books = n()
+  ) |>
+  arrange(desc(avg_weeks))
+
+head(genre_summary)
+```
+
+```{r plotting genre summary table}
+ggplot(genre_summary, aes(x = reorder(book_genre, avg_weeks), y = avg_weeks)) +
+  geom_col(fill = "slateblue") +
+  coord_flip() +
+  labs(
+    title = "Top Genres by Average Weeks on List",
+    x = "Genre", 
+    y = "Average Weeks on List"
+  ) +
+  theme_minimal()
+```
+
+##### Interpretations
+
+As concluded with the previous plot and seeing that 'Diary of a Wimpy Kid' is the longest best seller on the New York Times, it is no surprise that the Children's and Young Adult Series genre on average are the top genres in the best sellers list.
+
+#### Who publishes books the most?
+
+```{r publishers count}
+publisher_counts <- clean_data |>
+  distinct(book_title, author, publisher) |>
+  count(publisher, sort = TRUE)
+
+head(publisher_counts, 10)
+```
+
+```{r publisher plot}
+top_n_publishers <- publisher_counts |>
+  slice_max(n, n=20)
+
+ggplot(top_n_publishers, aes(x=reorder(publisher, n), y = n)) +
+  geom_col(fill = "royalblue2") +
+  coord_flip() +
+   labs(
+    title = "Top 20 Publishers",
+    x = "Publisher Name", 
+    y = "Count"
+  ) +
+  theme_minimal()
+```
+
+##### Interpretations
+
+Surprisingly, Audible Studios (producing audiobooks) is number 1 on the publishers list, but it is also followed by scholastic which is not a surprise with the previous plots backing up that children's and young adults are the most selling books in the New York Times, scholastic also sells their books to schools for children to buy.
+
+#### Which author recurs the most?
+
+```{r author counts}
+author_counts <- clean_data |>
+  distinct(book_title, author) |>
+  count(author, sort = TRUE)
+
+head(author_counts, 10)
+```
+
+```{r author plot}
+author_counts |> 
+  slice_max(n, n = 20, with_ties = FALSE) |> 
+  ggplot(aes(x = reorder(author, n), y = n)) +
+  geom_col(fill = "aquamarine2") +
+  coord_flip() +
+  labs(
+    title = "Top 20 Recurring Authors",
+    x = "Author Name",
+    y = "Count"
+  ) +
+  theme_minimal()
+```
+
+##### Interpretations
+
+It is no surprise to see famous authors such as J.K. Rowling, Jeff Kinney or Rick Riordan on this list as their books are also in the best sellers plot! Which tells us that series books can contribute to authors to recur on the best sellers list as well as their books as people would be invested in a series book to see what happens next.
+
+## Conclusion
+
+Given that the data had to come from an API, it is a hassle to work with given that one must read the terms of conditions before requesting information to the server as well as extracting useful information from nested data (JSON).
+
+What was interesting after using a subset of columns for the books best sellers list, that notable books such as 'Diary of a Wimpy Kid' or 'Harry Potter' are still present in the list after being released in the early 2010s or late 90s those respective authors still making a name for themselves with continuing those book series to this day.
