@@ -1,0 +1,387 @@
+---
+title: "Statistical Analysis Project Proposal"
+author: 
+  - name: "Muhammad Ali"
+    affiliation: "CUNY School of Professional Studies"
+date: last-modified
+format: 
+  revealjs:
+    #smaller: true
+    incremental: false
+    slide-number: true
+    code-fold: true
+    code-copy: true
+    code-line-numbers: true
+    code-overflow: wrap
+    theme: simple
+    df-print: kable
+    scrollable: true
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: visual
+---
+
+## Data Preparation
+
+```{r setup, echo=TRUE, results='hide', warning=FALSE, message=FALSE}
+# load data
+
+# Installing the data source (uncomment if you need to install, but will provide a read_csv at the end)
+# devtools::install_github("jfjelstul/worldcup")
+library(worldcup)
+library(tidyverse)
+data(package = "worldcup")$results[, "Item"]
+
+# Filtering for mens
+cases <- team_appearances |>
+  filter(str_detect(tournament_name, "Men's"),
+         match_date >= as.Date("1970-01-01"))
+
+# Card counts
+card_counts <- bookings |>
+  group_by(match_id, team_id) |>
+  summarise(cards = n(),
+            sent_off = sum(sending_off),
+            .groups = "drop")
+
+# Building our cases
+cases <- cases |>
+  left_join(card_counts, by = c("match_id", "team_id")) |>
+  mutate(across(c(cards, sent_off), ~ replace_na(.x, 0)))
+
+# Host Countries
+host_list <- host_countries |>
+  select(tournament_id, team_id) |>
+  mutate(host = 1)
+
+cases <- cases |>
+  left_join(host_list, by = c("tournament_id", "team_id"))
+
+cases <- cases |>
+  mutate(host = replace_na(host, 0))
+
+# Referees filter and matching
+ref_list <- referee_appearances |>
+  select(match_id, referee_id, ref_confed = confederation_code)
+
+cases <- cases |>
+  left_join(ref_list, by = "match_id")
+
+# Team filter and matching 
+team_list <- teams |>
+  select(team_id, team_confed = confederation_code)
+
+cases <- cases |>
+  left_join(team_list, by = "team_id")
+
+cases <- cases |>
+  mutate(same_confed = as.integer(team_confed == ref_confed))
+
+# Years List and filter (start when cards were implemented)
+cases <- cases |>
+  mutate(year = as.integer(str_sub(tournament_id, 4, 7)))
+
+cases <- cases |>
+  mutate(era = cut(year,
+                   breaks = c(1969, 1979, 1995, 2011, 2022),
+                   labels = c("1970s", "1982-94", "1998-2010", "2014-22")))
+
+# We want at least 1 card and at least 1 send off
+cases <- cases |>
+  mutate(any_card    = as.integer(cards > 0),
+         any_sent_off = as.integer(sent_off > 0))
+
+# Final Table
+final_table <- cases |>
+  select(tournament_id, tournament_name, year, era, match_id, match_date,
+         stage_name, group_stage, knockout_stage,
+         team_id, team_name, team_confed, opponent_name,
+         goals_for, goals_against, goal_differential, result,
+         host, ref_confed, same_confed,
+         cards, any_card, sent_off, any_sent_off)
+
+nrow(final_table) # 1528 rows (cases)
+```
+
+## Data Head {.smaller}
+
+```{r data head}
+data <- read_csv("https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA606/Project/final_table.csv") |>
+  mutate(era = factor(era, levels = c("1970s", "1982-94", "1998-2010", "2014-22")),
+         match_date = as.Date(match_date))
+
+head(data)
+```
+
+## Data Dictionary {.smaller}
+
+| Columns | Definition |
+|:------------------------------:|:--------------------------------------:|
+| `tournament_id` | Code for World Cup and the year |
+| `tournament_name` | Full name of WC for that year |
+| `year` | Year Played |
+| `era` | A bucket of what year it was held in, like 1970s |
+| `match_id` | Code for match, two teams in the same match would share this identifier |
+| `match_date` | When the match took place |
+| `stage_name` | The round, if it was group stage, round of 16, quarter-finals, etc. |
+| `group_stage` | Binary, 1 if it was group stage, 0 if it wasn't |
+| `knockout_stage` | Binary, 1 if it was knockout stage, 0 if it wasn't |
+| `team_id` | Code for the team |
+| `team_name` | Team name like "Mexico", "Canada", "Argentina" |
+| `opponent_name` | Opposing name like "Soviet Union", "Uruguay", "Argentina" |
+| `goals_for` | Goals that the team scored |
+| `goals_against` | Goal that the opposing team scored |
+| `goal_differential` | Difference between the goals for and against |
+| `result` | Win, Lose, or Drew for the team |
+| `host` | Binary, if current team on the row was the host nation for the tournament |
+| `team_confed` | Team continental confederation (Asia, Europe, South America, etc.) |
+| `ref_confed` | Referee continental confederation (Asia, Europe, South America, etc.) |
+| `same_confed` | Binary, 1 if the referee and the team confederation matches, else 0 |
+| `cards` | How many cards the team has received in the match (yellow and red) |
+| `any_card` | Binary, 1 if the team got at least 1 card, else 0 |
+| `any_sent_off` | Binary, 1 if the team had at least one player sent off the pitch, else 0 |
+
+: Metadata Meaning
+
+## Motivation {.smaller}
+
+Recall that the definition and the core theme of statistics is to hunt for the truth.
+
+The world of sports creates an atmosphere for people to display a collective passion, excitement, and cultural appreciation. However, beyond unity, what drives a lot of sports fans is the outcome of an event as it is left to chance and unpredictability throughout a match.
+
+Yet the same cannot be said for the 2022 and 2026 World Cups. Beneath the surface of entertainment, these tournaments were intertwined with bias, political intervention, and alleged match manipulation.
+
+:::::: {style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; font-size: 0.72em; margin-top: 15px;"}
+::: {style="background: rgba(100,100,100,0.1); padding: 12px; border-radius: 6px; border-left: 4px solid #3b82f6;"}
+**Example 1: Coach Quote**
+
+\> “A penalty was ruled out, was not even checked by VAR. A second goal was remarkably disallowed. There has not even been a VAR check when we have all seen the image of the shirt being pulled back.”\
+\> — *Hossam Hassan, Egypt Head Coach*
+:::
+
+::: {style="background: rgba(100,100,100,0.1); padding: 12px; border-radius: 6px; border-left: 4px solid #ef4444;"}
+**Example 2: Political Reaction**
+
+\> "And that wasn't a foul. That wasn't even an infraction. ... it's very unfair. You can't do that. So, uh, yes, I asked for a review by FIFA, and I think the referee's call was horrible."\
+\> — *President Donald Trump*
+:::
+
+::: {style="background: rgba(100,100,100,0.1); padding: 12px; border-radius: 6px; border-left: 4px solid #10b981;"}
+**Example 3: Debated Infraction** ![Controversial Play Example](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStcz3rTHlSxUrLINcJVykPX_QzxwZ7kxDvmSFhScsxgV89VJhORsvcUn95&s=10){width="100%"} *Lionel Messi's infamous handball during World Cup 2022's Argentina vs. Netherlands. as seen in the match footage (FIFA 1:04:05).*
+:::
+::::::
+
+## Research question
+
+Given controversies at recent World Cups, is there statistical evidence of unusual card patterns, such as hosts receiving fewer cards or same-confederation referees treating teams differently, in men’s World Cup matches from 1970 to 2022?
+
+*Note: this study uses observational data and can identify associations only. It cannot establish match-fixing or intent. In addition, the World Cup 2026 is the inspiration for this research.*
+
+## Cases
+
+There are 1528 cases in this data. Each case is a match in a world cup with referee information, host information, and card information.
+
+## Data collection
+
+This data was compiled from Wikipedia pages and FIFA Official Match Reports.
+
+"The data in the Fjelstul World Cup Database is coded based on information from Wikipedia. Some of this information is cross-referenced with the official FIFA match reports to check for accuracy." (jfjelstul).
+
+## Type of study
+
+This is a retrospective observational study. The data that will be used starts from year 1970 to the year 2022, as that is "when" the research question focuses on.
+
+Data Limitation: The data does not provide the World Cup 2026 data yet.
+
+## Data Source
+
+[Github Link](https://github.com/jfjelstul/worldcup)
+
+This github repository is a database for information on the world cup, men and women from starting from 1930 and 1991 respectively.
+
+All information on the data is mentioned in this repository, including licensing, data sources, and data notes.
+
+## Classifying Variables {.smaller}
+
+:::::: columns
+::: {.column width="48%"}
+| Variables         | Classification |
+|:------------------|:--------------:|
+| `tournament_id`   |  Qualitative   |
+| `tournament_name` |  Qualitative   |
+| `year`            |  Quantitative  |
+| `era`             |  Qualitative   |
+| `match_id`        |  Qualitative   |
+| `match_date`      |  Quantitative  |
+| `stage_name`      |  Qualitative   |
+| `group_stage`     |  Qualitative   |
+| `knockout_stage`  |  Qualitative   |
+| `team_id`         |  Qualitative   |
+| `team_name`       |  Qualitative   |
+| `opponent_name`   |  Qualitative   |
+:::
+
+::: {.column width="4%"}
+<!-- This is just an empty spacer column -->
+:::
+
+::: {.column width="48%"}
+| Variables           | Classification |
+|:--------------------|:--------------:|
+| `goals_for`         |  Quantitative  |
+| `goals_against`     |  Quantitative  |
+| `goal_differential` |  Quantitative  |
+| `result`            |  Qualitative   |
+| `host`              |  Qualitative   |
+| `team_confed`       |  Qualitative   |
+| `ref_confed`        |  Qualitative   |
+| `same_confed`       |  Qualitative   |
+| `cards`             |  Quantitative  |
+| `any_card`          |  Qualitative   |
+| `any_sent_off`      |  Qualitative   |
+:::
+::::::
+
+## Modeling Variables {.smaller}
+
+In regard to modeling, my dependent variable(s) would be `cards` and `any_sent_off`, As these are the main focus on the research question. To illustrate in a table, the following are variables each labeled with the role they play in the analysis with the type of statistical test or modeling they will be part of:
+
+| Variable | Type | Statistical Test |
+|:------------------:|:-----------------------:|:-------------------------:|
+| `cards` | Dependent | ANOVA, Linear Regression |
+| `any_sent_off` | Dependent | Chi-Square, Logistic Regression |
+| `same_confed` | Main Explanatory Variable | Chi-Square, Linear & Logistic Regression |
+| `host` | Main Explanatory Variable | Chi-Square, Linear & Logistic Regression |
+| `ref_confed` | Factor | ANOVA |
+| `team_confed` | Control | Linear & Logistic Regression |
+| `era` | Control | Linear & Logistic Regression |
+
+: Variables and Their Roles
+
+## Relevant Summary Statistics {.smaller}
+
+### Descriptive Statistic Summary
+
+#### Cards Summary
+
+```{r card summary}
+# cards summary
+data |>
+  summarise(
+    n = n(),
+    mean = mean(cards),
+    median = median(cards),
+    sd = sd(cards),
+    min = min(cards),
+    max = max(cards)
+  ) 
+```
+
+#### Player Sent Off Proportion
+
+```{r Player Sent Off Proportion}
+# players sent off proportion
+data |>
+  count(any_sent_off) |>
+  mutate(prop = n /sum(n))
+```
+
+### Statistical Test Variables Summary
+
+#### Host Comparison
+
+```{r host comparison}
+# Host comparison
+data |>
+  group_by(host) |>
+  summarise(
+    n = n(), 
+    mean_cards = mean(cards),
+    sd_cards = sd(cards),
+    prop_sent_off = mean(any_sent_off)
+  )
+```
+
+#### Same Confederation Comparison
+
+```{r same confed comparison}
+# Same Confederation comparison
+data |>
+  group_by(same_confed) |>
+  summarise(
+    n = n(), 
+    mean_cards = mean(cards),
+    sd_cards = sd(cards),
+    prop_sent_off = mean(any_sent_off)
+  )
+```
+
+#### Referee Confederation Comparison
+
+```{r Referee Confed Compare}
+# Referee Confederation
+data |>
+  group_by(ref_confed) |>
+  summarise(
+    n = n(), 
+    mean_cards = mean(cards),
+    sd_cards = sd(cards),
+    prop_sent_off = mean(any_sent_off)
+  )
+```
+
+#### Era Comparison
+
+```{r Era Comparsion}
+# Era Comparison
+data |>
+  group_by(era) |>
+  summarise(
+    n = n(), 
+    mean_cards = mean(cards),
+    prop_sent_off = mean(any_sent_off)
+  )
+```
+
+### Box Plots
+
+#### Cards per Host Match
+
+```{r boxplot 1 - cards per host}
+ggplot(data, aes(x = factor(host), y = cards, fill = factor(host))) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("0" = "#CF3838", "1" = "#38CF54")) +
+  labs(
+    title = "Cards given Per Host Match",
+    x = "Host Team",
+    y = " Cards per team-Match",
+    fill = "Host Status"
+  ) +
+  theme_minimal()
+```
+
+#### Cards per Era
+
+```{r boxplot 2 - cards per era}
+ggplot(data, aes(x = era, y = cards, fill = era)) +
+  geom_boxplot() +
+  labs(
+    title = "Cards given per Era",
+    x = "Era",
+    y = " Cards",
+    fill = "Era"
+  ) +
+  theme_minimal()
+```
+
+## References {.smaller}
+
+-   Guardian News. *Trump Says He Asked Fifa to Review Balogun Red Card*. Video, YouTube, 2026, <https://www.youtube.com/watch?v=JpZwdIxBeG8>. Accessed 29 Oct. 2026.
+
+-   “Egypt Were ‘Cheated’ in World Cup Loss to Argentina, Coach Hassan Says.” *Al Jazeera*, 7 July 2026, <https://www.aljazeera.com/sports/2026/7/7/egypt-were-cheated-in-world-cup-loss-to-argentina-coach-hassan-says>. Accessed 29 Oct. 2026.
+
+-   FIFA. *FULL MATCH: Netherlands V Argentina \| 2022 FIFA World Cup*. Video, YouTube, 2026, <https://www.youtube.com/watch?v=QIpZ1pad73w>. Accessed 29 Oct. 2026.
+
+-   jfjelstul. “GitHub - Jfjelstul/Worldcup: A Comprehensive Database on the FIFA World Cup (Men’s and Women’s).” *GitHub*, 17 Jan. 2023, <https://github.com/jfjelstul/worldcup>. Accessed 29 Oct. 2026.
