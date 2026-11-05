@@ -1,4 +1,4 @@
-"retrieved_at","request_url","id","gender","birth_year","full_name","award_year","prize_amt","birth_county","birth_continent","prize_category"
+"retrieved_at","request_url","id","gender","birth_year","full_name","award_year","prize_amt","birth_country","birth_continent","prize_category"
 "2026-11-05 09:51:29 UTC","https://api.nobelprize.org/2.1/laureates","745","male",1943,"A. Michael Spence",2001,10000000,"USA","North America","Economic Sciences"
 "2026-11-05 09:51:29 UTC","https://api.nobelprize.org/2.1/laureates","102","male",1922,"Aage Niels Bohr",1975,630000,"Denmark","Europe","Physics"
 "2026-11-05 09:51:29 UTC","https://api.nobelprize.org/2.1/laureates","779","male",1947,"Aaron Ciechanover",2004,10000000,"British Protectorate of Palestine","Asia","Chemistry"
