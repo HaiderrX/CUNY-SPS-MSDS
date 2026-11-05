@@ -1,0 +1,308 @@
+---
+title: "Nobel Prize API Analysis"
+author: 
+  - name: "Muhammad Ali"
+    affiliation: "CUNY School of Professional Studies"
+date: last-modified
+# abstract: ""
+format:
+  html:
+    theme: lumen
+    # materia, lumen, cosmo, default
+    toc: true
+    toc-location: left
+    toc-depth: 50
+    toc-expand: true
+    code-fold: true
+    code-copy: true
+    smooth-scroll: true
+    code-summary: "Show code"
+    df-print: kable
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+editor: visual
+---
+
+## Approach
+
+### Background & Information
+
+This assignment extends practice with JSON and API data with the Nobel Prize API.
+
+### Terminology
+
+-   [**API:**]{.underline} *Application Programming Interface.* Set of rules that allows two softwares to communicate, follow rules, and to share data with each other. In this case, requesting data from a website.
+
+-   [**API Key:**]{.underline} A string of text that acts as a secure passcode for an application to ask a server for the data it is requesting. ***This is not to be shared with anyone!***
+
+-   [**Endpoint:**]{.underline} A specific digital location or web address where a software application can access the digital resources it needs. *Like a library book located in a certain section and we the user want to access and use that book.*
+
+-   [**Request:**]{.underline} The user asking the server if they can extract information without changing anything on the server end.
+
+-   [**Response:**]{.underline} An answer in the form of status codes (200, 400, etc.) from the server to the user. For this definition, getting a response code of 200 means we are permitted to send a request to the server.
+
+### Plan Outline
+
+-   Create an account on the Nobel Prize Developer Size and request an API Key
+
+-   Create requests to the server to extract data
+
+-   Parse from JSON format to use in R tibble
+
+-   Conduct analysis
+
+    -   Creating 4 data-driven questions
+
+    -   Presenting plots or tables to present answers
+
+    -   Interpret the plots and table
+
+## Codebase
+
+### Install Packages
+
+```{r install packages}
+# Install packages once if they are missing.
+# install.packages(c("httr2", "tidyverse", "jsonlite"))
+
+# Received an error with my Renviron file for the API key, so this will allow me to use it.
+#usethis::edit_r_environ()
+```
+
+### Import Packages
+
+```{r import libraries}
+library(tidyverse)
+library(httr2)
+library(jsonlite)
+```
+
+### API Request
+
+Request Parameters
+
+-   [Base URL:]{.underline} `https://api.nobelprize.org`
+
+-   [Endpoint:]{.underline} `/2.1/laureates`
+
+With the Nobel Prize API, an API Key is not required so we can simply request data **without abusing server requests**.
+
+```{r API Request}
+url <- "https://api.nobelprize.org/2.1/laureates"
+
+req <- request(url) |>
+  req_headers(
+    `Accept` = "application/json",
+    `User-Agent` = "DATA607-week10b-homework"
+  )
+
+req
+```
+
+### Request Inspection
+
+```{r request dry run}
+req_dry_run(req)
+```
+
+### Performing & Confirming Request
+
+```{r request status}
+resp <- req |>
+  req_perform()
+
+# Confirm that the server accepted the request.
+resp_status(resp)
+resp_status_desc(resp)
+resp_content_type(resp)
+```
+
+### Read Sample JSON Body
+
+```{r parse JSON data}
+nobel_prize_JSON <- resp |>
+  resp_body_json(simplifyVector = TRUE)
+ 
+names(nobel_prize_JSON) 
+# we want to investigate laureates
+
+names(nobel_prize_JSON$laureates)
+```
+
+This part is where we need to decide what columns we want to keep for our data that we want to analyze, I have selected:
+
+-   `id`
+
+-   `fullName`
+
+-   `gender`
+
+-   `birth`
+
+-   `nobelPrizes`
+
+*Note:* *`nobelPrizes` also contains data inside the variable itself, so we need to further investigate to see what columns we would also want to extract*
+
+### Investigating `nobelPrize` List
+
+Given that we need to unnest `nobelPrizes`, we need to decide which columns in this new table we have created to keep and to unflatten.
+
+```{r creating first data table}
+laureates <- nobel_prize_JSON$laureates
+
+prizes <- laureates |>
+  select(id, fullName, gender, birth, nobelPrizes) |>
+  unnest(nobelPrizes, names_sep = "_")
+
+glimpse(nobel_prizes_info)
+```
+
+```{r flattening data}
+prizes_flat <- prizes |>
+  as.data.frame() |>
+  flatten()
+
+names(prizes_flat)
+head(prizes_flat, 3)
+```
+
+As we can see we have unflattened the `nobelPrizes` data so now we can see what else is being stored in it more clearly.
+
+As a precaution, we will further unnest the data if needed.
+
+### Further Unnesting
+
+```{r further unnesting}
+prizes_aff <- prizes_flat |>
+  as_tibble() |>
+  unnest(nobelPrizes_affiliations, keep_empty = TRUE, names_sep = "_") |>
+  as.data.frame() |>
+  jsonlite::flatten() |>
+  as_tibble()
+
+glimpse(prizes_aff)
+
+head(prizes_aff)
+```
+
+Now we have a data table with clear information of the columns and what we want to extract. Given that this is not the full list of the API data, we will need to start requesting for the full list without abusing the server request.
+
+```{r checking available data counts}
+nobel_prize_JSON$meta$offset
+nobel_prize_JSON$meta$limit
+nobel_prize_JSON$meta$count
+
+# limit of 25
+# Offset of 0, meaning the list starts at that very first item
+# count of 1028, the total number of items in the dataset
+```
+
+### Start Full Data Request
+
+```{r full data request}
+total <- nobel_prize_JSON$meta$count # 
+
+offsets <- seq(0, total, by = 100) # loop over the offset by 100
+
+pages <- map(offsets, \(off) {
+  request("https://api.nobelprize.org/2.1/laureates") |>
+    req_url_query(limit = 100, offset = off) |>
+    req_perform() |>
+    resp_body_json(simplifyVector = TRUE)
+})
+
+laureates <- map(pages, "laureates") |> bind_rows()
+nrow(laureates)
+```
+
+`laureates` is our full data that we extracted from the API, now we need to create the table and overwrite our existing `prize_aff`.
+
+```{r unnesting full data}
+prizes_aff <- laureates |>
+  select(id, fullName, gender, birth, nobelPrizes) |>
+  unnest(nobelPrizes, names_sep = "_") |>
+  as.data.frame() |>
+  jsonlite::flatten() |>
+  as_tibble() |>
+  unnest(nobelPrizes_affiliations, keep_empty = TRUE, names_sep = "_") |>
+  as.data.frame() |>
+  jsonlite::flatten() |>
+  as_tibble()
+
+nrow(prizes_aff)
+head(prizes_aff, 2)
+```
+
+### Creating the Table
+
+```{r creating table}
+nobel_table <- prizes_aff |>
+  select(id,
+         gender,
+         birth_year = birth.year,
+         full_name = fullName.en,
+         award_year = nobelPrizes_awardYear,
+         prize_amt = nobelPrizes_prizeAmount,
+         birth_county = birth.place.country.en,
+         birth_continent = birth.place.continent.en,
+         prize_category = nobelPrizes_category.en
+         ) |>
+  mutate(
+    birth_year = as.integer(birth_year),
+    award_year = as.integer(award_year)
+  )
+
+glimpse(nobel_table)
+head(nobel_table, 3)
+```
+
+### Duplicate Values
+
+```{r checking duplicates}
+nobel_prizes <- nobel_table |> distinct()
+nrow(nobel_prizes) # There were duplicates
+```
+
+### Missing Values
+
+```{r check for missing values}
+colSums(is.na(nobel_prizes))
+```
+
+There are around 31-34 missing values, but we can filter it out easily when conducting analysis.
+
+### Reproducibility Metadata
+
+```{r}
+retrieved_at <- format(Sys.time(), tz = "UTC", usetz = TRUE)
+
+matches_snapshot <- nobel_prizes |>
+  mutate(
+    retrieved_at = retrieved_at,
+    request_url = url,
+    .before = 1
+  )
+
+head(matches_snapshot,3)
+```
+
+### Save to CSV
+
+We want to save this to a CSV file so we can do some offline work witht this data.
+
+```{r save to CSV}
+write.csv(matches_snapshot, "nobel_table_data_api.csv", row.names = FALSE)
+```
+
+### Read in Data CSV
+
+```{r read in data csv}
+data <- read.csv("")
+```
+
+## References
+
+“Developer Zone.” *NobelPrize.Org*, <https://www.nobelprize.org/about/developer-zone-2/>. Accessed 4 Nov. 2026.
