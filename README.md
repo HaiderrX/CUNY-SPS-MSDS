@@ -9,8 +9,8 @@ Repository for CUNY SPS courses for Masters of Data Science program:
 - DATA607 - Data Acquisition and Management; taught by Professor Gomez
 
 ### Spring 2027
-- DATA6 - 
-- DATA6 - 
+- DATA602 - Advanced Programming Techniques; taught by Professor Schettini
+- DATA624 - Predictive Analytics; taught by Professor Nieman
 
 ### Fall 2027
 - DATA6 - 
