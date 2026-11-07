@@ -1,0 +1,374 @@
+---
+title: "Formula 1 Analysis - Driver vs Car"
+author: 
+  - name: "Muhammad Ali"
+    affiliation: "CUNY School of Professional Studies"
+date: last-modified
+# abstract: ""
+format:
+  html:
+    theme: lumen
+    # materia, lumen, cosmo, default
+    toc: true
+    toc-location: left
+    toc-depth: 200
+    toc-expand: true
+    code-fold: true
+    code-copy: true
+    smooth-scroll: true
+    code-summary: "Show code"
+    df-print: kable
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+editor: visual
+---
+
+## Abstract
+
+## Motivation
+
+### The World of Sports
+
+The world of sports is driven by excitement, unpredictability, limits of human skills. It pushes athletes to continously improve through practice sessions, training, and even competition:
+
+-   [Soccer:]{.underline} Tests endurance, teamwork, and overall athleticism.
+
+-   [American Football:]{.underline} Demands rapid reaction times, quick decision-making under pressure, and raw physical endurance.
+
+-   [Golf:]{.underline} Challenges patience, spatial awareness, and precision physics.
+
+As new sports are born, they introduce new ways to measure capabilities and innovations, Which leads to a motorsport that establishes these two qualities, Formula 1.
+
+### Formula 1 History
+
+Officially launched in 1950, (A Brief History of F1), Formula 1 has grown exponentially in global popularity. Over time, advancements in engineering alongside new circuits or renovated circuits have reshaped racing strategy and technical challenges.
+
+### What is Formula 1?
+
+Formula 1 is not soley a sport where a human is facing extreme gravity pushback, high speeds, heat physical dehydration; Formula 1 is also a sport of engineering. Each constructor must design a unique car within strict regulations. While the cars may look similar on the surface, their underlying engineering and aerodynamics vary significantly.
+
+Additionally, Formula 1 not only make changes for the cars in the for every race, it also has led to some innovation that modern day drivers use. To list a few (RAWCA, Survana):
+
+-   Steering-wheel-mounted vehicle controls
+
+-   Push-button ignition systems
+
+-   Advanced aerodynamic modeling to improve fuel efficiency and handling
+
+### Reason for Analysis
+
+With Formula 1's recent surge in popularity, I have become an avid viewer of the sport. With a particular incident during the 2026 Mexico Grand Prix weekend inspiring this analysis.
+
+During qualifying, Ferrari's Lewis Hamilton secured pole position, while his teammate Charles Leclerc had qualified 3rd place, only a few milliseconds apart. Given that both drivers have the same engineered car adjusted to their driving prefences, which raises a key question: was that driver skill, slight difference between the two cars, or mere coincidence?
+
+[![2026 F1 Mexico City Grand Prix - Qualifying Dashboard](images/clipboard-1624304035.png)](https://www.formula1.com/en/results/2026/races/1298/mexico/qualifying)
+
+## Research Question
+
+To what extent does car performance dictate the variance in driver championship points during Formula 1's turbo-hybrid era (2014–present)?
+
+## Methodology
+
+This analysis leverages the Jolpica API, an open-source data resource specifically dedicated to Formula 1. Which has been used to create a package for R called `f1dataR`.
+
+Additionally, I will build two hand-coded .csv files covering season and regulation era, and season, constructor, and engine supplier, with both files joining the API data.
+
+All raw data will be stored in a Github folder along with the other relevant files from this analysis.
+
+### Data Source
+
+-   [Jolpica API](https://github.com/jolpica/jolpica-f1)
+
+-   [`f1dataR`](https://github.com/SCasanova/f1dataR)
+
+### Environment Setup
+
+#### Install Packages
+
+```{r install packages}
+# install.packages("tidyverse", "ggplot", "devtools", "f1dataR", "purrr")
+```
+
+#### Imported Libraries
+
+```{r libraries used}
+library(tidyverse)
+library(ggplot2)
+library(f1dataR)
+library(purrr)
+```
+
+## Data Preparation & Cleaning
+
+### Load in API Data
+
+This will be a sample test to build up our .csv file for the analysis
+
+Testing for one season is usually a good call to see how the rest of the data will be built and built together.
+
+### Test Build For a Season
+
+[**Note:**]{.underline} Improvements will be made with challenges that come along pipeline
+
+```{r getting 2014 data - test}
+#| output: false
+#| eval: false
+
+clear_f1_cache() # Clears any past errors
+
+# Get the schedule for a year
+schedule_2014 <- load_schedule(season = 2014)
+total_rounds  <- seq_len(nrow(schedule_2014))
+
+# Create an empty list to store data
+# This represents each racing weekend for that season
+results_list <- list()
+
+# For loop to fetch round sequentially
+for (r in total_rounds) {
+  df <- load_results(season = 2014, round = r)
+  df$round <- r
+  df$season <- 2014
+  results_list[[r]] <- df
+}
+
+# Combine rows safely
+results_2014 <- dplyr::bind_rows(results_list)
+```
+
+```{r printing 2014 data results}
+glimpse(results_2014)
+```
+
+We can see that for one season we can gather all the necessary data we need along with including the round and what season it is in.
+
+But this process of hard-coding the season and manually typing onto the R chunk makes this process a bit tedious. To improve on this task, we can create a function in R so we can tell the code to gather data for a particular season.
+
+**Caution!** The 2026 season is still on-going so there may be a possible error as we try to gather data that may not exist, so we will implement try and catch blocks.
+
+### Building `get_season_function` Function
+
+```{r get_season_function}
+clear_f1_cache()
+
+get_season_function <- function(season_year) {
+  # Get the schedule for a year
+  schedule_data <- load_schedule(season = season_year)
+  total_rounds  <- seq_len(nrow(schedule_data))
+  
+  safe_load_results <- purrr::possibly(load_results, otherwise = NULL)
+  
+  # Create an empty list to store data
+  # This represents each racing weekend for that season
+  results_list <- list()
+  
+  # For loop to fetch round sequentially
+  # Also placing round, season, and the df in a dataframe in the existing list
+  for (r in total_rounds) {
+    df <- safe_load_results(season = season_year, round = r)
+    
+    # Skip rounds that errored or came back empty (e.g. not raced yet)
+    if (is.null(df) || nrow(df) == 0) {
+      message("  No data for ", season_year, " round ", r, " - skipping")
+      next
+    }
+    
+    # Convert to character right away 
+    df <- dplyr::mutate(df, dplyr::across(dplyr::everything(), as.character))
+    df$round  <- as.character(r)
+    df$season <- as.character(season_year)
+    
+    results_list[[r]] <- df
+    
+    Sys.sleep(1.2)
+  }
+  
+  if (length(results_list) == 0) return(NULL)
+  
+  return(dplyr::bind_rows(results_list))
+}
+```
+
+### Getting 2014-2026 Season Data
+
+Now that we have built our function reproducing from our sample run of the 2014 data, we can now make the attempt to gather the data from the 2014 season to the data that currently exists so far for 2026.
+
+```{r testing season function}
+test_2014 <- get_season_function(2014)
+nrow(test_2014)
+```
+
+```{r getting 2014-2025 season data}
+#| output: false
+#| eval: false
+
+# Clears past errors
+clear_f1_cache()
+
+# For data that doesn't exist yet as a precaution
+safely_get_results <- purrr::possibly(get_season_function, otherwise = NULL)
+
+# Targeting seasons and creating the list
+years <- 2014:2026
+season_list <- list()
+
+# Loop over the years to extract data
+for (year in years) {
+  message("=== Processing Season: ", year, " ===")
+  
+  season_df <- tryCatch(
+    get_season_function(year),
+    error = function(e) {
+      message("FAILED ", year, ": ", conditionMessage(e))
+      NULL
+    }
+  )
+  
+  if (is.null(season_df)) {
+    failed <- c(failed, year)
+    next
+  }
+  readr::write_csv(season_df, paste0("results_", year, ".csv"))
+  
+  season_list[[as.character(year)]] <- season_df
+  Sys.sleep(4.0)
+}
+
+# Create a new variable name for all rows of data
+all_f1_season_list <- dplyr::bind_rows(season_list)
+```
+
+```{r Inspecting newly created data}
+dim(all_f1_season_list)
+head(all_f1_season_list, 10)
+```
+
+#### Saving Season Data
+
+After successfully gathering season data from 2014-present, we can save it in a .`csv` file as we do not want to go through the hassle of making more requests to the server.
+
+[**Note:**]{.underline} This is not the fully cleaned data, we are saving the raw data if it is necessary to redo the data cleaning process.
+
+```{r save season data}
+write.csv(all_f1_season_list, "f1_seasons_data_raw.csv", row.names = FALSE)
+```
+
+### Qualifying Data
+
+Now that we have extracted raw season data, we can now do the process of extracting the qualifying data.
+
+```{r get_qualifying_function}
+get_qualifying_function <- function(season_year) {
+  schedule_data <- load_schedule(season = season_year)
+  total_rounds  <- seq_len(nrow(schedule_data))
+
+  # Protection at the round level, so one missing round can't wipe out a season
+  safe_load_quali <- purrr::possibly(load_quali, otherwise = NULL)
+
+  results_list <- list()
+
+  for (r in total_rounds) {
+    df <- safe_load_quali(season = season_year, round = r)
+
+    # Skip rounds that give an error or is empty (such not raced yet)
+    if (is.null(df) || nrow(df) == 0) {
+      message("  No qualifying data for ", season_year, " round ", r, " - skipping")
+      next
+    }
+
+    # Convert to character
+    df <- dplyr::mutate(df, dplyr::across(dplyr::everything(), as.character))
+    df$round  <- as.character(r)
+    df$season <- as.character(season_year)
+
+    results_list[[r]] <- df
+    Sys.sleep(1.2)
+  }
+
+  if (length(results_list) == 0) return(NULL)
+  return(dplyr::bind_rows(results_list))
+}
+```
+
+```{r testing qualifying function}
+test_2014_qualifying <- get_qualifying_function(2014)
+nrow(test_2014_qualifying)
+```
+
+```{r}
+#| output: false
+#| eval: false
+
+# Clears past errors
+clear_f1_cache()
+
+# Targeting seasons and creating the list
+years <- 2014:2026
+qualifying_list <- list()
+failed_quali <- c()
+
+# Loop over the years to extract data
+for (year in years) {
+  message("=== Processing Qualifying Season: ", year, " ===")
+  
+  quali_df <- tryCatch(
+    get_qualifying_function(year),
+    error = function(e) {
+      message("FAILED ", year, ": ", conditionMessage(e))
+      NULL
+    }
+  )
+  
+  if (is.null(quali_df)) {
+    failed_quali <- c(failed_quali, year)
+    next
+  }
+  
+  readr::write_csv(quali_df, paste0("quali_", year, ".csv"))
+  
+  qualifying_list[[as.character(year)]] <- quali_df
+  Sys.sleep(4.0)
+}
+
+# Create a new variable name for all rows of data
+all_f1_quali <- dplyr::bind_rows(qualifying_list)
+failed_quali
+```
+
+```{r Inspecting newly created data 2}
+dim(all_f1_quali)
+head(all_f1_quali, 10)
+```
+
+```{r}
+f1dataR::load_schedule(season = 2021)
+```
+
+## Statistical Analysis
+
+### Descriptive Statistics
+
+### Statistical Testing
+
+## Primary Analysis
+
+## References
+
+**Make a references.bib file!**
+
+-   jolpica. “GitHub - Jolpica/Jolpica-F1.” *GitHub*, 2023, <https://github.com/jolpica/jolpica-f1>. Accessed 6 Nov. 2026.
+
+-   “A Brief History of F1® - F1® Arcade.” *F1® Arcade*, 2025, <https://f1arcade.com/uk/blog/news/a-brief-history-of-f1>. Accessed 6 Nov. 2026.
+
+-   Suvarna, Raunak. “Fueling Innovation: How Formula 1 Technology Impacts Everyday Cars.” *Medium*, 9 Aug. 2023, [https://medium.com/\@raunaksuvarna/fueling-innovation-how-formula-1-technology-impacts-everyday-cars-145d96239ad4](https://medium.com/@raunaksuvarna/fueling-innovation-how-formula-1-technology-impacts-everyday-cars-145d96239ad4). Accessed 6 Nov. 2026.
+
+-   RACWA. “How Formula 1 Has Influenced the Cars We Drive \| RAC WA.” *RAC WA - For a Better WA*, 7 Oct. 2024, <https://rac.com.au/horizons/drive/f1-tech-and-road-cars>. Accessed 6 Nov. 2026.
+
+-   “F1 - the Official Home of Formula 1® Racing.” *Formula 1® - The Official F1® Website*, [www.formula1.com/en/results/2026/races/1298/mexico/qualifying](www.formula1.com/en/results/2026/races/1298/mexico/qualifying). Accessed 6 Nov. 2026.
+
+```{r}
+
+```
