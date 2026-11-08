@@ -58,16 +58,6 @@ This assignment extends practice with JSON and API data with the Nobel Prize API
 
     -   Interpret the plots and table
 
-### Questions for Dataset
-
--   [**Question 1:**]{.underline} What is the top country that has won the most Nobel Prizes, and which gender has a higher proportion of that category?
-
--   [**Question 2:**]{.underline} Per category, what is the average prize amount?
-
--   [**Question 3:**]{.underline} Per country, are there more males or females winning the Nobel prize?
-
--   [**Question 4:**]{.underline} Per category, what year had the most winners?
-
 ## Codebase
 
 ### Install Packages
