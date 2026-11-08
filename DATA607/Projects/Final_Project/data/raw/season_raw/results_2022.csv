@@ -1,0 +1,441 @@
+season,round,retrieved_at,source_url,f1dataR_version,driver_id,constructor_id,points,position,grid,laps,status,gap,fastest_rank,fastest,top_speed_kph,time_sec
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,leclerc,ferrari,26,1,1,57,Finished,1:37:33.584,1,1:34.570,206.018,94.57
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,sainz,ferrari,18,2,3,57,Finished,+5.598,3,1:35.740,203.501,95.74
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,hamilton,mercedes,15,3,5,57,Finished,+9.675,5,1:36.228,202.469,96.228
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,russell,mercedes,12,4,9,57,Finished,+11.211,6,1:36.302,202.313,96.302
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,kevin_magnussen,haas,10,5,7,57,Finished,+14.754,8,1:36.623,201.641,96.623
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,bottas,alfa,8,6,6,57,Finished,+16.119,7,1:36.599,201.691,96.599
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,ocon,alpine,6,7,11,57,Finished,+19.423,14,1:37.110,200.630,97.11
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,tsunoda,alphatauri,4,8,16,57,Finished,+20.386,13,1:37.104,200.642,97.104
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,alonso,alpine,2,9,8,57,Finished,+22.390,10,1:36.733,201.412,96.733
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,zhou,alfa,1,10,15,57,Finished,+23.064,9,1:36.685,201.512,96.685
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,mick_schumacher,haas,0,11,12,57,Finished,+32.574,11,1:36.956,200.948,96.956
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,stroll,aston_martin,0,12,19,57,Finished,+45.873,15,1:37.146,200.555,97.146
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,albon,williams,0,13,14,57,Finished,+53.932,18,1:37.355,200.125,97.355
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,ricciardo,mclaren,0,14,18,57,Finished,+54.975,16,1:37.261,200.318,97.261
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,norris,mclaren,0,15,13,57,Finished,+56.335,12,1:36.988,200.882,96.988
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,latifi,williams,0,16,20,57,Finished,+1:01.795,20,1:38.251,198.300,98.251
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,hulkenberg,aston_martin,0,17,17,57,Finished,+1:03.829,19,1:38.201,198.401,98.201
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,perez,red_bull,0,18,4,56,Fuel pressure,NA,4,1:36.089,202.762,96.089
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,max_verstappen,red_bull,0,19,2,54,Fuel pressure,NA,2,1:35.440,204.140,95.44
+2022,1,2026-11-08 17:45:08 UTC,https://api.jolpi.ca/ergast/f1/2022/1/results.json,2.0.1,gasly,alphatauri,0,20,10,44,Power Unit,NA,17,1:37.324,200.189,97.324
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,max_verstappen,red_bull,25,1,4,50,Finished,1:24:19.293,2,1:31.772,242.191,91.772
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,leclerc,ferrari,19,2,2,50,Finished,+0.549,1,1:31.634,242.556,91.634
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,sainz,ferrari,15,3,3,50,Finished,+8.097,3,1:31.905,241.841,91.905
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,perez,red_bull,12,4,1,50,Finished,+10.800,4,1:32.042,241.481,92.042
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,russell,mercedes,10,5,6,50,Finished,+32.732,7,1:32.821,239.454,92.821
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,ocon,alpine,8,6,5,50,Finished,+56.017,9,1:33.103,238.729,93.103
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,norris,mclaren,6,7,11,50,Finished,+56.124,5,1:32.753,239.629,92.753
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,gasly,alphatauri,4,8,9,50,Finished,+1:02.946,10,1:33.468,237.796,93.468
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,kevin_magnussen,haas,2,9,10,50,Finished,+1:04.308,6,1:32.779,239.562,92.779
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,hamilton,mercedes,1,10,15,50,Finished,+1:13.948,8,1:32.997,239.001,92.997
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,zhou,alfa,0,11,12,50,Finished,+1:22.215,13,1:33.924,236.642,93.924
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,hulkenberg,aston_martin,0,12,17,50,Finished,+1:31.742,11,1:33.651,237.332,93.651
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,stroll,aston_martin,0,13,13,49,+1 Lap,NA,16,1:34.446,235.334,94.446
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,albon,williams,0,14,16,47,Collision damage,NA,15,1:34.368,235.528,94.368
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,bottas,alfa,0,15,8,36,Cooling system,NA,14,1:33.979,236.503,93.979
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,alonso,alpine,0,16,7,35,Water pump,NA,12,1:33.831,236.876,93.831
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,ricciardo,mclaren,0,17,14,35,Gearbox,NA,17,1:34.487,235.232,94.487
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,latifi,williams,0,18,18,14,Accident,NA,18,1:37.530,227.892,97.53
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,tsunoda,alphatauri,0,19,19,0,Power Unit,NA,NA,NA,NA,NA
+2022,2,2026-11-08 17:45:11 UTC,https://api.jolpi.ca/ergast/f1/2022/2/results.json,2.0.1,mick_schumacher,haas,0,20,0,0,Withdrew,NA,NA,NA,NA,NA
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,leclerc,ferrari,26,1,1,58,Finished,1:27:46.548,1,1:20.260,236.740,80.26
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,perez,red_bull,18,2,3,58,Finished,+20.524,3,1:21.094,234.305,81.094
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,russell,mercedes,15,3,6,58,Finished,+25.593,4,1:21.495,233.152,81.495
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,hamilton,mercedes,12,4,5,58,Finished,+28.543,7,1:21.886,232.039,81.886
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,norris,mclaren,10,5,4,58,Finished,+53.303,8,1:22.248,231.018,82.248
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,ricciardo,mclaren,8,6,7,58,Finished,+53.737,9,1:22.451,230.449,82.451
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,ocon,alpine,6,7,8,58,Finished,+1:01.683,10,1:22.469,230.399,82.469
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,bottas,alfa,4,8,12,58,Finished,+1:08.439,5,1:21.651,232.707,81.651
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,gasly,alphatauri,2,9,11,58,Finished,+1:16.221,13,1:22.731,229.669,82.731
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,albon,williams,1,10,20,58,Finished,+1:19.382,12,1:22.589,230.064,82.589
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,zhou,alfa,0,11,14,58,Finished,+1:21.695,11,1:22.541,230.198,82.541
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,stroll,aston_martin,0,12,19,58,Finished,+1:28.598,17,1:23.592,227.304,83.592
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,mick_schumacher,haas,0,13,15,57,+1 Lap,NA,14,1:23.006,228.908,83.006
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,kevin_magnussen,haas,0,14,16,57,+1 Lap,NA,15,1:23.071,228.729,83.071
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,tsunoda,alphatauri,0,15,13,57,+1 Lap,NA,16,1:23.342,227.985,83.342
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,latifi,williams,0,16,18,57,+1 Lap,NA,18,1:23.882,226.518,83.882
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,alonso,alpine,0,17,10,57,+1 Lap,NA,2,1:20.846,235.024,80.846
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,max_verstappen,red_bull,0,18,2,38,Fuel leak,NA,6,1:21.677,232.633,81.677
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,vettel,aston_martin,0,19,17,22,Accident,NA,19,1:25.189,223.042,85.189
+2022,3,2026-11-08 17:45:13 UTC,https://api.jolpi.ca/ergast/f1/2022/3/results.json,2.0.1,sainz,ferrari,0,20,9,1,Spun off,NA,NA,NA,NA,NA
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,max_verstappen,red_bull,26,1,1,63,Finished,1:32:07.986,1,1:18.446,225.281,78.446
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,perez,red_bull,18,2,3,63,Finished,+16.527,3,1:18.949,223.845,78.949
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,norris,mclaren,15,3,5,63,Finished,+34.834,7,1:20.903,218.439,80.903
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,russell,mercedes,12,4,11,63,Finished,+42.506,8,1:20.962,218.280,80.962
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,bottas,alfa,10,5,7,63,Finished,+43.181,6,1:20.758,218.831,80.758
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,leclerc,ferrari,8,6,2,63,Finished,+56.072,2,1:18.574,224.914,78.574
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,tsunoda,alphatauri,6,7,12,63,Finished,+1:01.110,5,1:20.544,219.412,80.544
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,vettel,aston_martin,4,8,13,63,Finished,+1:10.892,9,1:21.211,217.610,81.211
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,kevin_magnussen,haas,2,9,8,63,Finished,+1:15.260,10,1:21.238,217.538,81.238
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,stroll,aston_martin,1,10,15,62,+1 Lap,NA,16,1:21.750,216.176,81.75
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,albon,williams,0,11,18,62,+1 Lap,NA,17,1:21.757,216.157,81.757
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,gasly,alphatauri,0,12,17,62,+1 Lap,NA,15,1:21.713,216.274,81.713
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,hamilton,mercedes,0,13,14,62,+1 Lap,NA,13,1:21.419,217.054,81.419
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,ocon,alpine,0,14,16,62,+1 Lap,NA,18,1:21.887,215.814,81.887
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,zhou,alfa,0,15,0,62,+1 Lap,NA,11,1:21.286,217.410,81.286
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,latifi,williams,0,16,19,62,+1 Lap,NA,12,1:21.338,217.271,81.338
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,mick_schumacher,haas,0,17,10,62,+1 Lap,NA,4,1:18.999,223.704,78.999
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,ricciardo,mclaren,0,18,6,62,+1 Lap,NA,14,1:21.577,216.634,81.577
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,alonso,alpine,0,19,9,6,Collision damage,NA,19,1:39.685,177.282,99.685
+2022,4,2026-11-08 17:45:15 UTC,https://api.jolpi.ca/ergast/f1/2022/4/results.json,2.0.1,sainz,ferrari,0,20,4,0,Collision,NA,NA,NA,NA,NA
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,max_verstappen,red_bull,26,1,3,57,Finished,1:34:24.258,1,1:31.361,213.255,91.361
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,leclerc,ferrari,18,2,1,57,Finished,+3.786,2,1:31.488,212.959,91.488
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,sainz,ferrari,15,3,2,57,Finished,+8.229,3,1:31.790,212.258,91.79
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,perez,red_bull,12,4,4,57,Finished,+10.638,4,1:31.819,212.191,91.819
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,russell,mercedes,10,5,12,57,Finished,+18.582,5,1:32.195,211.325,92.195
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,hamilton,mercedes,8,6,6,57,Finished,+21.368,7,1:32.941,209.629,92.941
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,bottas,alfa,6,7,5,57,Finished,+25.073,10,1:33.184,209.083,93.184
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,ocon,alpine,4,8,20,57,Finished,+28.386,9,1:33.163,209.130,93.163
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,albon,williams,2,9,18,57,Finished,+32.365,15,1:33.447,208.494,93.447
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,stroll,aston_martin,1,10,0,57,Finished,+37.026,12,1:33.312,208.796,93.312
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,alonso,alpine,0,11,11,57,Finished,+37.128,13,1:33.331,208.753,93.331
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,tsunoda,alphatauri,0,12,9,57,Finished,+40.146,8,1:33.035,209.417,93.035
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,ricciardo,mclaren,0,13,14,57,Finished,+40.902,11,1:33.265,208.901,93.265
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,latifi,williams,0,14,19,57,Finished,+49.936,18,1:34.169,206.896,94.169
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,mick_schumacher,haas,0,15,15,57,Finished,+1:13.305,6,1:32.528,210.565,92.528
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,kevin_magnussen,haas,0,16,16,56,Front wing,NA,17,1:33.511,208.351,93.511
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,vettel,aston_martin,0,17,0,54,Collision,NA,16,1:33.479,208.423,93.479
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,gasly,alphatauri,0,18,7,45,Suspension,NA,19,1:34.487,206.199,94.487
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,norris,mclaren,0,19,8,39,Collision,NA,14,1:33.411,208.575,93.411
+2022,5,2026-11-08 17:45:17 UTC,https://api.jolpi.ca/ergast/f1/2022/5/results.json,2.0.1,zhou,alfa,0,20,17,6,Water leak,NA,20,1:35.731,203.520,95.731
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,max_verstappen,red_bull,25,1,2,66,Finished,1:37:20.475,4,1:25.456,196.943,85.456
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,perez,red_bull,19,2,5,66,Finished,+13.072,1,1:24.108,200.099,84.108
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,russell,mercedes,15,3,4,66,Finished,+32.927,3,1:24.636,198.851,84.636
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,sainz,ferrari,12,4,3,66,Finished,+45.208,7,1:25.985,195.731,85.985
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,hamilton,mercedes,10,5,6,66,Finished,+54.534,2,1:24.253,199.755,84.253
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,bottas,alfa,8,6,7,66,Finished,+59.976,8,1:26.395,194.802,86.395
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,ocon,alpine,6,7,12,66,Finished,+1:15.397,6,1:25.935,195.845,85.935
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,norris,mclaren,4,8,11,66,Finished,+1:23.235,5,1:25.619,196.568,85.619
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,alonso,alpine,2,9,20,65,+1 Lap,NA,9,1:26.599,194.344,86.599
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,tsunoda,alphatauri,1,10,13,65,+1 Lap,NA,10,1:26.828,193.831,86.828
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,vettel,aston_martin,0,11,16,65,+1 Lap,NA,18,1:27.629,192.059,87.629
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,ricciardo,mclaren,0,12,9,65,+1 Lap,NA,15,1:27.285,192.816,87.285
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,gasly,alphatauri,0,13,14,65,+1 Lap,NA,12,1:26.987,193.477,86.987
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,mick_schumacher,haas,0,14,10,65,+1 Lap,NA,16,1:27.447,192.459,87.447
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,stroll,aston_martin,0,15,17,65,+1 Lap,NA,11,1:26.876,193.724,86.876
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,latifi,williams,0,16,19,64,+2 Laps,NA,14,1:27.246,192.902,87.246
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,kevin_magnussen,haas,0,17,8,64,+2 Laps,NA,17,1:27.537,192.261,87.537
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,albon,williams,0,18,18,64,+2 Laps,NA,19,1:28.281,190.641,88.281
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,zhou,alfa,0,19,15,28,Power loss,NA,20,1:28.415,190.352,88.415
+2022,6,2026-11-08 17:45:19 UTC,https://api.jolpi.ca/ergast/f1/2022/6/results.json,2.0.1,leclerc,ferrari,0,20,1,27,Turbo,NA,13,1:27.030,193.381,87.03
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,perez,red_bull,25,1,3,64,Finished,1:56:30.265,4,1:16.028,158.010,76.028
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,sainz,ferrari,18,2,2,64,Finished,+1.154,7,1:16.421,157.197,76.421
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,max_verstappen,red_bull,15,3,4,64,Finished,+1.491,5,1:16.052,157.960,76.052
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,leclerc,ferrari,12,4,1,64,Finished,+2.922,6,1:16.249,157.552,76.249
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,russell,mercedes,10,5,6,64,Finished,+11.968,8,1:16.830,156.360,76.83
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,norris,mclaren,9,6,5,64,Finished,+12.231,1,1:14.693,160.834,74.693
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,alonso,alpine,6,7,7,64,Finished,+46.358,3,1:15.882,158.314,75.882
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,hamilton,mercedes,4,8,8,64,Finished,+50.388,9,1:17.203,155.605,77.203
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,bottas,alfa,2,9,12,64,Finished,+52.525,14,1:17.600,154.809,77.6
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,vettel,aston_martin,1,10,9,64,Finished,+53.536,12,1:17.558,154.893,77.558
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,gasly,alphatauri,0,11,17,64,Finished,+54.289,10,1:17.344,155.321,77.344
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,ocon,alpine,0,12,10,64,Finished,+55.644,13,1:17.571,154.867,77.571
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,ricciardo,mclaren,0,13,14,64,Finished,+57.635,11,1:17.532,154.945,77.532
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,stroll,aston_martin,0,14,18,64,Finished,+1:00.802,15,1:17.672,154.665,77.672
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,latifi,williams,0,15,19,63,+1 Lap,NA,18,1:18.579,152.880,78.579
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,zhou,alfa,0,16,20,63,+1 Lap,NA,17,1:18.200,153.621,78.2
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,tsunoda,alphatauri,0,17,11,63,+1 Lap,NA,2,1:15.334,159.465,75.334
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,albon,williams,0,18,16,48,Mechanical,NA,16,1:18.023,153.969,78.023
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,mick_schumacher,haas,0,19,15,24,Accident,NA,19,1:24.778,141.701,84.778
+2022,7,2026-11-08 17:45:21 UTC,https://api.jolpi.ca/ergast/f1/2022/7/results.json,2.0.1,kevin_magnussen,haas,0,20,13,19,Water pressure,NA,20,1:33.754,128.135,93.754
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,max_verstappen,red_bull,25,1,3,51,Finished,1:34:05.941,2,1:46.050,203.779,106.05
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,perez,red_bull,19,2,2,51,Finished,+20.823,1,1:46.046,203.787,106.046
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,russell,mercedes,15,3,5,51,Finished,+45.995,4,1:47.177,201.636,107.177
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,hamilton,mercedes,12,4,7,51,Finished,+1:11.679,3,1:47.044,201.887,107.044
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,gasly,alphatauri,10,5,6,51,Finished,+1:17.299,16,1:48.519,199.143,108.519
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,vettel,aston_martin,8,6,9,51,Finished,+1:24.099,12,1:48.206,199.719,108.206
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,alonso,alpine,6,7,10,51,Finished,+1:28.596,8,1:47.989,200.120,107.989
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,ricciardo,mclaren,4,8,12,51,Finished,+1:32.207,13,1:48.276,199.589,108.276
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,norris,mclaren,2,9,11,51,Finished,+1:32.556,9,1:47.997,200.105,107.997
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,ocon,alpine,1,10,13,51,Finished,+1:48.184,14,1:48.297,199.551,108.297
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,bottas,alfa,0,11,15,50,+1 Lap,NA,11,1:48.179,199.768,108.179
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,albon,williams,0,12,17,50,+1 Lap,NA,7,1:47.966,200.163,107.966
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,tsunoda,alphatauri,0,13,8,50,+1 Lap,NA,5,1:47.523,200.987,107.523
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,mick_schumacher,haas,0,14,20,50,+1 Lap,NA,15,1:48.410,199.343,108.41
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,latifi,williams,0,15,18,50,+1 Lap,NA,20,1:49.583,197.209,109.583
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,stroll,aston_martin,0,16,19,46,Vibrations,NA,10,1:48.038,200.029,108.038
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,kevin_magnussen,haas,0,17,16,31,Power Unit,NA,18,1:48.789,198.648,108.789
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,zhou,alfa,0,18,14,23,Hydraulics,NA,17,1:48.723,198.769,108.723
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,leclerc,ferrari,0,19,1,21,Power Unit,NA,6,1:47.531,200.972,107.531
+2022,8,2026-11-08 17:45:24 UTC,https://api.jolpi.ca/ergast/f1/2022/8/results.json,2.0.1,sainz,ferrari,0,20,4,8,Hydraulics,NA,19,1:48.978,198.304,108.978
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,max_verstappen,red_bull,25,1,1,70,Finished,1:36:21.757,2,1:15.839,207.012,75.839
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,sainz,ferrari,19,2,3,70,Finished,+0.993,1,1:15.749,207.258,75.749
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,hamilton,mercedes,15,3,4,70,Finished,+7.006,4,1:16.167,206.120,76.167
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,russell,mercedes,12,4,8,70,Finished,+12.313,5,1:16.418,205.443,76.418
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,leclerc,ferrari,10,5,19,70,Finished,+15.168,3,1:15.901,206.843,75.901
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,ocon,alpine,8,6,7,70,Finished,+23.890,9,1:17.110,203.600,77.11
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,bottas,alfa,6,7,11,70,Finished,+25.247,8,1:17.010,203.864,77.01
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,zhou,alfa,4,8,10,70,Finished,+26.952,7,1:16.927,204.084,76.927
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,alonso,alpine,2,9,2,70,Finished,+29.945,6,1:16.578,205.014,76.578
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,stroll,aston_martin,1,10,17,70,Finished,+38.222,10,1:17.421,202.782,77.421
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,ricciardo,mclaren,0,11,9,70,Finished,+43.047,13,1:17.932,201.452,77.932
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,vettel,aston_martin,0,12,16,70,Finished,+44.245,15,1:17.956,201.390,77.956
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,albon,williams,0,13,12,70,Finished,+44.893,14,1:17.951,201.403,77.951
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,gasly,alphatauri,0,14,15,70,Finished,+45.183,12,1:17.810,201.768,77.81
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,norris,mclaren,0,15,14,70,Finished,+52.145,11,1:17.495,202.588,77.495
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,latifi,williams,0,16,18,70,Finished,+59.978,18,1:18.540,199.893,78.54
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,kevin_magnussen,haas,0,17,5,70,Finished,+1:08.180,16,1:18.046,201.158,78.046
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,tsunoda,alphatauri,0,18,20,47,Accident,NA,17,1:18.309,200.482,78.309
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,mick_schumacher,haas,0,19,6,18,Engine,NA,20,1:18.967,198.812,78.967
+2022,9,2026-11-08 17:45:26 UTC,https://api.jolpi.ca/ergast/f1/2022/9/results.json,2.0.1,perez,red_bull,0,20,13,7,Gearbox,NA,19,1:18.844,199.122,78.844
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,sainz,ferrari,25,1,1,52,Finished,2:17:50.311,2,1:30.813,233.530,90.813
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,perez,red_bull,18,2,4,52,Finished,+3.779,3,1:30.937,233.212,90.937
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,hamilton,mercedes,16,3,5,52,Finished,+6.225,1,1:30.510,234.312,90.51
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,leclerc,ferrari,12,4,3,52,Finished,+8.546,4,1:31.282,232.330,91.282
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,alonso,alpine,10,5,7,52,Finished,+9.571,5,1:31.609,231.501,91.609
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,norris,mclaren,8,6,6,52,Finished,+11.943,6,1:31.645,231.410,91.645
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,max_verstappen,red_bull,6,7,2,52,Finished,+18.777,8,1:32.354,229.633,92.354
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,mick_schumacher,haas,4,8,19,52,Finished,+18.995,7,1:32.109,230.244,92.109
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,vettel,aston_martin,2,9,18,52,Finished,+22.356,10,1:32.471,229.343,92.471
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,kevin_magnussen,haas,1,10,17,52,Finished,+24.590,12,1:32.661,228.872,92.661
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,stroll,aston_martin,0,11,20,52,Finished,+26.147,9,1:32.379,229.571,92.379
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,latifi,williams,0,12,10,52,Finished,+32.511,13,1:33.286,227.339,93.286
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,ricciardo,mclaren,0,13,14,52,Finished,+32.817,11,1:32.644,228.914,92.644
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,tsunoda,alphatauri,0,14,13,52,Finished,+40.910,15,1:33.832,226.016,93.832
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,ocon,alpine,0,15,15,37,Fuel pump,NA,14,1:33.537,226.729,93.537
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,gasly,alphatauri,0,16,11,26,Collision damage,NA,16,1:34.614,224.148,94.614
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,bottas,alfa,0,17,12,20,Gearbox,NA,17,1:35.103,222.996,95.103
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,russell,mercedes,0,18,8,0,Collision,NA,NA,NA,NA,NA
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,zhou,alfa,0,19,9,0,Collision,NA,NA,NA,NA,NA
+2022,10,2026-11-08 17:45:28 UTC,https://api.jolpi.ca/ergast/f1/2022/10/results.json,2.0.1,albon,williams,0,20,16,0,Collision,NA,NA,NA,NA,NA
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,leclerc,ferrari,25,1,2,71,Finished,1:24:24.312,2,1:07.583,230.010,67.583
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,max_verstappen,red_bull,19,2,1,71,Finished,+1.532,1,1:07.275,231.063,67.275
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,hamilton,mercedes,15,3,8,71,Finished,+41.217,5,1:09.000,225.286,69
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,russell,mercedes,12,4,4,71,Finished,+58.972,6,1:09.075,225.042,69.075
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,ocon,alpine,10,5,6,71,Finished,+1:08.436,10,1:09.559,223.476,69.559
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,mick_schumacher,haas,8,6,9,70,+1 Lap,NA,11,1:09.625,223.264,69.625
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,norris,mclaren,6,7,10,70,+1 Lap,NA,8,1:09.304,224.298,69.304
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,kevin_magnussen,haas,4,8,7,70,+1 Lap,NA,14,1:09.938,222.265,69.938
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,ricciardo,mclaren,2,9,11,70,+1 Lap,NA,13,1:09.924,222.309,69.924
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,alonso,alpine,1,10,19,70,+1 Lap,NA,3,1:08.558,226.739,68.558
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,bottas,alfa,0,11,0,70,+1 Lap,NA,7,1:09.266,224.421,69.266
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,albon,williams,0,12,15,70,+1 Lap,NA,12,1:09.669,223.123,69.669
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,stroll,aston_martin,0,13,12,70,+1 Lap,NA,17,1:10.048,221.916,70.048
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,zhou,alfa,0,14,13,70,+1 Lap,NA,9,1:09.380,224.053,69.38
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,gasly,alphatauri,0,15,14,70,+1 Lap,NA,18,1:10.104,221.739,70.104
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,tsunoda,alphatauri,0,16,16,70,+1 Lap,NA,16,1:10.023,221.995,70.023
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,vettel,aston_martin,0,17,18,70,+1 Lap,NA,15,1:10.001,222.065,70.001
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,sainz,ferrari,0,18,3,56,Power Unit,NA,4,1:08.649,226.438,68.649
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,latifi,williams,0,19,17,48,Undertray,NA,19,1:10.890,219.280,70.89
+2022,11,2026-11-08 17:45:30 UTC,https://api.jolpi.ca/ergast/f1/2022/11/results.json,2.0.1,perez,red_bull,0,20,5,24,Collision damage,NA,20,1:11.843,216.371,71.843
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,max_verstappen,red_bull,25,1,2,53,Finished,1:30:02.112,2,1:37.491,215.724,97.491
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,hamilton,mercedes,18,2,4,53,Finished,+10.587,4,1:37.668,215.333,97.668
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,russell,mercedes,15,3,6,53,Finished,+16.495,3,1:37.548,215.598,97.548
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,perez,red_bull,12,4,3,53,Finished,+17.310,5,1:37.780,215.086,97.78
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,sainz,ferrari,11,5,19,53,Finished,+28.872,1,1:35.781,219.575,95.781
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,alonso,alpine,8,6,7,53,Finished,+42.879,8,1:38.160,214.254,98.16
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,norris,mclaren,6,7,5,53,Finished,+52.026,11,1:39.037,212.356,99.037
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,ocon,alpine,4,8,10,53,Finished,+56.959,9,1:38.684,213.116,98.684
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,ricciardo,mclaren,2,9,9,53,Finished,+1:00.372,14,1:39.133,212.151,99.133
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,stroll,aston_martin,1,10,15,53,Finished,+1:02.549,15,1:39.185,212.040,99.185
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,vettel,aston_martin,0,11,12,53,Finished,+1:04.494,12,1:39.044,212.341,99.044
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,gasly,alphatauri,0,12,14,53,Finished,+1:05.448,10,1:38.786,212.896,98.786
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,albon,williams,0,13,13,53,Finished,+1:08.565,16,1:39.199,212.010,99.199
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,bottas,alfa,0,14,11,53,Finished,+1:16.666,6,1:37.963,214.685,97.963
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,mick_schumacher,haas,0,15,17,53,Finished,+1:20.394,13,1:39.068,212.290,99.068
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,zhou,alfa,0,16,16,47,+6 Laps,NA,18,1:39.368,211.649,99.368
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,latifi,williams,0,17,18,40,Collision damage,NA,19,1:39.650,211.050,99.65
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,kevin_magnussen,haas,0,18,20,37,Collision damage,NA,17,1:39.265,211.869,99.265
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,leclerc,ferrari,0,19,1,17,Accident,NA,7,1:38.088,214.411,98.088
+2022,12,2026-11-08 17:45:31 UTC,https://api.jolpi.ca/ergast/f1/2022/12/results.json,2.0.1,tsunoda,alphatauri,0,20,8,17,Undertray,NA,20,1:40.216,209.858,100.216
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,max_verstappen,red_bull,25,1,10,70,Finished,1:39:35.912,6,1:22.126,192.041,82.126
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,hamilton,mercedes,19,2,7,70,Finished,+7.834,1,1:21.386,193.787,81.386
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,russell,mercedes,15,3,1,70,Finished,+12.337,9,1:22.766,190.556,82.766
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,sainz,ferrari,12,4,2,70,Finished,+14.579,4,1:22.000,192.336,82
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,perez,red_bull,10,5,11,70,Finished,+15.688,3,1:21.940,192.477,81.94
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,leclerc,ferrari,8,6,3,70,Finished,+16.047,2,1:21.622,193.227,81.622
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,norris,mclaren,6,7,4,70,Finished,+1:18.300,11,1:23.043,189.920,83.043
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,alonso,alpine,4,8,6,69,+1 Lap,NA,18,1:23.979,187.804,83.979
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,ocon,alpine,2,9,5,69,+1 Lap,NA,20,1:24.149,187.424,84.149
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,vettel,aston_martin,1,10,18,69,+1 Lap,NA,10,1:22.824,190.423,82.824
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,stroll,aston_martin,0,11,14,69,+1 Lap,NA,7,1:22.437,191.317,82.437
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,gasly,alphatauri,0,12,0,69,+1 Lap,NA,14,1:23.199,189.564,83.199
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,zhou,alfa,0,13,12,69,+1 Lap,NA,5,1:22.029,192.268,82.029
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,mick_schumacher,haas,0,14,15,69,+1 Lap,NA,13,1:23.151,189.674,83.151
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,ricciardo,mclaren,0,15,9,69,+1 Lap,NA,17,1:23.654,188.533,83.654
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,kevin_magnussen,haas,0,16,13,69,+1 Lap,NA,15,1:23.511,188.856,83.511
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,albon,williams,0,17,17,69,+1 Lap,NA,12,1:23.047,189.911,83.047
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,latifi,williams,0,18,19,69,+1 Lap,NA,8,1:22.478,191.221,82.478
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,tsunoda,alphatauri,0,19,16,68,+2 Laps,NA,16,1:23.538,188.795,83.538
+2022,13,2026-11-08 17:45:34 UTC,https://api.jolpi.ca/ergast/f1/2022/13/results.json,2.0.1,bottas,alfa,0,20,8,65,Power Unit,NA,19,1:24.002,187.752,84.002
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,max_verstappen,red_bull,26,1,14,44,Finished,1:25:52.894,1,1:49.354,230.575,109.354
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,perez,red_bull,18,2,2,44,Finished,+17.841,3,1:50.764,227.640,110.764
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,sainz,ferrari,15,3,1,44,Finished,+26.886,7,1:51.977,225.174,111.977
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,russell,mercedes,12,4,5,44,Finished,+29.140,4,1:50.793,227.581,110.793
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,alonso,alpine,10,5,3,44,Finished,+1:13.256,13,1:52.868,223.397,112.868
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,leclerc,ferrari,8,6,15,44,Finished,+1:14.936,2,1:49.984,229.255,109.984
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,ocon,alpine,6,7,16,44,Finished,+1:15.640,6,1:51.717,225.698,111.717
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,vettel,aston_martin,4,8,10,44,Finished,+1:18.107,11,1:52.515,224.098,112.515
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,gasly,alphatauri,2,9,0,44,Finished,+1:32.181,15,1:53.002,223.132,113.002
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,albon,williams,1,10,6,44,Finished,+1:41.900,16,1:53.055,223.027,113.055
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,stroll,aston_martin,0,11,9,44,Finished,+1:43.078,14,1:52.880,223.373,112.88
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,norris,mclaren,0,12,17,44,Finished,+1:44.739,5,1:51.678,225.777,111.678
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,tsunoda,alphatauri,0,13,0,44,Finished,+1:45.217,10,1:52.436,224.255,112.436
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,zhou,alfa,0,14,18,44,Finished,+1:46.252,9,1:52.317,224.493,112.317
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,ricciardo,mclaren,0,15,7,44,Finished,+1:47.163,17,1:53.080,222.978,113.08
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,kevin_magnussen,haas,0,16,12,43,+1 Lap,NA,18,1:53.332,222.482,113.332
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,mick_schumacher,haas,0,17,19,43,+1 Lap,NA,12,1:52.646,223.837,112.646
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,latifi,williams,0,18,11,43,+1 Lap,NA,8,1:52.256,224.615,112.256
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,bottas,alfa,0,19,13,1,Accident,NA,NA,NA,NA,NA
+2022,14,2026-11-08 17:45:36 UTC,https://api.jolpi.ca/ergast/f1/2022/14/results.json,2.0.1,hamilton,mercedes,0,20,4,0,Collision damage,NA,NA,NA,NA,NA
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,max_verstappen,red_bull,26,1,1,72,Finished,1:36:42.773,1,1:13.652,208.173,73.652
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,russell,mercedes,18,2,6,72,Finished,+4.071,2,1:13.671,208.119,73.671
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,leclerc,ferrari,15,3,2,72,Finished,+10.929,6,1:14.413,206.044,74.413
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,hamilton,mercedes,12,4,4,72,Finished,+13.016,3,1:13.854,207.604,73.854
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,perez,red_bull,10,5,5,72,Finished,+18.168,5,1:14.404,206.069,74.404
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,alonso,alpine,8,6,13,72,Finished,+18.754,4,1:14.144,206.792,74.144
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,norris,mclaren,6,7,7,72,Finished,+19.306,8,1:14.706,205.236,74.706
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,sainz,ferrari,4,8,3,72,Finished,+20.916,7,1:14.643,205.409,74.643
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,ocon,alpine,2,9,12,72,Finished,+21.117,11,1:15.084,204.203,75.084
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,stroll,aston_martin,1,10,10,72,Finished,+22.459,10,1:15.043,204.314,75.043
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,gasly,alphatauri,0,11,11,72,Finished,+27.009,12,1:15.165,203.983,75.165
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,albon,williams,0,12,15,72,Finished,+30.390,15,1:15.534,202.986,75.534
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,mick_schumacher,haas,0,13,8,72,Finished,+32.995,13,1:15.233,203.798,75.233
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,vettel,aston_martin,0,14,19,72,Finished,+36.007,9,1:14.862,204.808,74.862
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,kevin_magnussen,haas,0,15,18,72,Finished,+36.869,14,1:15.369,203.431,75.369
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,zhou,alfa,0,16,14,72,Finished,+37.320,17,1:15.940,201.901,75.94
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,ricciardo,mclaren,0,17,17,72,Finished,+37.764,16,1:15.577,202.871,75.577
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,latifi,williams,0,18,20,71,+1 Lap,NA,18,1:16.066,201.567,76.066
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,bottas,alfa,0,19,16,53,Engine,NA,19,1:16.844,199.526,76.844
+2022,15,2026-11-08 17:45:38 UTC,https://api.jolpi.ca/ergast/f1/2022/15/results.json,2.0.1,tsunoda,alphatauri,0,20,9,43,Differential,NA,20,1:17.138,198.765,77.138
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,max_verstappen,red_bull,25,1,7,53,Finished,1:20:27.511,6,1:24.745,246.088,84.745
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,leclerc,ferrari,18,2,1,53,Finished,+2.446,2,1:24.336,247.282,84.336
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,russell,mercedes,15,3,2,53,Finished,+3.405,7,1:25.288,244.522,85.288
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,sainz,ferrari,12,4,18,53,Finished,+5.061,4,1:24.446,246.960,84.446
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,hamilton,mercedes,10,5,19,53,Finished,+5.380,3,1:24.434,246.995,84.434
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,perez,red_bull,9,6,13,53,Finished,+6.091,1,1:24.030,248.182,84.03
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,norris,mclaren,6,7,3,53,Finished,+6.207,5,1:24.718,246.167,84.718
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,gasly,alphatauri,4,8,5,53,Finished,+6.396,14,1:26.718,240.489,86.718
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,de_vries,williams,2,9,8,53,Finished,+7.122,13,1:26.624,240.750,86.624
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,zhou,alfa,1,10,9,53,Finished,+7.910,10,1:26.361,241.484,86.361
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,ocon,alpine,0,11,14,53,Finished,+8.323,11,1:26.593,240.837,86.593
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,mick_schumacher,haas,0,12,17,53,Finished,+8.549,8,1:25.298,244.493,85.298
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,bottas,alfa,0,13,15,52,+1 Lap,NA,9,1:25.706,243.329,85.706
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,tsunoda,alphatauri,0,14,20,52,+1 Lap,NA,17,1:26.857,240.105,86.857
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,latifi,williams,0,15,10,52,+1 Lap,NA,15,1:26.798,240.268,86.798
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,kevin_magnussen,haas,0,16,16,52,+1 Lap,NA,16,1:26.798,240.268,86.798
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,ricciardo,mclaren,0,17,4,45,Oil leak,NA,12,1:26.603,240.809,86.603
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,stroll,aston_martin,0,18,12,39,Engine,NA,19,1:27.467,238.430,87.467
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,alonso,alpine,0,19,6,31,Water pressure,NA,18,1:27.203,239.152,87.203
+2022,16,2026-11-08 17:45:40 UTC,https://api.jolpi.ca/ergast/f1/2022/16/results.json,2.0.1,vettel,aston_martin,0,20,11,10,Engine,NA,20,1:27.501,238.337,87.501
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,perez,red_bull,25,1,2,59,Finished,2:02:20.238,2,1:48.165,168.509,108.165
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,leclerc,ferrari,18,2,1,59,Finished,+2.595,4,1:48.753,167.598,108.753
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,sainz,ferrari,15,3,4,59,Finished,+10.305,3,1:48.414,168.122,108.414
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,norris,mclaren,12,4,6,59,Finished,+21.133,6,1:49.212,166.893,109.212
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,ricciardo,mclaren,10,5,16,59,Finished,+53.282,12,1:51.006,164.196,111.006
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,stroll,aston_martin,8,6,11,59,Finished,+56.330,7,1:50.283,165.272,110.283
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,max_verstappen,red_bull,6,7,8,59,Finished,+58.825,5,1:49.142,167.000,109.142
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,vettel,aston_martin,4,8,13,59,Finished,+1:00.032,11,1:50.669,164.696,110.669
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,hamilton,mercedes,2,9,3,59,Finished,+1:01.515,10,1:50.622,164.766,110.622
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,gasly,alphatauri,1,10,7,59,Finished,+1:09.576,9,1:50.569,164.845,110.569
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,bottas,alfa,0,11,15,59,Finished,+1:28.844,13,1:51.864,162.937,111.864
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,kevin_magnussen,haas,0,12,9,59,Finished,+1:32.610,14,1:52.067,162.641,112.067
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,mick_schumacher,haas,0,13,12,58,+1 Lap,NA,8,1:50.290,165.262,110.29
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,russell,mercedes,0,14,0,57,+2 Laps,NA,1,1:46.458,171.211,106.458
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,tsunoda,alphatauri,0,15,10,34,Accident,NA,15,1:58.716,153.532,118.716
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,ocon,alpine,0,16,17,26,Engine,NA,17,2:01.105,150.504,121.105
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,albon,williams,0,17,18,25,Collision damage,NA,18,2:02.121,149.251,122.121
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,alonso,alpine,0,18,5,20,Engine,NA,16,2:00.463,151.306,120.463
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,latifi,williams,0,19,19,7,Collision damage,NA,20,2:05.585,145.135,125.585
+2022,17,2026-11-08 17:45:42 UTC,https://api.jolpi.ca/ergast/f1/2022/17/results.json,2.0.1,zhou,alfa,0,20,14,6,Collision,NA,19,2:05.556,145.168,125.556
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,max_verstappen,red_bull,25,1,1,28,Finished,3:01:44.004,4,1:44.911,199.266,104.911
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,perez,red_bull,18,2,4,28,Finished,+27.066,9,1:46.120,196.995,106.12
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,leclerc,ferrari,15,3,2,28,Finished,+31.763,3,1:44.489,200.070,104.489
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,ocon,alpine,12,4,5,28,Finished,+39.685,11,1:46.559,196.184,106.559
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,hamilton,mercedes,10,5,6,28,Finished,+40.326,7,1:45.530,198.097,105.53
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,vettel,aston_martin,8,6,9,28,Finished,+46.358,12,1:46.964,195.441,106.964
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,alonso,alpine,6,7,7,28,Finished,+46.369,2,1:44.412,200.218,104.412
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,russell,mercedes,4,8,8,28,Finished,+47.661,13,1:47.004,195.368,107.004
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,latifi,williams,2,9,20,28,Finished,+1:10.143,18,1:48.371,192.904,108.371
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,norris,mclaren,1,10,10,28,Finished,+1:10.782,17,1:48.175,193.253,108.175
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,ricciardo,mclaren,0,11,11,28,Finished,+1:12.877,15,1:47.843,193.848,107.843
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,stroll,aston_martin,0,12,19,28,Finished,+1:13.904,5,1:45.205,198.709,105.205
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,tsunoda,alphatauri,0,13,13,28,Finished,+1:15.599,8,1:45.893,197.418,105.893
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,kevin_magnussen,haas,0,14,18,28,Finished,+1:26.016,16,1:48.072,193.437,108.072
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,bottas,alfa,0,15,12,28,Finished,+1:26.496,14,1:47.820,193.889,107.82
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,zhou,alfa,0,16,14,28,Finished,+1:27.043,1,1:44.411,200.220,104.411
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,mick_schumacher,haas,0,17,15,28,Finished,+1:32.523,6,1:45.387,198.366,105.387
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,gasly,alphatauri,0,18,17,28,Finished,+1:48.091,10,1:46.545,196.210,106.545
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,sainz,ferrari,0,19,3,0,Accident,NA,NA,NA,NA,NA
+2022,18,2026-11-08 17:45:44 UTC,https://api.jolpi.ca/ergast/f1/2022/18/results.json,2.0.1,albon,williams,0,20,16,0,Hydraulics,NA,NA,NA,NA,NA
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,max_verstappen,red_bull,25,1,2,56,Finished,1:42:11.687,2,1:39.541,199.383,99.541
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,hamilton,mercedes,18,2,3,56,Finished,+5.023,5,1:39.830,198.805,99.83
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,leclerc,ferrari,15,3,12,56,Finished,+7.501,4,1:39.731,199.003,99.731
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,perez,red_bull,12,4,9,56,Finished,+8.293,3,1:39.563,199.339,99.563
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,russell,mercedes,11,5,4,56,Finished,+44.815,1,1:38.788,200.902,98.788
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,norris,mclaren,8,6,6,56,Finished,+53.785,7,1:41.322,195.878,101.322
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,alonso,alpine,6,7,14,56,Finished,+55.078,8,1:41.538,195.461,101.538
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,vettel,aston_martin,4,8,10,56,Finished,+1:05.354,16,1:42.546,193.540,102.546
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,kevin_magnussen,haas,2,9,13,56,Finished,+1:05.834,11,1:42.206,194.184,102.206
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,tsunoda,alphatauri,1,10,19,56,Finished,+1:10.919,6,1:41.243,196.031,101.243
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,ocon,alpine,0,11,0,56,Finished,+1:12.875,13,1:42.394,193.827,102.394
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,zhou,alfa,0,12,18,56,Finished,+1:16.164,15,1:42.471,193.682,102.471
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,albon,williams,0,13,8,56,Finished,+1:20.057,9,1:41.674,195.200,101.674
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,gasly,alphatauri,0,14,11,56,Finished,+1:21.763,12,1:42.320,193.967,102.32
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,mick_schumacher,haas,0,15,16,56,Finished,+1:24.490,10,1:41.804,194.951,101.804
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,ricciardo,mclaren,0,16,15,56,Finished,+1:30.487,14,1:42.420,193.778,102.42
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,latifi,williams,0,17,17,56,Finished,+1:43.588,19,1:43.485,191.784,103.485
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,stroll,aston_martin,0,18,5,21,Collision,NA,17,1:43.080,192.537,103.08
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,bottas,alfa,0,19,7,16,Spun off,NA,18,1:43.391,191.958,103.391
+2022,19,2026-11-08 17:45:46 UTC,https://api.jolpi.ca/ergast/f1/2022/19/results.json,2.0.1,sainz,ferrari,0,20,1,1,Collision damage,NA,NA,NA,NA,NA
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,max_verstappen,red_bull,25,1,1,71,Finished,1:38:36.729,4,1:22.046,188.850,82.046
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,hamilton,mercedes,18,2,3,71,Finished,+15.186,5,1:22.062,188.813,82.062
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,perez,red_bull,15,3,4,71,Finished,+18.097,2,1:21.775,189.476,81.775
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,russell,mercedes,13,4,2,71,Finished,+49.431,1,1:20.153,193.310,80.153
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,sainz,ferrari,10,5,5,71,Finished,+58.123,6,1:22.199,188.498,82.199
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,leclerc,ferrari,8,6,7,71,Finished,+1:08.774,10,1:22.603,187.576,82.603
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,ricciardo,mclaren,6,7,11,70,+1 Lap,NA,3,1:22.022,188.905,82.022
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,ocon,alpine,4,8,10,70,+1 Lap,NA,14,1:23.279,186.054,83.279
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,norris,mclaren,2,9,8,70,+1 Lap,NA,17,1:23.402,185.779,83.402
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,bottas,alfa,1,10,6,70,+1 Lap,NA,16,1:23.363,185.866,83.363
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,gasly,alphatauri,0,11,14,70,+1 Lap,NA,8,1:22.277,188.319,82.277
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,albon,williams,0,12,17,70,+1 Lap,NA,12,1:22.914,186.873,82.914
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,zhou,alfa,0,13,12,70,+1 Lap,NA,7,1:22.260,188.358,82.26
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,vettel,aston_martin,0,14,16,70,+1 Lap,NA,13,1:23.086,186.486,83.086
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,stroll,aston_martin,0,15,20,70,+1 Lap,NA,9,1:22.463,187.895,82.463
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,mick_schumacher,haas,0,16,15,70,+1 Lap,NA,19,1:23.641,185.248,83.641
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,kevin_magnussen,haas,0,17,19,70,+1 Lap,NA,15,1:23.300,186.007,83.3
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,latifi,williams,0,18,18,69,+2 Laps,NA,20,1:23.709,185.098,83.709
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,alonso,alpine,0,19,9,63,Engine,NA,11,1:22.866,186.981,82.866
+2022,20,2026-11-08 17:45:48 UTC,https://api.jolpi.ca/ergast/f1/2022/20/results.json,2.0.1,tsunoda,alphatauri,0,20,13,50,Collision damage,NA,18,1:23.403,185.777,83.403
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,russell,mercedes,26,1,1,71,Finished,1:38:34.044,1,1:13.785,210.237,73.785
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,hamilton,mercedes,18,2,2,71,Finished,+1.529,2,1:13.942,209.791,73.942
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,sainz,ferrari,15,3,7,71,Finished,+4.051,3,1:13.953,209.760,73.953
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,leclerc,ferrari,12,4,5,71,Finished,+8.441,6,1:14.253,208.912,74.253
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,alonso,alpine,10,5,17,71,Finished,+9.561,4,1:14.164,209.163,74.164
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,max_verstappen,red_bull,8,6,3,71,Finished,+10.056,5,1:14.195,209.076,74.195
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,perez,red_bull,6,7,4,71,Finished,+14.080,7,1:14.283,208.828,74.283
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,ocon,alpine,4,8,16,71,Finished,+18.690,9,1:15.093,206.575,75.093
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,bottas,alfa,2,9,14,71,Finished,+22.552,14,1:15.511,205.432,75.511
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,stroll,aston_martin,1,10,15,71,Finished,+23.552,8,1:14.831,207.299,74.831
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,vettel,aston_martin,0,11,9,71,Finished,+26.183,15,1:15.549,205.328,75.549
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,zhou,alfa,0,12,13,71,Finished,+29.325,17,1:15.802,204.643,75.802
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,mick_schumacher,haas,0,13,12,71,Finished,+29.899,10,1:15.251,206.142,75.251
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,gasly,alphatauri,0,14,10,71,Finished,+31.867,12,1:15.327,205.934,75.327
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,albon,williams,0,15,19,71,Finished,+36.016,16,1:15.613,205.155,75.613
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,latifi,williams,0,16,18,71,Finished,+37.038,11,1:15.327,205.934,75.327
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,tsunoda,alphatauri,0,17,0,70,+1 Lap,NA,13,1:15.508,205.440,75.508
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,norris,mclaren,0,18,6,50,Gearbox,NA,18,1:15.855,204.500,75.855
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,kevin_magnussen,haas,0,19,8,0,Collision,NA,NA,NA,NA,NA
+2022,21,2026-11-08 17:45:50 UTC,https://api.jolpi.ca/ergast/f1/2022/21/results.json,2.0.1,ricciardo,mclaren,0,20,11,0,Collision,NA,NA,NA,NA,NA
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,max_verstappen,red_bull,25,1,1,58,Finished,1:27:45.914,6,1:29.392,212.676,89.392
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,leclerc,ferrari,18,2,3,58,Finished,+8.771,10,1:29.719,211.901,89.719
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,perez,red_bull,15,3,2,58,Finished,+10.093,4,1:28.972,213.680,88.972
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,sainz,ferrari,12,4,4,58,Finished,+24.892,3,1:28.879,213.904,88.879
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,russell,mercedes,10,5,6,58,Finished,+35.888,2,1:28.836,214.007,88.836
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,norris,mclaren,9,6,7,58,Finished,+56.234,1,1:28.391,215.085,88.391
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,ocon,alpine,6,7,8,58,Finished,+57.240,5,1:29.333,212.817,89.333
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,stroll,aston_martin,4,8,14,58,Finished,+1:16.931,9,1:29.620,212.135,89.62
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,ricciardo,mclaren,2,9,13,58,Finished,+1:23.268,18,1:30.785,209.413,90.785
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,vettel,aston_martin,1,10,9,58,Finished,+1:23.898,15,1:30.312,210.510,90.312
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,tsunoda,alphatauri,0,11,11,58,Finished,+1:29.371,7,1:29.489,212.446,89.489
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,zhou,alfa,0,12,15,57,+1 Lap,NA,8,1:29.600,212.183,89.6
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,albon,williams,0,13,19,57,+1 Lap,NA,13,1:29.939,211.383,89.939
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,gasly,alphatauri,0,14,17,57,+1 Lap,NA,19,1:31.081,208.732,91.081
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,bottas,alfa,0,15,18,57,+1 Lap,NA,16,1:30.352,210.417,90.352
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,mick_schumacher,haas,0,16,12,57,+1 Lap,NA,12,1:29.833,211.632,89.833
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,kevin_magnussen,haas,0,17,16,57,+1 Lap,NA,20,1:31.158,208.556,91.158
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,hamilton,mercedes,0,18,5,55,Hydraulics,NA,11,1:29.788,211.738,89.788
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,latifi,williams,0,19,20,55,Collision damage,NA,14,1:30.309,210.517,90.309
+2022,22,2026-11-08 17:45:53 UTC,https://api.jolpi.ca/ergast/f1/2022/22/results.json,2.0.1,alonso,alpine,0,20,10,27,Water leak,NA,17,1:30.579,209.889,90.579

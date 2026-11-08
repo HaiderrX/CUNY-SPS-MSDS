@@ -1,0 +1,401 @@
+season,round,retrieved_at,source_url,f1dataR_version,driver_id,constructor_id,points,position,grid,laps,status,gap,fastest_rank,fastest,top_speed_kph,time_sec
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,vettel,ferrari,25,1,2,57,Finished,1:24:11.672,3,1:26.638,220.351,86.638
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,hamilton,mercedes,18,2,1,57,Finished,+9.975,6,1:27.033,219.351,87.033
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,bottas,mercedes,15,3,3,57,Finished,+11.250,2,1:26.593,220.465,86.593
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,raikkonen,ferrari,12,4,4,57,Finished,+22.393,1,1:26.538,220.605,86.538
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,max_verstappen,red_bull,10,5,5,57,Finished,+28.827,5,1:26.964,219.525,86.964
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,massa,williams,8,6,7,57,Finished,+1:23.386,9,1:28.045,216.830,88.045
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,perez,force_india,6,7,10,56,+1 Lap,NA,10,1:28.336,216.115,88.336
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,sainz,toro_rosso,4,8,8,56,+1 Lap,NA,8,1:27.677,217.740,87.677
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,kvyat,toro_rosso,2,9,9,56,+1 Lap,NA,4,1:26.711,220.165,86.711
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,ocon,force_india,1,10,13,56,+1 Lap,NA,11,1:28.475,215.776,88.475
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,hulkenberg,renault,0,11,11,56,+1 Lap,NA,12,1:28.486,215.749,88.486
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,giovinazzi,sauber,0,12,16,55,+2 Laps,NA,13,1:29.052,214.378,89.052
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,vandoorne,mclaren,0,13,18,55,+2 Laps,NA,15,1:29.440,213.448,89.44
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,alonso,mclaren,0,14,12,50,Vibrations,NA,17,1:30.077,211.938,90.077
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,kevin_magnussen,haas,0,15,17,46,Suspension,NA,7,1:27.568,218.011,87.568
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,stroll,williams,0,16,20,40,Brakes,NA,14,1:29.389,213.569,89.389
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,ricciardo,red_bull,0,17,0,25,Power Unit,NA,16,1:29.447,213.431,89.447
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,ericsson,sauber,0,18,14,21,Hydraulics,NA,19,1:32.052,207.391,92.052
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,jolyon_palmer,renault,0,19,19,15,Brakes,NA,20,1:32.195,207.069,92.195
+2017,1,2026-11-08 17:41:16 UTC,https://api.jolpi.ca/ergast/f1/2017/1/results.json,2.0.1,grosjean,haas,0,20,6,13,Water leak,NA,18,1:30.183,211.689,90.183
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,hamilton,mercedes,25,1,1,56,Finished,1:37:36.158,1,1:35.378,205.745,95.378
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,vettel,ferrari,18,2,2,56,Finished,+6.250,2,1:35.423,205.648,95.423
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,max_verstappen,red_bull,15,3,16,56,Finished,+45.192,7,1:36.722,202.886,96.722
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,ricciardo,red_bull,12,4,5,56,Finished,+46.035,8,1:36.791,202.741,96.791
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,raikkonen,ferrari,10,5,4,56,Finished,+48.076,4,1:36.003,204.406,96.003
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,bottas,mercedes,8,6,3,56,Finished,+48.808,3,1:35.849,204.734,95.849
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,sainz,toro_rosso,6,7,11,56,Finished,+1:12.893,10,1:37.398,201.478,97.398
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,kevin_magnussen,haas,4,8,12,55,+1 Lap,NA,11,1:37.528,201.209,97.528
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,perez,force_india,2,9,8,55,+1 Lap,NA,6,1:36.531,203.288,96.531
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,ocon,force_india,1,10,17,55,+1 Lap,NA,9,1:37.036,202.230,97.036
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,grosjean,haas,0,11,19,55,+1 Lap,NA,12,1:37.551,201.162,97.551
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,hulkenberg,renault,0,12,7,55,+1 Lap,NA,13,1:38.015,200.210,98.015
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,jolyon_palmer,renault,0,13,20,55,+1 Lap,NA,14,1:38.181,199.871,98.181
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,massa,williams,0,14,6,55,+1 Lap,NA,5,1:36.511,203.330,96.511
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,ericsson,sauber,0,15,14,55,+1 Lap,NA,16,1:39.732,196.763,99.732
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,alonso,mclaren,0,16,13,33,Driveshaft,NA,15,1:39.496,197.230,99.496
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,kvyat,toro_rosso,0,17,9,18,Hydraulics,NA,17,1:40.090,196.059,100.09
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,vandoorne,mclaren,0,18,15,17,Fuel pressure,NA,18,1:41.460,193.412,101.46
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,giovinazzi,sauber,0,19,18,3,Accident,NA,NA,NA,NA,NA
+2017,2,2026-11-08 17:41:18 UTC,https://api.jolpi.ca/ergast/f1/2017/2/results.json,2.0.1,stroll,williams,0,20,10,0,Collision,NA,NA,NA,NA,NA
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,vettel,ferrari,25,1,3,57,Finished,1:33:53.374,4,1:33.826,207.652,93.826
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,hamilton,mercedes,18,2,2,57,Finished,+6.660,1,1:32.798,209.952,92.798
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,bottas,mercedes,15,3,1,57,Finished,+20.397,5,1:34.087,207.076,94.087
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,raikkonen,ferrari,12,4,5,57,Finished,+22.475,3,1:33.720,207.887,93.72
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,ricciardo,red_bull,10,5,4,57,Finished,+39.346,2,1:33.495,208.387,93.495
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,massa,williams,8,6,8,57,Finished,+54.326,6,1:34.256,206.705,94.256
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,perez,force_india,6,7,18,57,Finished,+1:02.606,7,1:34.609,205.933,94.609
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,grosjean,haas,4,8,9,57,Finished,+1:14.865,8,1:34.948,205.198,94.948
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,hulkenberg,renault,2,9,7,57,Finished,+1:20.188,12,1:35.372,204.286,95.372
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,ocon,force_india,1,10,14,57,Finished,+1:35.711,11,1:35.179,204.700,95.179
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,wehrlein,sauber,0,11,13,56,+1 Lap,NA,17,1:36.786,201.301,96.786
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,kvyat,toro_rosso,0,12,11,56,+1 Lap,NA,9,1:34.985,205.118,94.985
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,jolyon_palmer,renault,0,13,10,56,+1 Lap,NA,13,1:35.552,203.901,95.552
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,alonso,mclaren,0,14,15,54,Power Unit,NA,14,1:35.595,203.809,95.595
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,ericsson,sauber,0,15,19,50,Gearbox,NA,10,1:35.086,204.900,95.086
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,sainz,toro_rosso,0,16,16,12,Collision,NA,18,1:38.026,198.755,98.026
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,stroll,williams,0,17,12,12,Collision,NA,15,1:36.303,202.311,96.303
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,max_verstappen,red_bull,0,18,6,11,Brakes,NA,16,1:36.681,201.520,96.681
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,kevin_magnussen,haas,0,19,20,8,Electrical,NA,19,1:38.718,197.362,98.718
+2017,3,2026-11-08 17:41:20 UTC,https://api.jolpi.ca/ergast/f1/2017/3/results.json,2.0.1,vandoorne,mclaren,0,20,17,0,Power Unit,NA,NA,NA,NA,NA
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,bottas,mercedes,25,1,3,52,Finished,1:28:08.743,3,1:37.367,216.221,97.367
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,vettel,ferrari,18,2,1,52,Finished,+0.617,2,1:37.312,216.343,97.312
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,raikkonen,ferrari,15,3,2,52,Finished,+11.000,1,1:36.844,217.388,96.844
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,hamilton,mercedes,12,4,4,52,Finished,+36.320,6,1:38.398,213.955,98.398
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,max_verstappen,red_bull,10,5,7,52,Finished,+1:00.416,8,1:38.429,213.888,98.429
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,perez,force_india,8,6,9,52,Finished,+1:26.788,9,1:38.661,213.385,98.661
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,ocon,force_india,6,7,10,52,Finished,+1:35.004,10,1:38.745,213.203,98.745
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,hulkenberg,renault,4,8,8,52,Finished,+1:36.188,7,1:38.418,213.912,98.418
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,massa,williams,2,9,6,51,+1 Lap,NA,4,1:38.232,214.317,98.232
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,sainz,toro_rosso,1,10,14,51,+1 Lap,NA,11,1:38.858,212.960,98.858
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,stroll,williams,0,11,11,51,+1 Lap,NA,12,1:38.870,212.934,98.87
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,kvyat,toro_rosso,0,12,12,51,+1 Lap,NA,5,1:38.300,214.168,98.3
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,kevin_magnussen,haas,0,13,13,51,+1 Lap,NA,13,1:39.566,211.445,99.566
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,vandoorne,mclaren,0,14,20,51,+1 Lap,NA,14,1:39.790,210.971,99.79
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,ericsson,sauber,0,15,18,51,+1 Lap,NA,15,1:39.835,210.875,99.835
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,wehrlein,sauber,0,16,17,50,+2 Laps,NA,16,1:40.922,208.604,100.922
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,ricciardo,red_bull,0,17,5,5,Brakes,NA,17,1:42.285,205.824,102.285
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,jolyon_palmer,renault,0,18,16,0,Collision,NA,NA,NA,NA,NA
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,grosjean,haas,0,19,19,0,Collision,NA,NA,NA,NA,NA
+2017,4,2026-11-08 17:41:22 UTC,https://api.jolpi.ca/ergast/f1/2017/4/results.json,2.0.1,alonso,mclaren,0,20,15,0,Power Unit,NA,NA,NA,NA,NA
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,hamilton,mercedes,25,1,1,66,Finished,1:35:56.497,1,1:23.593,200.471,83.593
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,vettel,ferrari,18,2,2,66,Finished,+3.490,2,1:23.674,200.277,83.674
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,ricciardo,red_bull,15,3,6,66,Finished,+1:15.820,3,1:23.686,200.248,83.686
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,perez,force_india,12,4,8,65,+1 Lap,NA,7,1:25.755,195.417,85.755
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,ocon,force_india,10,5,10,65,+1 Lap,NA,11,1:26.276,194.237,86.276
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,hulkenberg,renault,8,6,13,65,+1 Lap,NA,15,1:26.703,193.280,86.703
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,sainz,toro_rosso,6,7,12,65,+1 Lap,NA,9,1:26.186,194.439,86.186
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,wehrlein,sauber,4,8,15,65,+1 Lap,NA,14,1:26.476,193.787,86.476
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,kvyat,toro_rosso,2,9,19,65,+1 Lap,NA,8,1:25.976,194.914,85.976
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,grosjean,haas,1,10,14,65,+1 Lap,NA,17,1:26.871,192.906,86.871
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,ericsson,sauber,0,11,16,64,+2 Laps,NA,10,1:26.213,194.379,86.213
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,alonso,mclaren,0,12,7,64,+2 Laps,NA,4,1:23.894,199.752,83.894
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,massa,williams,0,13,9,64,+2 Laps,NA,13,1:26.472,193.796,86.472
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,kevin_magnussen,haas,0,14,11,64,+2 Laps,NA,12,1:26.371,194.023,86.371
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,jolyon_palmer,renault,0,15,17,64,+2 Laps,NA,6,1:24.843,197.517,84.843
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,stroll,williams,0,16,18,64,+2 Laps,NA,16,1:26.838,192.980,86.838
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,bottas,mercedes,0,17,3,38,Power Unit,NA,5,1:24.696,197.860,84.696
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,vandoorne,mclaren,0,18,20,32,Collision,NA,18,1:27.554,191.401,87.554
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,max_verstappen,red_bull,0,19,5,1,Collision damage,NA,NA,NA,NA,NA
+2017,5,2026-11-08 17:41:25 UTC,https://api.jolpi.ca/ergast/f1/2017/5/results.json,2.0.1,raikkonen,ferrari,0,20,4,0,Collision damage,NA,NA,NA,NA,NA
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,vettel,ferrari,25,1,2,78,Finished,1:44:44.340,2,1:15.238,159.669,75.238
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,raikkonen,ferrari,18,2,1,78,Finished,+3.145,3,1:15.527,159.058,75.527
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,ricciardo,red_bull,15,3,5,78,Finished,+3.745,4,1:15.756,158.577,75.756
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,bottas,mercedes,12,4,3,78,Finished,+5.517,9,1:16.439,157.160,76.439
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,max_verstappen,red_bull,10,5,4,78,Finished,+6.199,8,1:16.329,157.387,76.329
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,sainz,toro_rosso,8,6,6,78,Finished,+12.038,14,1:16.649,156.730,76.649
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,hamilton,mercedes,6,7,13,78,Finished,+15.801,5,1:15.825,158.433,75.825
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,grosjean,haas,4,8,8,78,Finished,+18.150,18,1:17.095,155.823,77.095
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,massa,williams,2,9,14,78,Finished,+19.445,12,1:16.543,156.947,76.543
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,kevin_magnussen,haas,1,10,11,78,Finished,+21.443,7,1:16.313,157.420,76.313
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,jolyon_palmer,renault,0,11,16,78,Finished,+22.737,13,1:16.614,156.801,76.614
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,ocon,force_india,0,12,15,78,Finished,+23.725,10,1:16.482,157.072,76.482
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,perez,force_india,0,13,7,78,Finished,+39.089,1,1:14.820,160.561,74.82
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,kvyat,toro_rosso,0,14,9,71,Collision damage,NA,11,1:16.539,156.955,76.539
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,stroll,williams,0,15,17,71,Brakes,NA,6,1:16.075,157.912,76.075
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,vandoorne,mclaren,0,16,12,66,Accident,NA,15,1:16.665,156.697,76.665
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,ericsson,sauber,0,17,19,63,Accident,NA,16,1:16.829,156.362,76.829
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,button,mclaren,0,18,20,57,Collision damage,NA,17,1:16.912,156.194,76.912
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,wehrlein,sauber,0,19,18,57,Collision,NA,20,1:18.034,153.948,78.034
+2017,6,2026-11-08 17:41:26 UTC,https://api.jolpi.ca/ergast/f1/2017/6/results.json,2.0.1,hulkenberg,renault,0,20,10,15,Gearbox,NA,19,1:17.885,154.242,77.885
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,hamilton,mercedes,25,1,1,70,Finished,1:33:05.154,1,1:14.551,210.588,74.551
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,bottas,mercedes,18,2,3,70,Finished,+19.783,5,1:15.894,206.862,75.894
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,ricciardo,red_bull,15,3,6,70,Finished,+35.297,8,1:16.165,206.126,76.165
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,vettel,ferrari,12,4,2,70,Finished,+35.907,2,1:14.719,210.115,74.719
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,perez,force_india,10,5,8,70,Finished,+40.476,11,1:16.367,205.580,76.367
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,ocon,force_india,8,6,9,70,Finished,+40.716,9,1:16.247,205.904,76.247
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,raikkonen,ferrari,6,7,4,70,Finished,+58.632,3,1:15.388,208.250,75.388
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,hulkenberg,renault,4,8,10,70,Finished,+1:00.374,7,1:16.136,206.204,76.136
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,stroll,williams,2,9,17,69,+1 Lap,NA,6,1:15.979,206.630,75.979
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,grosjean,haas,1,10,14,69,+1 Lap,NA,15,1:16.949,204.026,76.949
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,jolyon_palmer,renault,0,11,15,69,+1 Lap,NA,12,1:16.704,204.677,76.704
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,kevin_magnussen,haas,0,12,18,69,+1 Lap,NA,10,1:16.341,205.650,76.341
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,ericsson,sauber,0,13,19,69,+1 Lap,NA,16,1:16.995,203.904,76.995
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,vandoorne,mclaren,0,14,16,69,+1 Lap,NA,14,1:16.774,204.491,76.774
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,wehrlein,sauber,0,15,20,68,+2 Laps,NA,17,1:17.091,203.650,77.091
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,alonso,mclaren,0,16,12,66,Power Unit,NA,4,1:15.853,206.974,75.853
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,kvyat,toro_rosso,0,17,11,54,Power Unit,NA,13,1:16.713,204.653,76.713
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,max_verstappen,red_bull,0,18,5,10,Electrical,NA,18,1:17.187,203.396,77.187
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,massa,williams,0,19,7,0,Collision,NA,NA,NA,NA,NA
+2017,7,2026-11-08 17:41:28 UTC,https://api.jolpi.ca/ergast/f1/2017/7/results.json,2.0.1,sainz,toro_rosso,0,20,13,0,Collision,NA,NA,NA,NA,NA
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,ricciardo,red_bull,25,1,10,51,Finished,2:03:55.573,4,1:44.882,206.048,104.882
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,bottas,mercedes,18,2,2,51,Finished,+3.904,3,1:43.925,207.946,103.925
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,stroll,williams,15,3,8,51,Finished,+4.009,5,1:45.108,205.605,105.108
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,vettel,ferrari,12,4,4,51,Finished,+5.976,1,1:43.441,208.919,103.441
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,hamilton,mercedes,10,5,1,51,Finished,+6.188,2,1:43.469,208.862,103.469
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,ocon,force_india,8,6,7,51,Finished,+30.298,9,1:45.634,204.581,105.634
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,kevin_magnussen,haas,6,7,12,51,Finished,+41.753,11,1:46.312,203.277,106.312
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,sainz,toro_rosso,4,8,15,51,Finished,+49.400,10,1:45.866,204.133,105.866
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,alonso,mclaren,2,9,19,51,Finished,+59.551,6,1:45.168,205.488,105.168
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,wehrlein,sauber,1,10,14,51,Finished,+1:29.093,15,1:47.120,201.743,107.12
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,ericsson,sauber,0,11,17,51,Finished,+1:31.794,16,1:47.186,201.619,107.186
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,vandoorne,mclaren,0,12,18,51,Finished,+1:32.160,13,1:46.648,202.636,106.648
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,grosjean,haas,0,13,16,50,+1 Lap,NA,14,1:46.831,202.289,106.831
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,raikkonen,ferrari,0,14,3,46,Water pressure,NA,7,1:45.542,204.760,105.542
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,perez,force_india,0,15,6,39,Seat,NA,8,1:45.588,204.670,105.588
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,massa,williams,0,16,9,25,Suspension,NA,17,1:47.340,201.330,107.34
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,hulkenberg,renault,0,17,13,24,Accident,NA,19,1:48.536,199.111,108.536
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,max_verstappen,red_bull,0,18,5,12,Oil pressure,NA,12,1:46.398,203.112,106.398
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,kvyat,toro_rosso,0,19,11,9,Battery,NA,18,1:48.394,199.372,108.394
+2017,8,2026-11-08 17:41:30 UTC,https://api.jolpi.ca/ergast/f1/2017/8/results.json,2.0.1,jolyon_palmer,renault,0,20,20,7,Power Unit,NA,20,1:51.673,193.518,111.673
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,bottas,mercedes,25,1,1,71,Finished,1:21:48.523,5,1:07.847,229.115,67.847
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,vettel,ferrari,18,2,2,71,Finished,+0.658,4,1:07.496,230.306,67.496
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,ricciardo,red_bull,15,3,4,71,Finished,+6.012,2,1:07.442,230.491,67.442
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,hamilton,mercedes,12,4,8,71,Finished,+7.430,1,1:07.411,230.597,67.411
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,raikkonen,ferrari,10,5,3,71,Finished,+20.370,3,1:07.486,230.341,67.486
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,grosjean,haas,8,6,6,71,Finished,+1:13.160,10,1:08.590,226.633,68.59
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,perez,force_india,6,7,7,70,+1 Lap,NA,9,1:08.470,227.030,68.47
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,ocon,force_india,4,8,9,70,+1 Lap,NA,12,1:08.659,226.405,68.659
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,massa,williams,2,9,17,70,+1 Lap,NA,7,1:08.419,227.200,68.419
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,stroll,williams,1,10,18,70,+1 Lap,NA,13,1:08.777,226.017,68.777
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,jolyon_palmer,renault,0,11,16,70,+1 Lap,NA,11,1:08.652,226.428,68.652
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,vandoorne,mclaren,0,12,13,70,+1 Lap,NA,8,1:08.422,227.190,68.422
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,hulkenberg,renault,0,13,11,70,+1 Lap,NA,14,1:09.043,225.146,69.043
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,wehrlein,sauber,0,14,20,70,+1 Lap,NA,16,1:09.241,224.502,69.241
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,ericsson,sauber,0,15,19,69,+2 Laps,NA,17,1:09.284,224.363,69.284
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,kvyat,toro_rosso,0,16,14,68,+3 Laps,NA,6,1:08.061,228.395,68.061
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,sainz,toro_rosso,0,17,10,44,Engine,NA,15,1:09.150,224.798,69.15
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,kevin_magnussen,haas,0,18,15,29,Hydraulics,NA,18,1:10.402,220.800,70.402
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,alonso,mclaren,0,19,12,1,Collision damage,NA,NA,NA,NA,NA
+2017,9,2026-11-08 17:41:32 UTC,https://api.jolpi.ca/ergast/f1/2017/9/results.json,2.0.1,max_verstappen,red_bull,0,20,5,0,Collision damage,NA,NA,NA,NA,NA
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,hamilton,mercedes,25,1,1,51,Finished,1:21:27.430,1,1:30.621,234.025,90.621
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,bottas,mercedes,18,2,9,51,Finished,+14.063,3,1:30.905,233.294,90.905
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,raikkonen,ferrari,15,3,2,51,Finished,+36.570,4,1:31.517,231.733,91.517
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,max_verstappen,red_bull,12,4,4,51,Finished,+52.125,2,1:30.678,233.878,90.678
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,ricciardo,red_bull,10,5,19,51,Finished,+1:05.955,6,1:31.874,230.833,91.874
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,hulkenberg,renault,8,6,5,51,Finished,+1:08.109,8,1:32.577,229.080,92.577
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,vettel,ferrari,6,7,3,51,Finished,+1:33.989,5,1:31.872,230.838,91.872
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,ocon,force_india,4,8,7,50,+1 Lap,NA,15,1:33.521,226.768,93.521
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,perez,force_india,2,9,6,50,+1 Lap,NA,14,1:33.504,226.809,93.504
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,massa,williams,1,10,14,50,+1 Lap,NA,16,1:33.562,226.668,93.562
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,vandoorne,mclaren,0,11,8,50,+1 Lap,NA,13,1:33.464,226.906,93.464
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,kevin_magnussen,haas,0,12,16,50,+1 Lap,NA,9,1:32.683,228.818,92.683
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,grosjean,haas,0,13,10,50,+1 Lap,NA,7,1:32.290,229.793,92.29
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,ericsson,sauber,0,14,18,50,+1 Lap,NA,10,1:33.119,227.747,93.119
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,kvyat,toro_rosso,0,15,12,50,+1 Lap,NA,17,1:33.594,226.591,93.594
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,stroll,williams,0,16,15,50,+1 Lap,NA,12,1:33.400,227.062,93.4
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,wehrlein,sauber,0,17,17,50,+1 Lap,NA,11,1:33.342,227.203,93.342
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,alonso,mclaren,0,18,20,32,Power Unit,NA,18,1:34.263,224.983,94.263
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,sainz,toro_rosso,0,19,13,0,Collision damage,NA,NA,NA,NA,NA
+2017,10,2026-11-08 17:41:34 UTC,https://api.jolpi.ca/ergast/f1/2017/10/results.json,2.0.1,jolyon_palmer,renault,0,20,11,0,Hydraulics,NA,NA,NA,NA,NA
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,vettel,ferrari,25,1,1,70,Finished,1:39:46.713,4,1:20.807,195.176,80.807
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,raikkonen,ferrari,18,2,2,70,Finished,+0.908,2,1:20.461,196.015,80.461
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,bottas,mercedes,15,3,3,70,Finished,+12.462,6,1:21.214,194.198,81.214
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,hamilton,mercedes,12,4,4,70,Finished,+12.885,5,1:20.818,195.149,80.818
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,max_verstappen,red_bull,10,5,5,70,Finished,+13.276,3,1:20.490,195.944,80.49
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,alonso,mclaren,8,6,7,70,Finished,+1:11.223,1,1:20.182,196.697,80.182
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,sainz,toro_rosso,6,7,9,69,+1 Lap,NA,11,1:21.871,192.639,81.871
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,perez,force_india,4,8,13,69,+1 Lap,NA,14,1:22.105,192.090,82.105
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,ocon,force_india,2,9,11,69,+1 Lap,NA,15,1:22.431,191.330,82.431
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,vandoorne,mclaren,1,10,8,69,+1 Lap,NA,12,1:21.960,192.430,81.96
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,kvyat,toro_rosso,0,11,16,69,+1 Lap,NA,9,1:21.631,193.206,81.631
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,jolyon_palmer,renault,0,12,10,69,+1 Lap,NA,7,1:21.589,193.305,81.589
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,kevin_magnussen,haas,0,13,15,69,+1 Lap,NA,13,1:22.100,192.102,82.1
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,stroll,williams,0,14,17,69,+1 Lap,NA,16,1:22.830,190.409,82.83
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,wehrlein,sauber,0,15,18,68,+2 Laps,NA,18,1:23.573,188.716,83.573
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,ericsson,sauber,0,16,20,68,+2 Laps,NA,10,1:21.752,192.920,81.752
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,hulkenberg,renault,0,17,12,67,Brakes,NA,8,1:21.611,193.253,81.611
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,resta,williams,0,18,19,60,Oil leak,NA,17,1:23.242,189.466,83.242
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,grosjean,haas,0,19,14,20,Wheel nut,NA,19,1:24.702,186.201,84.702
+2017,11,2026-11-08 17:41:37 UTC,https://api.jolpi.ca/ergast/f1/2017/11/results.json,2.0.1,ricciardo,red_bull,0,20,6,0,Collision,NA,NA,NA,NA,NA
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,hamilton,mercedes,25,1,1,44,Finished,1:24:42.820,2,1:46.603,236.526,106.603
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,vettel,ferrari,18,2,2,44,Finished,+2.358,1,1:46.577,236.583,106.577
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,ricciardo,red_bull,15,3,6,44,Finished,+10.791,3,1:47.549,234.445,107.549
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,raikkonen,ferrari,12,4,4,44,Finished,+14.471,5,1:47.730,234.051,107.73
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,bottas,mercedes,10,5,3,44,Finished,+16.456,4,1:47.721,234.071,107.721
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,hulkenberg,renault,8,6,7,44,Finished,+28.087,7,1:48.922,231.490,108.922
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,grosjean,haas,6,7,11,44,Finished,+31.553,8,1:49.087,231.140,109.087
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,massa,williams,4,8,16,44,Finished,+36.649,11,1:49.637,229.980,109.637
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,ocon,force_india,2,9,9,44,Finished,+38.154,14,1:49.721,229.804,109.721
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,sainz,toro_rosso,1,10,13,44,Finished,+39.447,13,1:49.709,229.829,109.709
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,stroll,williams,0,11,15,44,Finished,+48.999,16,1:50.543,228.095,110.543
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,kvyat,toro_rosso,0,12,19,44,Finished,+49.940,12,1:49.708,229.831,109.708
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,jolyon_palmer,renault,0,13,14,44,Finished,+53.239,10,1:49.283,230.725,109.283
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,vandoorne,mclaren,0,14,20,44,Finished,+57.078,15,1:49.907,229.415,109.907
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,kevin_magnussen,haas,0,15,12,44,Finished,+1:07.262,9,1:49.126,231.057,109.126
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,ericsson,sauber,0,16,17,44,Finished,+1:09.711,17,1:50.775,227.618,110.775
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,perez,force_india,0,17,8,42,Gearbox,NA,6,1:48.300,232.819,108.3
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,alonso,mclaren,0,18,10,25,Engine,NA,19,1:51.720,225.692,111.72
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,max_verstappen,red_bull,0,19,5,7,Engine,NA,18,1:51.022,227.111,111.022
+2017,12,2026-11-08 17:41:39 UTC,https://api.jolpi.ca/ergast/f1/2017/12/results.json,2.0.1,wehrlein,sauber,0,20,18,2,Collision,NA,NA,NA,NA,NA
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,hamilton,mercedes,25,1,1,53,Finished,1:15:32.312,2,1:23.488,249.793,83.488
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,bottas,mercedes,18,2,4,53,Finished,+4.471,3,1:23.488,249.095,83.488
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,vettel,ferrari,15,3,6,53,Finished,+36.317,4,1:23.897,248.576,83.897
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,ricciardo,red_bull,12,4,16,53,Finished,+40.335,1,1:23.361,250.174,83.361
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,raikkonen,ferrari,10,5,5,53,Finished,+1:00.082,8,1:25.054,245.194,85.054
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,ocon,force_india,8,6,3,53,Finished,+1:11.528,11,1:25.054,243.482,85.054
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,stroll,williams,6,7,2,53,Finished,+1:14.156,10,1:25.625,243.559,85.625
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,massa,williams,4,8,7,53,Finished,+1:14.834,9,1:25.477,243.981,85.477
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,perez,force_india,2,9,10,53,Finished,+1:15.276,6,1:24.968,245.442,84.968
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,max_verstappen,red_bull,1,10,13,52,+1 Lap,NA,5,1:24.351,247.238,84.351
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,kevin_magnussen,haas,0,11,9,52,+1 Lap,NA,15,1:26.037,242.393,86.037
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,kvyat,toro_rosso,0,12,8,52,+1 Lap,NA,14,1:25.894,242.796,85.894
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,hulkenberg,renault,0,13,14,52,+1 Lap,NA,16,1:26.131,242.128,86.131
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,sainz,toro_rosso,0,14,15,52,+1 Lap,NA,17,1:26.210,241.906,86.21
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,grosjean,haas,0,15,20,52,+1 Lap,NA,7,1:25.020,245.292,85.02
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,wehrlein,sauber,0,16,12,51,+2 Laps,NA,18,1:26.547,240.965,86.547
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,alonso,mclaren,0,17,19,50,Gearbox,NA,13,1:25.871,242.861,85.871
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,ericsson,sauber,0,18,11,49,Gearbox,NA,20,1:27.663,237.897,87.663
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,vandoorne,mclaren,0,19,18,33,Engine,NA,19,1:26.912,239.953,86.912
+2017,13,2026-11-08 17:41:41 UTC,https://api.jolpi.ca/ergast/f1/2017/13/results.json,2.0.1,jolyon_palmer,renault,0,20,17,29,Engine,NA,12,1:25.752,243.198,85.752
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,hamilton,mercedes,25,1,5,58,Finished,2:03:23.544,1,1:45.008,173.643,105.008
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,ricciardo,red_bull,18,2,3,58,Finished,+4.507,2,1:45.301,173.160,105.301
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,bottas,mercedes,15,3,6,58,Finished,+8.800,3,1:45.405,172.989,105.405
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,sainz,toro_rosso,12,4,10,58,Finished,+22.822,4,1:46.537,171.151,106.537
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,perez,force_india,10,5,12,58,Finished,+25.359,7,1:46.731,170.840,106.731
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,jolyon_palmer,renault,8,6,11,58,Finished,+27.259,5,1:46.722,170.855,106.722
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,vandoorne,mclaren,6,7,9,58,Finished,+30.388,6,1:46.722,170.855,106.722
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,stroll,williams,4,8,18,58,Finished,+41.696,9,1:47.512,169.599,107.512
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,grosjean,haas,2,9,15,58,Finished,+43.282,11,1:47.637,169.402,107.637
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,ocon,force_india,1,10,14,58,Finished,+44.795,12,1:47.677,169.339,107.677
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,massa,williams,0,11,17,58,Finished,+46.536,8,1:47.055,170.323,107.055
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,wehrlein,sauber,0,12,19,56,+2 Laps,NA,14,1:49.061,167.190,109.061
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,kevin_magnussen,haas,0,13,16,50,Engine,NA,10,1:47.585,169.484,107.585
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,hulkenberg,renault,0,14,7,48,Engine,NA,13,1:48.011,168.816,108.011
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,ericsson,sauber,0,15,20,35,Accident,NA,15,1:52.496,162.085,112.496
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,kvyat,toro_rosso,0,16,13,10,Accident,NA,16,2:10.512,139.711,130.512
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,alonso,mclaren,0,17,8,8,Collision damage,NA,17,2:13.579,136.503,133.579
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,vettel,ferrari,0,18,1,0,Accident,NA,NA,NA,NA,NA
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,max_verstappen,red_bull,0,19,2,0,Accident,NA,NA,NA,NA,NA
+2017,14,2026-11-08 17:41:43 UTC,https://api.jolpi.ca/ergast/f1/2017/14/results.json,2.0.1,raikkonen,ferrari,0,20,4,0,Accident,NA,NA,NA,NA,NA
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,max_verstappen,red_bull,25,1,3,56,Finished,1:30:01.290,4,1:34.467,211.235,94.467
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,hamilton,mercedes,18,2,1,56,Finished,+12.770,3,1:34.452,211.269,94.452
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,ricciardo,red_bull,15,3,4,56,Finished,+22.519,5,1:34.770,210.560,94.77
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,vettel,ferrari,12,4,20,56,Finished,+37.362,1,1:34.080,212.104,94.08
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,bottas,mercedes,10,5,5,56,Finished,+56.021,6,1:35.284,209.424,95.284
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,perez,force_india,8,6,9,56,Finished,+1:18.630,7,1:35.591,208.751,95.591
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,vandoorne,mclaren,6,7,7,55,+1 Lap,NA,9,1:35.931,208.012,95.931
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,stroll,williams,4,8,13,55,+1 Lap,NA,12,1:36.627,206.513,96.627
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,massa,williams,2,9,11,55,+1 Lap,NA,14,1:36.944,205.838,96.944
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,ocon,force_india,1,10,6,55,+1 Lap,NA,15,1:37.075,205.560,97.075
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,alonso,mclaren,0,11,10,55,+1 Lap,NA,11,1:36.501,206.783,96.501
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,kevin_magnussen,haas,0,12,17,55,+1 Lap,NA,18,1:37.192,205.313,97.192
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,grosjean,haas,0,13,16,55,+1 Lap,NA,8,1:35.796,208.305,95.796
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,gasly,toro_rosso,0,14,15,55,+1 Lap,NA,16,1:37.170,205.359,97.17
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,jolyon_palmer,renault,0,15,12,55,+1 Lap,NA,17,1:37.186,205.325,97.186
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,hulkenberg,renault,0,16,8,55,+1 Lap,NA,2,1:34.266,211.686,94.266
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,wehrlein,sauber,0,17,18,55,+1 Lap,NA,10,1:36.395,207.010,96.395
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,ericsson,sauber,0,18,19,54,+2 Laps,NA,13,1:36.630,206.507,96.63
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,sainz,toro_rosso,0,19,14,29,Engine,NA,19,1:38.123,203.365,98.123
+2017,15,2026-11-08 17:41:45 UTC,https://api.jolpi.ca/ergast/f1/2017/15/results.json,2.0.1,raikkonen,ferrari,0,20,0,0,Battery,NA,NA,NA,NA,NA
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,hamilton,mercedes,25,1,1,53,Finished,1:27:31.194,6,1:33.780,222.917,93.78
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,max_verstappen,red_bull,18,2,4,53,Finished,+1.211,5,1:33.730,223.036,93.73
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,ricciardo,red_bull,15,3,3,53,Finished,+9.679,3,1:33.694,223.122,93.694
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,bottas,mercedes,12,4,6,53,Finished,+10.580,1,1:33.144,224.439,93.144
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,raikkonen,ferrari,10,5,10,53,Finished,+32.622,2,1:33.175,224.364,93.175
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,ocon,force_india,8,6,5,53,Finished,+1:07.788,11,1:34.843,220.419,94.843
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,perez,force_india,6,7,7,53,Finished,+1:11.424,10,1:34.744,220.649,94.744
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,kevin_magnussen,haas,4,8,12,53,Finished,+1:28.953,13,1:35.338,219.274,95.338
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,grosjean,haas,2,9,13,53,Finished,+1:29.883,14,1:35.347,219.253,95.347
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,massa,williams,1,10,8,52,+1 Lap,NA,16,1:35.943,217.891,95.943
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,alonso,mclaren,0,11,20,52,+1 Lap,NA,12,1:35.111,219.797,95.111
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,jolyon_palmer,renault,0,12,18,52,+1 Lap,NA,7,1:34.095,222.171,94.095
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,gasly,toro_rosso,0,13,14,52,+1 Lap,NA,8,1:34.533,221.141,94.533
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,vandoorne,mclaren,0,14,9,52,+1 Lap,NA,4,1:33.724,223.050,93.724
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,wehrlein,sauber,0,15,17,51,+2 Laps,NA,17,1:36.430,216.791,96.43
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,stroll,williams,0,16,15,45,Wheel,NA,9,1:34.548,221.106,94.548
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,hulkenberg,renault,0,17,11,40,Front wing,NA,15,1:35.883,218.028,95.883
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,ericsson,sauber,0,18,16,7,Accident,NA,18,1:38.596,212.028,98.596
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,vettel,ferrari,0,19,2,4,Spark plugs,NA,19,2:06.457,165.314,126.457
+2017,16,2026-11-08 17:41:47 UTC,https://api.jolpi.ca/ergast/f1/2017/16/results.json,2.0.1,sainz,toro_rosso,0,20,19,0,Accident,NA,NA,NA,NA,NA
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,hamilton,mercedes,25,1,1,56,Finished,1:33:50.991,5,1:38.776,200.927,98.776
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,vettel,ferrari,18,2,2,56,Finished,+10.143,1,1:37.766,203.003,97.766
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,raikkonen,ferrari,15,3,5,56,Finished,+15.779,6,1:38.809,200.860,98.809
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,max_verstappen,red_bull,12,4,16,56,Finished,+16.768,4,1:38.060,202.394,98.06
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,bottas,mercedes,10,5,3,56,Finished,+34.967,2,1:37.767,203.001,97.767
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,ocon,force_india,8,6,6,56,Finished,+1:30.980,13,1:40.499,197.482,100.499
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,sainz,renault,6,7,7,56,Finished,+1:32.944,12,1:40.462,197.555,100.462
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,perez,force_india,4,8,9,55,+1 Lap,NA,14,1:40.851,196.793,100.851
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,massa,williams,2,9,10,55,+1 Lap,NA,10,1:40.131,198.208,100.131
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,kvyat,toro_rosso,1,10,11,55,+1 Lap,NA,15,1:40.971,196.559,100.971
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,stroll,williams,0,11,15,55,+1 Lap,NA,7,1:39.666,199.133,99.666
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,vandoorne,mclaren,0,12,20,55,+1 Lap,NA,11,1:40.349,197.777,100.349
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,brendon_hartley,toro_rosso,0,13,19,55,+1 Lap,NA,8,1:39.979,198.509,99.979
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,grosjean,haas,0,14,12,55,+1 Lap,NA,17,1:41.259,196.000,101.259
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,ericsson,sauber,0,15,13,55,+1 Lap,NA,16,1:41.041,196.423,101.041
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,kevin_magnussen,haas,0,16,17,55,+1 Lap,NA,3,1:37.893,202.739,97.893
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,alonso,mclaren,0,17,8,24,Engine,NA,18,1:41.537,195.463,101.537
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,ricciardo,red_bull,0,18,4,14,Engine,NA,9,1:40.102,198.265,100.102
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,wehrlein,sauber,0,19,14,5,Collision,NA,20,1:47.073,185.357,107.073
+2017,17,2026-11-08 17:41:49 UTC,https://api.jolpi.ca/ergast/f1/2017/17/results.json,2.0.1,hulkenberg,renault,0,20,18,3,Engine,NA,19,1:44.270,190.340,104.27
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,max_verstappen,red_bull,25,1,2,71,Finished,1:36:26.552,2,1:18.892,196.400,78.892
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,bottas,mercedes,18,2,4,71,Finished,+19.678,3,1:19.374,195.207,79.374
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,raikkonen,ferrari,15,3,5,71,Finished,+54.007,6,1:20.054,193.549,80.054
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,vettel,ferrari,12,4,1,71,Finished,+1:10.078,1,1:18.785,196.666,78.785
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,ocon,force_india,10,5,6,70,+1 Lap,NA,9,1:20.946,191.416,80.946
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,stroll,williams,8,6,11,70,+1 Lap,NA,12,1:21.062,191.142,81.062
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,perez,force_india,6,7,9,70,+1 Lap,NA,4,1:19.929,193.852,79.929
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,kevin_magnussen,haas,4,8,14,70,+1 Lap,NA,14,1:21.214,190.784,81.214
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,hamilton,mercedes,2,9,3,70,+1 Lap,NA,5,1:19.945,193.813,79.945
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,alonso,mclaren,1,10,18,70,+1 Lap,NA,11,1:21.014,191.255,81.014
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,massa,williams,0,11,10,70,+1 Lap,NA,13,1:21.136,190.968,81.136
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,vandoorne,mclaren,0,12,19,70,+1 Lap,NA,10,1:20.972,191.355,80.972
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,gasly,toro_rosso,0,13,20,70,+1 Lap,NA,8,1:20.859,191.622,80.859
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,wehrlein,sauber,0,14,13,69,+2 Laps,NA,16,1:21.638,189.793,81.638
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,grosjean,haas,0,15,15,69,+2 Laps,NA,7,1:20.345,192.848,80.345
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,sainz,renault,0,16,8,59,Engine,NA,15,1:21.360,190.442,81.36
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,ericsson,sauber,0,17,12,55,Engine,NA,17,1:21.686,189.682,81.686
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,brendon_hartley,toro_rosso,0,18,17,30,Engine,NA,19,1:22.572,187.647,82.572
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,hulkenberg,renault,0,19,7,24,Electrical,NA,18,1:21.691,189.670,81.691
+2017,18,2026-11-08 17:41:51 UTC,https://api.jolpi.ca/ergast/f1/2017/18/results.json,2.0.1,ricciardo,red_bull,0,20,16,5,Engine,NA,20,1:22.789,187.155,82.789
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,vettel,ferrari,25,1,2,71,Finished,1:31:26.262,7,1:12.539,213.849,72.539
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,bottas,mercedes,18,2,1,71,Finished,+2.762,5,1:12.466,214.064,72.466
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,raikkonen,ferrari,15,3,3,71,Finished,+4.600,6,1:12.492,213.987,72.492
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,hamilton,mercedes,12,4,20,71,Finished,+5.468,2,1:11.845,215.914,71.845
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,max_verstappen,red_bull,10,5,4,71,Finished,+32.940,1,1:11.044,218.349,71.044
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,ricciardo,red_bull,8,6,14,71,Finished,+48.691,4,1:12.029,215.363,72.029
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,massa,williams,6,7,9,71,Finished,+1:08.882,11,1:13.452,211.190,73.452
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,alonso,mclaren,4,8,6,71,Finished,+1:09.363,10,1:13.451,211.193,73.451
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,perez,force_india,2,9,5,71,Finished,+1:09.500,8,1:13.052,212.347,73.052
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,hulkenberg,renault,1,10,7,70,+1 Lap,NA,15,1:13.758,210.314,73.758
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,sainz,renault,0,11,8,70,+1 Lap,NA,13,1:13.625,210.694,73.625
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,gasly,toro_rosso,0,12,19,70,+1 Lap,NA,9,1:13.323,211.562,73.323
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,ericsson,sauber,0,13,17,70,+1 Lap,NA,14,1:13.666,210.577,73.666
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,wehrlein,sauber,0,14,15,70,+1 Lap,NA,17,1:14.812,207.351,74.812
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,grosjean,haas,0,15,11,69,+2 Laps,NA,12,1:13.532,210.961,73.532
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,stroll,williams,0,16,16,69,+2 Laps,NA,3,1:11.862,215.863,71.862
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,brendon_hartley,toro_rosso,0,17,18,40,Engine,NA,16,1:14.658,207.779,74.658
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,ocon,force_india,0,18,10,0,Accident,NA,NA,NA,NA,NA
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,vandoorne,mclaren,0,19,12,0,Accident,NA,NA,NA,NA,NA
+2017,19,2026-11-08 17:41:53 UTC,https://api.jolpi.ca/ergast/f1/2017/19/results.json,2.0.1,kevin_magnussen,haas,0,20,13,0,Accident,NA,NA,NA,NA,NA
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,bottas,mercedes,25,1,1,55,Finished,1:34:14.062,1,1:40.650,198.652,100.65
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,hamilton,mercedes,18,2,2,55,Finished,+3.899,3,1:41.473,197.041,101.473
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,vettel,ferrari,15,3,3,55,Finished,+19.330,2,1:40.770,198.416,100.77
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,raikkonen,ferrari,12,4,5,55,Finished,+45.386,7,1:42.338,195.376,102.338
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,max_verstappen,red_bull,10,5,6,55,Finished,+46.269,5,1:42.028,195.969,102.028
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,hulkenberg,renault,8,6,7,55,Finished,+1:25.713,8,1:42.376,195.303,102.376
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,perez,force_india,6,7,8,55,Finished,+1:32.062,11,1:42.689,194.708,102.689
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,ocon,force_india,4,8,9,55,Finished,+1:38.911,10,1:42.609,194.860,102.609
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,alonso,mclaren,2,9,11,54,+1 Lap,NA,4,1:43.378,193.410,103.378
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,massa,williams,1,10,10,54,+1 Lap,NA,13,1:43.026,194.071,103.026
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,grosjean,haas,0,11,16,54,+1 Lap,NA,9,1:42.437,195.187,102.437
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,vandoorne,mclaren,0,12,13,54,+1 Lap,NA,20,1:43.986,192.279,103.986
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,kevin_magnussen,haas,0,13,14,54,+1 Lap,NA,19,1:43.928,192.387,103.928
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,wehrlein,sauber,0,14,18,54,+1 Lap,NA,17,1:43.867,192.500,103.867
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,brendon_hartley,toro_rosso,0,15,20,54,+1 Lap,NA,18,1:43.897,192.444,103.897
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,gasly,toro_rosso,0,16,17,54,+1 Lap,NA,16,1:43.844,192.542,103.844
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,ericsson,sauber,0,17,19,54,+1 Lap,NA,15,1:43.567,193.057,103.567
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,stroll,williams,0,18,15,54,+1 Lap,NA,6,1:42.324,195.402,102.324
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,sainz,renault,0,19,12,31,Wheel,NA,14,1:43.378,193.410,103.378
+2017,20,2026-11-08 17:41:55 UTC,https://api.jolpi.ca/ergast/f1/2017/20/results.json,2.0.1,ricciardo,red_bull,0,20,4,20,Hydraulics,NA,12,1:42.757,194.579,102.757
