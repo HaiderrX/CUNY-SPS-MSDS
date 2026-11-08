@@ -1,0 +1,539 @@
+---
+title: "Sentiment Analysis"
+author: 
+  - name: "Muhammad Ali"
+    affiliation: "CUNY School of Professional Studies"
+date: last-modified
+# abstract: ""
+format:
+  html:
+    theme: lumen
+    # materia, lumen, cosmo, default
+    toc: true
+    toc-location: left
+    toc-depth: 50
+    toc-expand: true
+    code-fold: true
+    code-copy: true
+    smooth-scroll: true
+    code-summary: "Show code"
+    #df-print: kable
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+editor: visual
+---
+
+## Approach
+
+### Background & Information
+
+This assignment focuses on <mark>NLP</mark>, <mark>sentiment analysis</mark>, which builds the foundation to text mining.
+
+In this report, we will be reproducing the given example from Chapter 2' of "Text Mining With R" to then extending with our own example by
+
+-   Using a different text <mark>corpus</mark> of my choosing
+
+-   Add an additional sentiment <mark>lexicon</mark> which can come from
+
+    -   Another R package
+
+    -   A lexicon located through external research
+
+### Terminology
+
+-   [**NLP:**]{.underline} *Natural Language Processing*, a computer's way of breaking down sentences into <mark>tokens</mark> and then analyze each token to find meaning and intent behind it rather than literal meanings.
+
+-   [**Token:**]{.underline} A small unit of text, such as:
+
+    -   A word
+
+    -   Part of a word
+
+    -   A character
+
+-   [**Sentiment Analysis:**]{.underline} This type of analysis is an NLP technique that teaches the computer to read a piece of text and to label the emotion behind it. *Examples such as: positive, negative, anger, joy, etc.*
+
+-   [**Lexicon:**]{.underline} A lookup table of words, but does not understand full context of a sentence.
+
+-   [**Stop Words:**]{.underline} Words that are commonly used in the English language. *Examples such as "the", "an", "a", etc.* Removing them can remove the context behind a word!
+
+-   [**Corpus:**]{.underline} A large collection of texts. *Examples such as news articles, book reviews, speeches, etc.*
+
+-   [**N-Gram:**]{.underline} A consecutive sequence of n tokens to build a relationship between them.
+
+    -   [**Unigram:**]{.underline} "excellent"
+
+    -   [**Bigram:**]{.underline} "excellent acting"
+
+    -   [**Trigram:**]{.underline} "not at all"
+
+### Plan Outline
+
+-   Reproduce the example in the given textbook
+
+-   Extend the analysis with using a different corpus to showcase understanding of NLP and sentiment analysis
+
+-   Then with the new corpus, add an additional lexicon
+
+## Codebase 1: Reproducing the Example
+
+### Install Packages
+
+```{r install packages}
+#install.packages(c("tidytext", "tidyverse", "janeaustenr", "ggplot2", "wordcloud", "reshape2", "textdata", "sotu", "patchwork"))
+```
+
+### Import Libraries
+
+```{r libraries}
+library(tidyverse)
+library(tidytext)
+library(janeaustenr)
+library(ggplot2)
+library(wordcloud)
+library(reshape2)
+library(sotu)
+library(patchwork)
+```
+
+### `Sentiments` datasets
+
+```{r get_sentiments() function 1}
+get_sentiments("afinn")
+```
+
+```{r get_sentiments() function 2}
+get_sentiments("bing")
+```
+
+```{r get_sentiments() function 3}
+get_sentiments("nrc")
+```
+
+### Sentiment Analysis with Inner Join
+
+```{r inner join example 1}
+tidy_books <- austen_books() %>%
+  group_by(book) %>%
+  mutate(
+    linenumber = row_number(),
+    chapter = cumsum(str_detect(text, 
+                                regex("^chapter [\\divxlc]", 
+                                      ignore_case = TRUE)))) %>%
+  ungroup() %>%
+  unnest_tokens(word, text)
+```
+
+```{r inner join example 2}
+nrc_joy <- get_sentiments("nrc") %>% 
+  filter(sentiment == "joy")
+
+tidy_books %>%
+  filter(book == "Emma") %>%
+  inner_join(nrc_joy) %>%
+  count(word, sort = TRUE)
+```
+
+```{r inner join - example 3}
+jane_austen_sentiment <- tidy_books %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(book, index = linenumber %/% 80, sentiment) %>%
+  pivot_wider(names_from = sentiment, values_from = n, values_fill = 0) %>% 
+  mutate(sentiment = positive - negative)
+```
+
+```{r plot - inner join example 3}
+ggplot(jane_austen_sentiment, aes(index, sentiment, fill = book)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~book, ncol = 2, scales = "free_x")
+```
+
+### Comparing the Three Sentiment Dictionaries
+
+```{r pride and prejudice}
+pride_prejudice <- tidy_books %>% 
+  filter(book == "Pride & Prejudice")
+
+pride_prejudice
+```
+
+```{r using inenr join on pride and prejudice}
+afinn <- pride_prejudice %>% 
+  inner_join(get_sentiments("afinn")) %>% 
+  group_by(index = linenumber %/% 80) %>% 
+  summarise(sentiment = sum(value)) %>% 
+  mutate(method = "AFINN")
+
+bing_and_nrc <- bind_rows(
+  pride_prejudice %>% 
+    inner_join(get_sentiments("bing")) %>%
+    mutate(method = "Bing et al."),
+  pride_prejudice %>% 
+    inner_join(get_sentiments("nrc") %>% 
+                 filter(sentiment %in% c("positive", 
+                                         "negative"))
+    ) %>%
+    mutate(method = "NRC")) %>%
+  count(method, index = linenumber %/% 80, sentiment) %>%
+  pivot_wider(names_from = sentiment,
+              values_from = n,
+              values_fill = 0) %>% 
+  mutate(sentiment = positive - negative)
+```
+
+```{r pride and prejudice plot}
+bind_rows(afinn, 
+          bing_and_nrc) %>%
+  ggplot(aes(index, sentiment, fill = method)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~method, ncol = 1, scales = "free_y")
+```
+
+```{r filtering pride and prejudice 1}
+get_sentiments("nrc") %>% 
+  filter(sentiment %in% c("positive", "negative")) %>% 
+  count(sentiment)
+```
+
+```{r filtering pride and prejudice 2}
+get_sentiments("bing") %>% 
+  count(sentiment)
+```
+
+### Most Common Positive and Negative Words
+
+```{r word counts}
+bing_word_counts <- tidy_books %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  ungroup()
+
+bing_word_counts
+```
+
+```{r word count plot}
+bing_word_counts %>%
+  group_by(sentiment) %>%
+  slice_max(n, n = 10) %>% 
+  ungroup() %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(n, word, fill = sentiment)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~sentiment, scales = "free_y") +
+  labs(x = "Contribution to sentiment",
+       y = NULL)
+```
+
+```{r custom stop words}
+custom_stop_words <- bind_rows(tibble(word = c("miss"),  
+                                      lexicon = c("custom")), 
+                               stop_words)
+
+custom_stop_words
+```
+
+### Wordclouds
+
+```{r common words as a wordcloud}
+tidy_books %>%
+  anti_join(stop_words) %>%
+  count(word) %>%
+  with(wordcloud(word, n, max.words = 100))
+```
+
+```{r reshaping word cloud}
+tidy_books %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  acast(word ~ sentiment, value.var = "n", fill = 0) %>%
+  comparison.cloud(colors = c("gray20", "gray80"),
+                   max.words = 100)
+```
+
+### Looking at Units Beyond Just Words
+
+```{r units beyond words}
+p_and_p_sentences <- tibble(text = prideprejudice) %>% 
+  unnest_tokens(sentence, text, token = "sentences")
+```
+
+```{r example of units beyond word}
+p_and_p_sentences$sentence[2]
+```
+
+```{r split tokens using regex pattern}
+austen_chapters <- austen_books() %>%
+  group_by(book) %>%
+  unnest_tokens(chapter, text, token = "regex", 
+                pattern = "Chapter|CHAPTER [\\dIVXLC]") %>%
+  ungroup()
+
+austen_chapters %>% 
+  group_by(book) %>% 
+  summarise(chapters = n())
+```
+
+```{r which chapter has high negative words}
+bingnegative <- get_sentiments("bing") %>% 
+  filter(sentiment == "negative")
+
+wordcounts <- tidy_books %>%
+  group_by(book, chapter) %>%
+  summarize(words = n())
+
+tidy_books %>%
+  semi_join(bingnegative) %>%
+  group_by(book, chapter) %>%
+  summarize(negativewords = n()) %>%
+  left_join(wordcounts, by = c("book", "chapter")) %>%
+  mutate(ratio = negativewords/words) %>%
+  filter(chapter != 0) %>%
+  slice_max(ratio, n = 1) %>% 
+  ungroup()
+```
+
+## Codebase 2: Extending the Analysis
+
+### Corpus Selection
+
+For my extension of this assignment, I have chosen my own text corpus to mimic the textbook's example.
+
+The corpus I have chosen is from the `sotu` package, which contains the State of the Union speeches as it is realistic and it can have positive and negative sentiments.
+
+To retrieve this data, installing the `sotu` package will be necessary.
+
+```{r getting speech texts}
+speeches <- sotu_meta |>
+  mutate(text = sotu_text)
+
+head(speeches, 3)
+glimpse(speeches)
+```
+
+### Converting to Tidy Format
+
+What we want to do here is
+
+-   Subset the dataset, so we only have 3 of the original columns
+
+    -   `year`
+
+    -   `president`
+
+    -   `text`
+
+-   Then we will make a `speech_id` variable to indicate a president's state of union address for a certain year.
+
+```{r tidying the data}
+tidy_speech <- sotu_meta |>
+  mutate(text = sotu_text,
+         speech_id = row_number()) |>
+  select(speech_id, year, president, text) |>
+  unnest_tokens(word, text)
+
+head(tidy_speech,3)
+```
+
+### Performing Inner Join
+
+```{r inner join using bing}
+sotu_sentiment_bing <- tidy_speech %>%
+  inner_join(get_sentiments("bing"), by = "word") %>%
+  count(speech_id, sentiment) %>%
+  pivot_wider(names_from = sentiment, values_from = n, values_fill = 0) %>%
+  mutate(sentiment = positive - negative)
+
+head(sotu_sentiment_bing,3)
+```
+
+### Completing Full Inner Join
+
+```{r full inner join}
+# Total Word Count per Speech
+total_words <- tidy_speech %>%
+  count(speech_id, name = "total_words")
+
+# Recreateing the original inner join
+sotu_sentiment_bing <- tidy_speech %>%
+  inner_join(get_sentiments("bing"), by = "word") %>%
+  count(speech_id, sentiment) %>%
+  pivot_wider(names_from = sentiment, values_from = n, values_fill = 0) %>%
+  mutate(net_sentiment = positive - negative)
+
+# The full table where it includes relevant data
+sotu_sentiment_full_table <- sotu_sentiment_bing %>%
+  left_join(total_words, by = "speech_id") %>%
+  left_join(distinct(tidy_speech, speech_id, year, president), by = "speech_id") %>%
+  mutate(score_per_1000_words = (net_sentiment / total_words) * 1000)
+
+head(sotu_sentiment_full_table,3)
+```
+
+### Plot per President Sentiment
+
+```{r ggplot sotu - plot per president sentiment}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 14
+
+ggplot(sotu_sentiment_full_table, aes(x = year, y = score_per_1000_words, fill = president)) +
+  geom_col() +
+  facet_wrap(~president, ncol = 5, scales = "free_x") +
+  theme_minimal() +
+  labs(title = "State of the Union Sentiment Over Time",
+       subtitle = "Sorted Alphabetically by President Name",
+       x = "Year", 
+       y = "Net Sentiment (per 1,000 words)"
+       ) +
+  theme(legend.position = "none")
+```
+
+### Sentiment over Time Plot using Bing Sentiments
+
+```{r ggplot sotu - sentiment over time}
+#| echo: false
+
+bing_score_sotu <- ggplot(sotu_sentiment_full_table, aes(x = year, y = score_per_1000_words)) +
+  geom_col(fill = "cornflowerblue") +
+  theme_minimal() +
+  labs(title = "State of the Union Sentiment Over Time",
+       subtitle = "Using Bing Sentiments",
+       x = "Year",
+       y = "Net Sentiment (per 1,000 words)"
+       ) +
+  theme_minimal()
+
+bing_score_sotu
+```
+
+### Adding a Second Lexicon
+
+```{r second lexicon}
+total_words <- tidy_speech %>%
+  count(speech_id, name = "total_words")
+
+sotu_sentiment_afinn <- tidy_speech %>%
+  inner_join(get_sentiments("afinn"), by = "word") %>%
+  group_by(speech_id) %>%
+  summarize(net_sentiment = sum(value), .groups = "drop")
+
+sotu_sentiment_full_table_2 <- sotu_sentiment_afinn %>%
+  left_join(total_words, by = "speech_id") %>%
+  left_join(distinct(tidy_speech, speech_id, year, president), by = "speech_id") %>%
+  mutate(score_per_1000_words = (net_sentiment / total_words) * 1000) 
+
+head(sotu_sentiment_full_table_2, 3)
+```
+
+### Sentiment Over Time Plot using Afinn Score
+
+```{r ggplot - sotu afin score}
+#| echo: false
+
+afinn_score_sotu <- ggplot(sotu_sentiment_full_table_2, aes(x = year, y = score_per_1000_words)) +
+  geom_col(fill = "violet") +
+  theme_minimal() +
+  labs(title = "State of the Union Sentiment Over Time",
+       subtitle = "Using Afinn Sentiments",
+       x = "Year",
+       y = "Net Sentiment (per 1,000 words)"
+       ) +
+  theme_minimal()
+
+afinn_score_sotu
+```
+
+### Comparing Lexicon Scores
+
+```{r Creating Comparing Table}
+bing_small_table <- sotu_sentiment_full_table %>%
+  select(speech_id, year, president, bing_score = score_per_1000_words)
+
+afinn_small_table <- sotu_sentiment_full_table_2 %>%
+  select(speech_id, afinn_score = score_per_1000_words)
+
+compare_table <- bing_small_table %>%
+  left_join(afinn_small_table, by = "speech_id")
+
+glimpse(compare_table)
+```
+
+### Plot to compare both
+
+```{r comparing both scores}
+#| echo: false
+
+bing_score_sotu / plot_spacer() / afinn_score_sotu +
+  plot_layout(heights = c(3, 0.1, 3))
+```
+
+With both scores stacked on each other, they are not that different from each other in terms of shape and whether or not there has been an increase or decrease in certain years.
+
+### Bing Word Counts
+
+```{r bing word counts}
+bing_word_counts_sotu <- tidy_speech %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  ungroup()
+
+glimpse(bing_word_counts_sotu)
+```
+
+#### Plot
+
+```{r bing word count plot}
+bing_word_counts_sotu %>%
+  group_by(sentiment) %>%
+  slice_max(n, n = 10) %>% 
+  ungroup() %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(n, word, fill = sentiment)) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = c("negative" = "firebrick", "positive" = "springgreen")) +
+  facet_wrap(~sentiment, scales = "free_y") +
+  labs(x = "Contribution to sentiment",
+       y = NULL)
+```
+
+### Wordclouds SOTU
+
+```{r wordcloud sotu}
+tidy_speech %>%
+  anti_join(stop_words) %>%
+  count(word) %>%
+  with(wordcloud(word, n, max.words = 100))
+```
+
+```{r wordcloud 2 sotu}
+tidy_speech %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  acast(word ~ sentiment, value.var = "n", fill = 0) %>%
+  comparison.cloud(colors = c("gray20", "gray80"),
+                   max.words = 100)
+```
+
+### Comparing SOTU Results vs Book Results
+
+-   Given that there are more words in speeches from state of union addresses as time goes on, it is clear that there are more positive counts than negative counts in comparison to the book examples.
+
+-   There are more word appearances in all of the word clouds than in the book's word clouds.
+
+-   The ratio is overwhelmingly higher with both afinn and bing sentiments.
+
+## Conclusion
+
+Conducting sentiment analysis can be frightening at first glance, but when you get down to the pattern of how to tidy the data and understanding joins, it becomes easier to create tables and plots for it.
+
+Given that I chose a real-world example it is interesting to see the difference between how much the sentiment fluctuates as time goes by and the word appearances that are still relevant to this day.
+
+But with these 2 analysis, it is clear that when doing sentiment analysis, it is not always likely there will be more or less of positive words or negative words, or a balance, it also depends on the context of the text.
+
+## References
+
+-   Silge, Julia. “Text Mining With R.” *Tidytextmining.Com*, 16 May 2019, <https://www.tidytextmining.com/>. Accessed 4 Nov. 2026.
+-   Arnold, Taylor B. “United States Presidential State of the Union Addresses \[R Package Sotu Version 1.0.4\].” *R-Project.Org*, 17 Aug. 2022, <https://CRAN.R-project.org/package=sotu>. Accessed 6 Nov. 2026.

@@ -46,8 +46,6 @@ This assignment extends practice with JSON and API data with the Nobel Prize API
 
 ### Plan Outline
 
--   Create an account on the Nobel Prize Developer Size and request an API Key
-
 -   Create requests to the server to extract data
 
 -   Parse from JSON format to use in R tibble
@@ -66,10 +64,7 @@ This assignment extends practice with JSON and API data with the Nobel Prize API
 
 ```{r install packages}
 # Install packages once if they are missing.
-# install.packages(c("httr2", "tidyverse", "jsonlite"))
-
-# Received an error with my Renviron file for the API key, so this will allow me to use it.
-#usethis::edit_r_environ()
+# install.packages(c("httr2", "tidyverse", "jsonlite", "ggplot2", "scales"))
 ```
 
 ### Import Packages
@@ -78,6 +73,8 @@ This assignment extends practice with JSON and API data with the Nobel Prize API
 library(tidyverse)
 library(httr2)
 library(jsonlite)
+library(ggplot2)
+library(scales)
 ```
 
 ### API Request
@@ -102,13 +99,13 @@ req <- request(url) |>
 req
 ```
 
-### Request Inspection
+#### Request Inspection
 
 ```{r request dry run}
 req_dry_run(req)
 ```
 
-### Performing & Confirming Request
+#### Performing & Confirming Request
 
 ```{r request status}
 resp <- req |>
@@ -146,7 +143,7 @@ This part is where we need to decide what columns we want to keep for our data t
 
 *Note:* *`nobelPrizes` also contains data inside the variable itself, so we need to further investigate to see what columns we would also want to extract*
 
-### Investigating `nobelPrize` List
+#### Investigating `nobelPrize` List
 
 Given that we need to unnest `nobelPrizes`, we need to decide which columns in this new table we have created to keep and to unflatten.
 
@@ -157,7 +154,7 @@ prizes <- laureates |>
   select(id, fullName, gender, birth, nobelPrizes) |>
   unnest(nobelPrizes, names_sep = "_")
 
-glimpse(nobel_prizes_info)
+glimpse(prizes)
 ```
 
 ```{r flattening data}
@@ -173,7 +170,7 @@ As we can see we have unflattened the `nobelPrizes` data so now we can see what 
 
 As a precaution, we will further unnest the data if needed.
 
-### Further Unnesting
+#### Further Unnesting
 
 ```{r further unnesting}
 prizes_aff <- prizes_flat |>
@@ -203,7 +200,7 @@ nobel_prize_JSON$meta$count
 ### Start Full Data Request
 
 ```{r full data request}
-total <- nobel_prize_JSON$meta$count # 
+total <- nobel_prize_JSON$meta$count 
 
 offsets <- seq(0, total, by = 100) # loop over the offset by 100
 
@@ -236,7 +233,7 @@ nrow(prizes_aff)
 head(prizes_aff, 2)
 ```
 
-### Creating the Table
+#### Creating the Table
 
 ```{r creating table}
 nobel_table <- prizes_aff |>
@@ -246,7 +243,7 @@ nobel_table <- prizes_aff |>
          full_name = fullName.en,
          award_year = nobelPrizes_awardYear,
          prize_amt = nobelPrizes_prizeAmount,
-         birth_county = birth.place.country.en,
+         birth_country = birth.place.country.en,
          birth_continent = birth.place.continent.en,
          prize_category = nobelPrizes_category.en
          ) |>
@@ -259,14 +256,14 @@ glimpse(nobel_table)
 head(nobel_table, 3)
 ```
 
-### Duplicate Values
+#### Duplicate Values
 
 ```{r checking duplicates}
 nobel_prizes <- nobel_table |> distinct()
 nrow(nobel_prizes) # There were duplicates
 ```
 
-### Missing Values
+#### Missing Values
 
 ```{r check for missing values}
 colSums(is.na(nobel_prizes))
@@ -274,9 +271,9 @@ colSums(is.na(nobel_prizes))
 
 There are around 31-34 missing values, but we can filter it out easily when conducting analysis.
 
-### Reproducibility Metadata
+#### Reproducibility Metadata
 
-```{r}
+```{r reproducibility}
 retrieved_at <- format(Sys.time(), tz = "UTC", usetz = TRUE)
 
 matches_snapshot <- nobel_prizes |>
@@ -291,7 +288,7 @@ head(matches_snapshot,3)
 
 ### Save to CSV
 
-We want to save this to a CSV file so we can do some offline work witht this data.
+We want to save this to a CSV file so we can do some offline work with this data.
 
 ```{r save to CSV}
 write.csv(matches_snapshot, "nobel_table_data_api.csv", row.names = FALSE)
@@ -300,8 +297,225 @@ write.csv(matches_snapshot, "nobel_table_data_api.csv", row.names = FALSE)
 ### Read in Data CSV
 
 ```{r read in data csv}
-data <- read.csv("")
+data <- read.csv("https://raw.githubusercontent.com/HaiderrX/CUNY-SPS-MSDS/refs/heads/main/DATA607/Week%2010%20-%20Natural%20Language%20Processing/nobel_table_data_api.csv")
 ```
+
+```{r recreating df without request info}
+# Creating a new dataframe where it drops the request information
+clean_data <- data |>
+  select(-retrieved_at, -request_url)
+
+glimpse(clean_data)
+head(clean_data, 3)
+```
+
+#### Data Dictionary
+
+|     Variable      |                    Definition                     |
+|:-----------------:|:-------------------------------------------------:|
+|       `id`        |           Laureate's identifier number            |
+|     `gender`      |         Laureate is either male or female         |
+|   `birth_year`    |            Birth year of the laureate             |
+|    `full_name`    |               Laureate's full name                |
+|   `award_year`    |        The year the laureate won the award        |
+|    `prize_amt`    | The amount of money laureate gained for the prize |
+|  `birth_country`  |            Laureate's country of birth            |
+| `birth_continent` |           Laureate's continent of birth           |
+| `prize_category`  |     What field/subject the award belonged to      |
+
+: Data Dictionary
+
+### Analysis
+
+For our analysis, we mentioned we want to ask 4 data-driven questions from this dataset.
+
+Upon examining the subset of the data we collected, I would like to inquire the following:
+
+-   [**Question 1:**]{.underline} What is the top country that has won the most Nobel Prizes, and which gender has a higher proportion of that category?
+
+-   [**Question 2:**]{.underline} Per category, what is the average prize amount?
+
+-   [**Question 3:**]{.underline} Per country, are there more males or females winning the Nobel prize?
+
+-   [**Question 4:**]{.underline} Per category, what year had the most winners?
+
+#### Question 1
+
+What categories have won the most Nobel prize, and if possible what is the percentage of the top country and gender that each category contains?
+
+To answer this question, it may be easier to break it up to segments to build up our answer.
+
+```{r question 1 - winner per category}
+most_won_categories <- clean_data |>
+  count(prize_category, sort = TRUE, name = "total_wins") |>
+  mutate(pct_of_all_prizes = round((total_wins / sum(total_wins) * 100), 2))
+
+most_won_categories
+```
+
+```{r question 1 - countries portion}
+#| eval: false
+
+most_won_categories_country <- clean_data |>
+  filter(!is.na(birth_country)) |>
+  group_by(prize_category) |>
+  count(prize_category, birth_country, sort = TRUE, name = "total_wins") |>
+    group_by(birth_country) |>
+  mutate(pct_of_country = round((total_wins / sum(total_wins) * 100), 2))
+
+most_won_categories_country
+```
+
+```{r question 1 - gender proportion}
+#| eval: false
+
+most_won_categories_country_and_gender <- clean_data |>
+  filter(!is.na(birth_country), !is.na(gender)) |>
+  count(prize_category, birth_country, gender, name = "total_wins") |>
+  group_by(prize_category) |>
+  mutate(
+    category_total = sum(total_wins),
+    pct_of_category = round((total_wins / category_total) * 100, 2)
+  ) |>
+  arrange(desc(total_wins))
+
+most_won_categories_country_and_gender
+```
+
+With the initial build idea, we got 277 rows, so we could shorten to top country for each field and compare from there.
+
+```{r}
+most_won_categories_country_and_gender <- clean_data |>
+  filter(!is.na(birth_country), !is.na(gender)) |>
+  count(prize_category, birth_country, gender, name = "total_wins") |>
+  group_by(prize_category) |>
+  mutate(
+    category_total = sum(total_wins),
+    pct_of_category = round((total_wins / category_total) * 100, 2)
+  ) |>
+  top_n(1, total_wins) |> 
+  arrange(desc(category_total))
+
+most_won_categories_country_and_gender
+```
+
+With our data, we can see almost all of the categories are won by people from the USA and Literature being won by France. The dominant gender is male for all of the categories.
+
+In regard to our data with 277 rows, it was also a male dominant winner in the dataset. Similarly, the USA had the most winners in the categories listed above, but interestingly, the United Kingdom and Germany had he 2nd and 3rd most winners in every category except for Peace and Literature.
+
+#### Question 2
+
+Per category, what is the average prize amount?
+
+```{r question 2}
+avg_prize_amt <- clean_data |>
+  group_by(prize_category) |>
+  summarize(
+    total_winner_counts = n(),
+    avg_prize = round(mean(prize_amt, na.rm=TRUE), 2)) |>
+  arrange(desc(avg_prize))
+
+avg_prize_amt
+```
+
+Plot
+
+```{r question 2 - ggplot - avg prize}
+#| echo: false
+
+ggplot(avg_prize_amt, aes(x = reorder(prize_category, -avg_prize), y = avg_prize, fill=prize_category)) +
+  geom_col(width = 0.6) +
+  coord_flip() + 
+  labs(
+    title = "Average Prize Amount Per Category",
+    x = "Category",
+    y = "Average Prize Amount",
+    fill = "Category"
+  ) +
+  theme_minimal() +
+  scale_y_continuous(labels = label_comma(), expand = expansion(mult = c(0, 0.15)))
+```
+
+With the provided table and plot, we can see that Economic Sciences laureates earn the most after being awarded a Nobel Prize, with Literature being the least.
+
+```{r question 2 - ggplot - winner counts}
+#| echo: false
+
+ggplot(avg_prize_amt, aes(x = reorder(prize_category, total_winner_counts), y = total_winner_counts, fill = prize_category)) + 
+  geom_col() + 
+  coord_flip() + 
+  labs(
+    title = "Winner Counts Per Category", 
+    x = "Category", 
+    y = "Counts", 
+    fill = "Category"
+  ) + 
+  theme_minimal()
+```
+
+Even though Economic Sciences laureates get more prize amounts, there are less winners versus a category like medicine or physics.
+
+#### Question 3
+
+Per continent, are there more males or females winning the Nobel prize?
+
+```{r question 3}
+most_per_continent <- clean_data |>
+  filter(!is.na(birth_continent), !is.na(gender)) |>
+  count(birth_continent, gender, name = "total_wins") |>
+  group_by(birth_continent) |>
+  mutate(
+    continent_total = sum(total_wins),
+    pct_of_continent = round((total_wins / continent_total) * 100, 1)
+  ) |>
+  arrange(desc(continent_total), desc(total_wins))
+
+most_per_continent
+```
+
+Plot
+
+```{r question 3 - plot}
+#| echo: false
+
+ggplot(most_per_continent, aes(x = reorder(birth_continent, continent_total), y = total_wins, fill = gender)) +
+  geom_bar(stat = "identity", position = "dodge", width = 0.7) +
+  coord_flip() +
+  labs(
+    title = "Nobel Prize Gender Breakdown by Birth Continent",
+    x = "Birth Continent",
+    y = "Total Individual Wins",
+    fill = "Gender"
+  ) +
+  theme_minimal() +
+   scale_fill_manual(values = c("female" = "lightcoral", "male" = "royalblue4"))
+```
+
+To refer back to our question 1 for a moment, Europe has more winners than the other continents, but country-wise, the USA has had the most winners.
+
+But in regard to gender, it seems like this is a male dominant data pull where there are less female than male laureates.
+
+#### Question 4
+
+Per category, what year had the most winners?
+
+```{r question 4}
+years_most_winner <- clean_data |>
+  count(prize_category, award_year, name = "winner_count") |>
+  group_by(prize_category) |>
+  slice_max(order_by = winner_count, n = 1, with_ties = FALSE) |>
+  ungroup()
+
+years_most_winner
+```
+
+It seems that all of the winners for each category is within the 20th century.
+
+## Conclusion
+
+Working with APIs can be difficult as it is a hassle to get the exact data that we want and going through the long data lists to extract it. Luckily with the Nobel Prize API, it did not need an API key so a bit of the struggle was taken off.
+
+Then after analyzing the data, it was fascinating to me that there was a higher prize in one category than the other. Initially I had thought medicine or physics would be the top category but it had shocked me it was Economic Sciences. Similarly shocking that there are more male than females winning Nobel prizes, but also surprising that Europe has the most winners but in North America, the USA has more winners in 5/6 of the categories. Lastly, it is astonishing that there are not a lot of 21st century winners per category.
 
 ## References
 
