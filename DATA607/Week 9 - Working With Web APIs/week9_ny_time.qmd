@@ -111,17 +111,9 @@ library(usethis)
 -   [API Key:]{.underline} `nyt_api_key` Read from using `Sys.getenv()` *Saved using .Renviron file*
 
 ```{r API Request}
-api_key <- Sys.getenv("nyt_api_key")
-api_url <- "https://api.nytimes.com/svc/books/v3/lists/overview.json"
+#| include: false
 
-req <- request(api_url) |>
-  req_headers(
-    Accept = "application/json",
-    `User-Agent` = "DATA-607-week9-homework"
-  ) |>
-  req_url_query(`api-key` = api_key)
-
-req
+# DO NOT SHOW THE API_KEY IN R AT ALL OR RENDER
 ```
 
 ```{r dry run request}
