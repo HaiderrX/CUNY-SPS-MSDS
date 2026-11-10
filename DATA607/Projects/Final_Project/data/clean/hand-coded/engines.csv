@@ -2,7 +2,7 @@
 2014,caterham,renault
 2014,ferrari,ferrari
 2014,force_india,mercedes
-2014,lotus,renault
+2014,lotus_f1,renault
 2014,marussia,ferrari
 2014,mclaren,mercedes
 2014,mercedes,mercedes
@@ -12,7 +12,7 @@
 2014,williams,mercedes
 2015,ferrari,ferrari
 2015,force_india,mercedes
-2015,lotus,mercedes
+2015,lotus_f1,mercedes
 2015,marussia,ferrari
 2015,mclaren,honda
 2015,mercedes,mercedes
@@ -115,7 +115,7 @@
 2025,aston_martin,mercedes
 2025,ferrari,ferrari
 2025,haas,ferrari
-2025,kick_sauber,ferrari
+2025,sauber,ferrari
 2025,mclaren,mercedes
 2025,mercedes,mercedes
 2025,racing_bulls,honda_rbpt
